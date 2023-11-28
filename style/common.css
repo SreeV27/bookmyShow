@@ -28,7 +28,7 @@
 
 .search-bar::placeholder {
 
-    
+    font-size: 14px;
     color: rgb(153, 153, 153);
 }
 
@@ -88,7 +88,7 @@
 
 .menu a {
    color:  rgb(204, 204, 204);
-   font-size: 14px;
+   font-size: 13px;
     cursor: pointer;
     padding: 0px 10px;
     position: relative;
@@ -98,10 +98,109 @@
 
 .menu-1 a {
     color: white;
-    font-size: 12px;
+    font-size: 11px;
      cursor: pointer;
      padding: 0px 10px;
      position: relative;
      text-decoration: none;
      font-weight: 400;
  }
+
+ .modal-heading{
+    flex: 1 1 0%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: center;
+    text-transform: none;
+    color: rgb(51, 51, 51);
+ }
+ .modal-header {
+    border-bottom: none; /* Add this line to remove the bottom border */
+  }
+
+  .modal-footer {
+    border-top: none; /* Add this line to remove the top border */
+  }
+
+  .fPrBPf {
+    /*top: 0px;
+     margin: auto; */
+    /* right: 92px; */
+    left: 69px;
+    width: 66%;
+    padding: 9px 0px;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    font-weight: 500;
+    color: rgb(89, 89, 89);
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(153, 153, 153);
+    transition: background 0.5s ease-out 0s;
+}
+
+
+.dLwbjU {
+    width: 40px;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    text-align: center;
+    margin-left: 8px;
+}
+
+.fs-12{
+    font-size: 12px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ph-no::placeholder{
+
+    font-size: 14px;
+    cursor: text;
+    top: 14px;
+    left: 0px;
+    color: rgb(102, 102, 102);
+    opacity: 0.75;
+}
+
+.hmbiuL {
+    padding: 8px 0px;
+    width: 72%;
+    background-color: rgb(248, 68, 100);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.2s ease-in-out 0s;
+    cursor: pointer;
+}
+
+.cydHdR {
+    color: rgb(102, 102, 102);
+    font-size: 12px;
+    text-align: center;
+    padding: 14px 0px;
+}
+
+.py-15{
+    padding: 15px 0px;
+}
