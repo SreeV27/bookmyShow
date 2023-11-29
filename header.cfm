@@ -58,16 +58,15 @@
             <a href="" class="text-decoration-none">Gift Cards</a>
          </div>
       </div>
-      <!-- Button trigger modal -->
       <!-- Mobile Number Modal -->
-      <div class="modal fade mt-4" id="numberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade mt-4" data-bs-backdrop='static'   id="numberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content"  id="numModal">
                <div class="modal-header" >
                   <span class="modal-title modal-heading" id="exampleModalLabel">Get Started</span>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button  id="modal-close-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <div class="modal-body">
+               <div class="modal-body pb-5">
                   <div class="bwc__sc-dh558f-14 fPrBPf">
                      <span class="bwc__sc-dh558f-12 dLwbjU">
                      <span class="bwc__sc-dh558f-13 bPjxSZ">
@@ -110,56 +109,44 @@
                   </div>
                </div>
             </div>
-                <!--- Otp Content--->
-                <div class="modal-content"  id="otpModal">
-                    <div class="modal-header" >
-                       <span class="modal-title modal-heading" id="exampleModalLabel">Get Started</span>
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                       <div class="bwc__sc-dh558f-14 fPrBPf">
-                          <span class="bwc__sc-dh558f-12 dLwbjU">
-                          <span class="bwc__sc-dh558f-13 bPjxSZ">
-                          <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
-                          </span>
-                          </span>Continue with Google
-                       </div>
-                       <div class= " mt-3  bwc__sc-dh558f-14 fPrBPf">
-                          <span class="bwc__sc-dh558f-12 dLwbjU">
-                          <span class="bwc__sc-dh558f-13 bPjxSZ"><img alt="email logo" src="//in.bmscdn.com/webin/common/icons/email.svg"></span>
-                          </span>Continue with Email
-                       </div>
-                     
-                       <div class= " mt-3 mx-auto fs-12 text-center" >
-                          OR
-                       </div>
-                       <div class="d-flex justify-content-center mt-4">
-                          <div>
-                             <img alt="indian flag" src="//in.bmscdn.com/webin/common/icons/indianflag.svg">
-                          </div>
-                          <div class="ms-1">+91</div>
-                          <div class="w-50 ms-1 border-bottom">
-                             <input  class="border-0 input w-100 ph-no" id="mobileNo"  maxlength="10" type="text" maxlength="10" placeholder="Continue with mobile number"  >
-                          </div>
-                       </div>
-                    </div>
-                    <div class="modal-footer mt-5">
-                       <button  id="continue-btn" type="button" class=" m-auto  hmbiuL">Continue</button>
-                       <div class="m-auto " id="terms">
-                          <span class="cydHdR"> I agree to the <u class="cydHdR">Terms & Conditions</u> & <u class="cydHdR"> Privacy Policy</u></span>
-                       </div>
-                    </div>
-                 </div>
-
-
-                <!--- End of OTP content--->
-
-
-
-
-
-
-
+            <!--- Otp Content--->
+            <div class="modal-content"  id="otpModal">
+               <div class="modal-header" >                     
+                  <span class="material-symbols-outlined"> <button class="bg-white border-0 "id="otp-modal-back-arrow">
+                  chevron_left</button>
+                  </span>
+                  <span class="modal-title modal-heading" id="exampleModalLabel">Get Started</span>
+               </div>
+               <div class="modal-body otp-modal">
+                  <div class="efiOzN">Verify your Mobile Number</div>
+                  <div class="kPCsTW">Enter OTP sent to <b><span>+91</span></b>
+                     <span class="hITeKb
+                        " id="mob-no"></span>
+                  </div>
+                  <div class=" ps-4 mt-3">
+                     <input id="tel-1" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy " oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
+                     <input id="tel-2" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)" value="">
+                     <input id="tel-3" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
+                     <input id="tel-4" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
+                     <input id="tel-5" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy" oninput="handleInput(this)"  onkeydown="moveToPrevious(this,event)"   value="">
+                     <input id="tel-6" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy" oninput="handleInput(this)"  onkeydown="moveToPrevious(this,event)"  value="">
+                  </div>
+                  <span id="invalid-otp" class="fs-12 text-danger ms-4">Invalid OTP.Please try again</span>
+                  <div>
+                     <span id="otp-timer"></span>
+                  </div>
+               </div>
+               <div class="modal-footer mt-5">
+                  <div class="m-auto" id="except-otp">
+                     <span class="fs-12 cydHdR text-black"> Except OTP in </span><span class="fs-12" id="timer"></span><span class="fs-12 ms-1">seconds</span>
+                  </div>
+                  <div class="m-auto fs-12 " id="resend-otp">
+                     <span class="fs-12">Didn't receive the OTP?<button id="resend-otp" class="bg-white border-0 fs-12 text-danger" href="##">Resend OTP</button></span>
+                  </div>
+                  <button  id="otp-continue-btn" type="button" class=" m-auto  hmbiuL" onclick="verifyOtp()">Continue</button>
+               </div>
+            </div>
+            <!--- End of OTP content--->
          </div>
       </div>
       <!-- End Mobile Number Modal -->
