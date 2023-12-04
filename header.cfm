@@ -5,15 +5,19 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
       <link rel="stylesheet"  href="style/bootstrap.css">
       <link rel="stylesheet"  href="style/common.css">
+      <script src="script/bookmyshow.js"></script>
       <title>header</title>
    </head>
    <body>
+     
       <!---Nav Bar--->
       <div class="nav-bar d-flex justify-content-evenly">
          <div class="d-flex logo w-75 ">
-            <a class="">
+            <a href="http://127.0.0.1:8500/bookmyShow/header.cfm" class="">
                <svg viewBox="0 0 88 26" height="33.9" width="115" xmlns="http://www.w3.org/2000/svg">
                   <title>BookMyShow</title>
                   <g fill="none">
@@ -32,9 +36,17 @@
          </div>
          <div class="d-flex">
             <div class="d-flex">
-               <span class=" mt-2 bwc__sc-1nbn7v6-10 lgYuCR ellipsis">Location</span>
-               <button type="button"  id="sign-in" class=" mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#numberModal">
-               Sign in
+               <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
+               Log In
+               </button>
+               <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
+               Sign Up
+               </button>
+               <div class="mt-2" id="profile">
+                  <span class="text-white" id="userName"></span>
+               </div>
+               <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
+               Log Out
                </button>
                <span class="ms-4 material-symbols-outlined text-white mt-2">
                menu
@@ -45,11 +57,10 @@
       <div class="menu-list d-flex text-white py-2 px-5 justify-content-between">
          <div class="menu ms-3">           
             <a href="" class="text-decoration-none">Movies</a>
-            <a href="" class="text-decoration-none">Stream</a>
             <a href="" class="text-decoration-none">Events</a>
-            <a href="" class="text-decoration-none">Plays</a>
-            <a href="" class="text-decoration-none">Sports</a>
-            <a href="" class="text-decoration-none">Activities</a>
+            <a  id="addTheater" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Threater</a>
+            <a id="addFilm" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none">Add Film</a>
+            <a id="addEvent" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Events</a>
          </div>
          <div class="menu-1 me-3">
             <a href="" class="text-decoration-none">ListYourShow</a>
@@ -59,12 +70,12 @@
          </div>
       </div>
       <!-- Mobile Number Modal -->
-      <div class="modal fade mt-4" data-bs-backdrop='static'   id="numberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade mt-4" data-bs-backdrop='static'  id="loginInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content"  id="numModal">
                <div class="modal-header" >
-                  <span class="modal-title modal-heading" id="exampleModalLabel">Get Started</span>
-                  <button  id="modal-close-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <span class="modal-title modal-heading" id="signLabel">Login</span>
+                  <button  id="modal-close-btn" type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body pb-5">
                   <div class="bwc__sc-dh558f-14 fPrBPf">
@@ -98,60 +109,64 @@
                      </div>
                      <div class="ms-1">+91</div>
                      <div class="w-50 ms-1 border-bottom">
-                        <input  class="border-0 input w-100 ph-no" id="mobileNo"  maxlength="10" type="text" maxlength="10" placeholder="Continue with mobile number"  >
+                        <input  class="border-0 input w-100 ph-no" id="mobileNo"   type="text" maxlength="10" placeholder="Continue with mobile number"  >
                      </div>
                   </div>
                </div>
                <div class="modal-footer mt-5">
-                  <button  id="continue-btn" type="button" class=" m-auto  hmbiuL">Continue</button>
+                  <button  id="login-continue-btn" type="button" class=" m-auto  hmbiuL">Continue</button>
                   <div class="m-auto " id="terms">
                      <span class="cydHdR"> I agree to the <u class="cydHdR">Terms & Conditions</u> & <u class="cydHdR"> Privacy Policy</u></span>
                   </div>
                </div>
             </div>
-            <!--- Otp Content--->
-            <div class="modal-content"  id="otpModal">
-               <div class="modal-header" >                     
-                  <span class="material-symbols-outlined"> <button class="bg-white border-0 "id="otp-modal-back-arrow">
-                  chevron_left</button>
-                  </span>
-                  <span class="modal-title modal-heading" id="exampleModalLabel">Get Started</span>
+         </div>
+      </div>
+      <!-- End Login Modal -->
+      <!--- Sign Modal --->
+      <div class="modal fade mt-4" data-bs-backdrop='static'  id="signInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content"  id="numModal">
+               <div class="modal-header" >
+                  <span class="modal-title modal-heading" id="signLabel">Sign Up</span>
+                  <button  id="modal-close-btn" type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <div class="modal-body otp-modal">
-                  <div class="efiOzN">Verify your Mobile Number</div>
-                  <div class="kPCsTW">Enter OTP sent to <b><span>+91</span></b>
-                     <span class="hITeKb
-                        " id="mob-no"></span>
-                  </div>
-                  <div class=" ps-4 mt-3">
-                     <input id="tel-1" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy " oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
-                     <input id="tel-2" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)" value="">
-                     <input id="tel-3" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
-                     <input id="tel-4" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy"  oninput="handleInput(this)" onkeydown="moveToPrevious(this,event)"  value="">
-                     <input id="tel-5" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy" oninput="handleInput(this)"  onkeydown="moveToPrevious(this,event)"   value="">
-                     <input id="tel-6" type="tel" maxlength="1" pattern="[0-9]*" tabindex="0" class="jLBVFy" oninput="handleInput(this)"  onkeydown="moveToPrevious(this,event)"  value="">
-                  </div>
-                  <span id="invalid-otp" class="fs-12 text-danger ms-4">Invalid OTP.Please try again</span>
+               <div class="modal-body pb-5">
                   <div>
-                     <span id="otp-timer"></span>
+                     <center>
+                        <form action="header.cfm" method="post" onsubmit="validateForm()">
+                           <div>
+                              <label for="name">Name</label>
+                              <input class="" type="text" name="name" id="name" ><br>
+                              <span class="text-danger" id="nameError"></span>
+                           </div>
+                           <div class="mt-3 ms-3">
+                              <label for="mail">Mail</label>
+                              <input  class="" type="text" id="mail"  oninput="validateEmail()"><br>
+                              <span class="text-danger" id="mailError"></span>
+                           </div>
+                           <div class="mt-3 ">
+                              <label for="phno">Mobile</label>
+                              <input  class=""   type="text" maxlength="10" id="phnneNo" >
+                           </div>
+                           <div class="mt-5">
+                              <input  id="sign-continue-btn" type="submit" class="m-auto  hmbiuL" value="Register">
+                           </div>
+                        </form>
+                      
+                     </center>
                   </div>
                </div>
                <div class="modal-footer mt-5">
-                  <div class="m-auto" id="except-otp">
-                     <span class="fs-12 cydHdR text-black"> Except OTP in </span><span class="fs-12" id="timer"></span><span class="fs-12 ms-1">seconds</span>
+                  <div class="m-auto " id="terms">
+                     <span class="cydHdR"> I agree to the <u class="cydHdR">Terms & Conditions</u> & <u class="cydHdR"> Privacy Policy</u></span>
                   </div>
-                  <div class="m-auto fs-12 " id="resend-otp">
-                     <span class="fs-12">Didn't receive the OTP?<button id="resend-otp" class="bg-white border-0 fs-12 text-danger" href="##">Resend OTP</button></span>
-                  </div>
-                  <button  id="otp-continue-btn" type="button" class=" m-auto  hmbiuL" onclick="verifyOtp()">Continue</button>
                </div>
             </div>
-            <!--- End of OTP content--->
          </div>
       </div>
-      <!-- End Mobile Number Modal -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-      <script src="script/bookmyshow.js"></script>
+      <!---end of Sign modal --->   
+      
+    
    </body>
 </html>

@@ -1,0 +1,1 @@
+<cfset session.login=false>

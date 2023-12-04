@@ -65,7 +65,8 @@
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
 }
 
-#sign-in{
+
+.nav-btn{
     color: rgb(255, 255, 255);
     background-color: rgb(248, 68, 100);
     font-size: 12px;
