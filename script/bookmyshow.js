@@ -4,12 +4,8 @@ $(document).ready(function () {
    $("#invalid-otp").hide();
    $("#continue-btn").hide();
    $('#otpModal').hide();
-   $('#addTheater').hide();
-   $('#addFilm').hide();
-   $('#addEvent').hide();
-   $('#profile').hide();
-   $("#log-out").hide();
-   $("#resend-otp").hide();
+  
+  
    $("#login-continue-btn").prop('disabled', true);
    $('#login-continue-btn').css('background-color', '#A3636F');
    // $("#sign-continue-btn").prop('disabled', true);
@@ -68,7 +64,7 @@ $(document).ready(function () {
       //    $('#log-in').show();    
       $.ajax({
          type: "POST",
-         url: "logout.cfm", // Change this to the path of your ColdFusion file
+         url: 'components/bookMyShow.cfc?method=logout', 
          
          success: function (response) {
             
@@ -98,18 +94,6 @@ $(document).ready(function () {
          },
 
          success: function (data) {
-            $.ajax({
-               type: "POST",
-               url: "login.cfm", // Change this to the path of your ColdFusion file
-               
-               success: function (response) {
-                  
-               },
-               error: function (error) {
-                   console.error("Error changing session variable:", error);
-               }
-           });
-
            
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(data, "text/xml");
@@ -118,24 +102,15 @@ $(document).ready(function () {
             var role = xmlDoc.querySelector("var[name='ROLE'] string").textContent;
             var name = xmlDoc.querySelector("var[name='NAME'] string").textContent;
 
-            // Log or use the extracted values
-            console.log("Role: " + role);
-            console.log("Name: " + name);
+           
             $("#mobileNo").val("");
             $('#sign-in').hide();
             $('#log-in').hide();
             $("#log-out").show();
-            $('#loginInModal').modal('hide');
-            $('#profile').show();
-            $('#userName').text("Hi " + name);
-
-
-            if (role == 'admin') {
-               $('#addTheater').show();
-               $('#addFilm').show();
-               $('#addEvent').show();
-            }
-
+            $('#loginInModal').modal('hide');            
+            $("#userName").text("Hi " + name);
+            
+            window.location.href = 'http://127.0.0.1:8500/bookmyShow/body.cfm';
 
          },
          error: function (jqXHR, textStatus, errorThrown) {
@@ -195,6 +170,7 @@ function validateName() {
 
 
 function insertUser() {
+   event.preventDefault()
    var name = $('#name').val().trim();
    var mail = $("#mail").val().trim();
    var phone = $("#phnneNo").val().trim();
@@ -213,8 +189,23 @@ function insertUser() {
       },
 
       success: function (data) {
+         
+         
+         
+         let result = $(data).find("boolean").attr("value");
+        
+         if( result === "true"){
 
-         alert(data);
+            alert("User Already Exist");
+
+         }
+         else{
+            alert("User Registered Successfully");
+         }
+         var name = $('#name').val("");
+         var mail = $("#mail").val("");
+         var phone = $("#phnneNo").val("");
+         $('#signInModal').modal('hide');
       },
 
 

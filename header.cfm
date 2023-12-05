@@ -9,7 +9,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
       <link rel="stylesheet"  href="style/bootstrap.css">
       <link rel="stylesheet"  href="style/common.css">
-      <script src="script/bookmyshow.js"></script>
+    
       <title>header</title>
    </head>
    <body>
@@ -36,18 +36,29 @@
          </div>
          <div class="d-flex">
             <div class="d-flex">
-               <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
-               Log In
-               </button>
-               <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
-               Sign Up
-               </button>
-               <div class="mt-2" id="profile">
-                  <span class="text-white" id="userName"></span>
-               </div>
-               <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
-               Log Out
-               </button>
+
+               <cfif session.userId eq 0>
+                                
+                  <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
+                     Log In
+                     </button>
+                     <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
+                     Sign Up
+                     </button>  
+                  </cfif>
+                     <cfif session.userId gt 0>
+
+                     <div class="mt-2" id="profile">
+                        <cfoutput>
+                           <span class="text-white" id="userName">#session.userName#</span>
+                        </cfoutput>                        
+                     </div>   
+                     <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
+                     Log Out
+                     </button> 
+
+                  </cfif>
+           
                <span class="ms-4 material-symbols-outlined text-white mt-2">
                menu
                </span>
@@ -58,9 +69,11 @@
          <div class="menu ms-3">           
             <a href="" class="text-decoration-none">Movies</a>
             <a href="" class="text-decoration-none">Events</a>
+            <cfif session.userId eq 1>
             <a  id="addTheater" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Threater</a>
             <a id="addFilm" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none">Add Film</a>
             <a id="addEvent" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Events</a>
+            </cfif>
          </div>
          <div class="menu-1 me-3">
             <a href="" class="text-decoration-none">ListYourShow</a>
@@ -69,6 +82,7 @@
             <a href="" class="text-decoration-none">Gift Cards</a>
          </div>
       </div>
+      
       <!-- Mobile Number Modal -->
       <div class="modal fade mt-4" data-bs-backdrop='static'  id="loginInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
@@ -167,6 +181,6 @@
       </div>
       <!---end of Sign modal --->   
       
-    
+      <script src="script/bookmyshow.js"></script>
    </body>
 </html>

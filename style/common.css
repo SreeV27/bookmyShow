@@ -254,3 +254,130 @@ input::-webkit-inner-spin-button {
 
     padding-bottom: 42%;
 }
+
+.jZYART {
+    display: flex;
+    margin: 0px auto 0px 0px;
+}
+.VWWsY {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.hpMgIh {
+    word-break: break-word;
+    color: rgb(51, 51, 51);
+   
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.17;
+}
+
+.dwoMuR {
+    margin: 0px;
+    word-break: break-word;
+    color: rgb(220, 53, 88);
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.43;
+}
+.kVTwJy {
+    text-decoration: none;
+    font-family: Roboto,sans-serif;
+}
+
+.gfZBKV {
+    margin: 0px;
+    word-break: break-word;
+    color: rgb(220, 53, 88);   
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.43;
+}
+
+.jhuTSq {
+    position: relative;
+}
+
+.kNWDcM {
+    overflow: hidden;
+}
+
+
+
+.kcFNYT {
+    text-decoration: none;
+    position: relative;
+    display: block;
+}
+
+.YeNog {
+    scroll-behavior: smooth;
+    transition: transform 1000ms ease 0s;
+    overscroll-behavior-x: contain;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: repeat(10, calc((100% - 128px) / 5));
+    grid-template-rows: repeat(1, 1fr);
+    grid-auto-flow: column;
+    gap: 8px 32px;
+ 
+    transform: initial;
+}
+
+.eJQlCo {
+    margin: 0px 0px 4px;
+    word-break: break-word;
+    color: rgb(34, 34, 34);
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.33;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.fIlqSN {
+    margin: 0px;
+    word-break: break-word;
+    color: rgb(102, 102, 102);
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.dXHMBz img {
+    object-fit: cover;
+    transition: visibility 0s ease 0s, opacity 0.3s linear 0s;
+    opacity: 1;
+    visibility: visible;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.dVLjTu{
+    margin:4px 0px 0px 0px;
+    padding:4px 0px 0px 0px;
+}
+
+.rating{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 3px 0px;
+    background: black;
+}
+
+.fs-15{
+    font-size: 15px;
+}
