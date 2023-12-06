@@ -4,8 +4,8 @@ $(document).ready(function () {
    $("#invalid-otp").hide();
    $("#continue-btn").hide();
    $('#otpModal').hide();
-  
-  
+
+
    $("#login-continue-btn").prop('disabled', true);
    $('#login-continue-btn').css('background-color', '#A3636F');
    // $("#sign-continue-btn").prop('disabled', true);
@@ -64,16 +64,16 @@ $(document).ready(function () {
       //    $('#log-in').show();    
       $.ajax({
          type: "POST",
-         url: 'components/bookMyShow.cfc?method=logout', 
-         
+         url: 'components/bookMyShow.cfc?method=logout',
+
          success: function (response) {
-            
+
          },
          error: function (error) {
-             console.error("Error changing session variable:", error);
+            console.error("Error changing session variable:", error);
          }
-     });
-      window.location.href = 'http://127.0.0.1:8500/bookmyShow/header.cfm';
+      });
+      window.location.href = 'http://127.0.0.1:8500/bookmyShow/body.cfm';
 
 
    });
@@ -94,7 +94,7 @@ $(document).ready(function () {
          },
 
          success: function (data) {
-           
+
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(data, "text/xml");
 
@@ -102,14 +102,14 @@ $(document).ready(function () {
             var role = xmlDoc.querySelector("var[name='ROLE'] string").textContent;
             var name = xmlDoc.querySelector("var[name='NAME'] string").textContent;
 
-           
+
             $("#mobileNo").val("");
             $('#sign-in').hide();
             $('#log-in').hide();
             $("#log-out").show();
-            $('#loginInModal').modal('hide');            
+            $('#loginInModal').modal('hide');
             $("#userName").text("Hi " + name);
-            
+
             window.location.href = 'http://127.0.0.1:8500/bookmyShow/body.cfm';
 
          },
@@ -189,17 +189,15 @@ function insertUser() {
       },
 
       success: function (data) {
-         
-         
-         
+
+
          let result = $(data).find("boolean").attr("value");
-        
-         if( result === "true"){
+
+         if (result === "true") {
 
             alert("User Already Exist");
 
-         }
-         else{
+         } else {
             alert("User Registered Successfully");
          }
          var name = $('#name').val("");
@@ -233,4 +231,3 @@ function validateForm() {
 
 
 }
-

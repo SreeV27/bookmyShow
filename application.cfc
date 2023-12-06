@@ -8,7 +8,7 @@
         <cfset session.userId=0>
         <cfset session.userName="">
         <cfreturn true>
-</cffunction>
+    </cffunction>
    
 
 </cfcomponent>

@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@400;500;700;900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     font-size: 14px;
-    font-family: Roboto,sans-serif;
+    font-family: 'Roboto',sans-serif;
 }
 
 .nav-bar{
@@ -106,44 +108,44 @@
      position: relative;
      text-decoration: none;
      font-weight: 400;
- }
+}
 
- .modal-heading{
-    flex: 1 1 0%;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0px;
-    text-align: center;
-    text-transform: none;
-    color: rgb(51, 51, 51);
- }
- .modal-header {
-    border-bottom: none; /* Add this line to remove the bottom border */
-  }
+.modal-heading{
+flex: 1 1 0%;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: center;
+text-transform: none;
+color: rgb(51, 51, 51);
+}
+.modal-header {
+border-bottom: none; /* Add this line to remove the bottom border */
+}
 
-  .modal-footer {
-    border-top: none; /* Add this line to remove the top border */
-  }
+.modal-footer {
+border-top: none; /* Add this line to remove the top border */
+}
 
-  .fPrBPf {
-    /*top: 0px;
-     margin: auto; */
-    /* right: 92px; */
-    left: 69px;
-    width: 66%;
-    padding: 9px 0px;
-    font-size: 14px;
-    overflow: hidden;
-    position: relative;
-    border-radius: 4px;
-    text-align: center;
-    display: inline-block;
-    font-weight: 500;
-    color: rgb(89, 89, 89);
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(153, 153, 153);
-    transition: background 0.5s ease-out 0s;
+.fPrBPf {
+/*top: 0px;
+    margin: auto; */
+/* right: 92px; */
+left: 69px;
+width: 66%;
+padding: 9px 0px;
+font-size: 14px;
+overflow: hidden;
+position: relative;
+border-radius: 4px;
+text-align: center;
+display: inline-block;
+font-weight: 500;
+color: rgb(89, 89, 89);
+background: rgb(255, 255, 255);
+border: 1px solid rgb(153, 153, 153);
+transition: background 0.5s ease-out 0s;
 }
 
 
@@ -332,7 +334,7 @@ input::-webkit-inner-spin-button {
     word-break: break-word;
     color: rgb(34, 34, 34);
     font-family: Roboto;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 500;
     line-height: 1.33;
     overflow: hidden;
@@ -347,7 +349,7 @@ input::-webkit-inner-spin-button {
     word-break: break-word;
     color: rgb(102, 102, 102);
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: normal;
     line-height: 1.5;
     overflow: hidden;
@@ -380,4 +382,8 @@ input::-webkit-inner-spin-button {
 
 .fs-15{
     font-size: 15px;
+}
+
+.sign-in-google{
+    left:0;
 }
