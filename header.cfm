@@ -7,17 +7,16 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-      <link rel="stylesheet"  href="style/bootstrap.css">
       <link rel="stylesheet"  href="style/common.css">
-    
+      <link rel="stylesheet"  href="style/bootstrap.css">
+      
       <title>header</title>
    </head>
    <body>
-     
       <!---Nav Bar--->
       <div class="nav-bar d-flex justify-content-evenly">
          <div class="d-flex logo w-75 ">
-            <a href="http://127.0.0.1:8500/bookmyShow/header.cfm" class="">
+            <a href="http://127.0.0.1:8500/bookmyShow/body.cfm" class="">
                <svg viewBox="0 0 88 26" height="33.9" width="115" xmlns="http://www.w3.org/2000/svg">
                   <title>BookMyShow</title>
                   <g fill="none">
@@ -36,29 +35,24 @@
          </div>
          <div class="d-flex">
             <div class="d-flex">
-
                <cfif session.userId eq 0>
-                                
                   <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
-                     Log In
-                     </button>
-                     <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
-                     Sign Up
-                     </button>  
-                  </cfif>
-                     <cfif session.userId gt 0>
-
-                     <div class="mt-2" id="profile">
-                        <cfoutput>
-                           <span class="text-white" id="userName">#session.userName#</span>
-                        </cfoutput>                        
-                     </div>   
-                     <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
-                     Log Out
-                     </button> 
-
-                  </cfif>
-           
+                  Log In
+                  </button>
+                  <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
+                  Sign Up
+                  </button>  
+               </cfif>
+               <cfif session.userId gt 0>
+                  <div class="mt-2" id="profile">
+                     <cfoutput>
+                        <span class="text-white" id="userName">#session.userName#</span>
+                     </cfoutput>
+                  </div>
+                  <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
+                  Log Out
+                  </button> 
+               </cfif>
                <span class="ms-4 material-symbols-outlined text-white mt-2">
                menu
                </span>
@@ -66,13 +60,13 @@
          </div>
       </div>
       <div class="menu-list d-flex text-white py-2 px-5 justify-content-between">
-         <div class="menu ms-3">           
+         <div class="menu ms-3">
             <a href="" class="text-decoration-none">Movies</a>
             <a href="" class="text-decoration-none">Events</a>
             <cfif session.userId eq 1>
-            <a  id="addTheater" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Threater</a>
-            <a id="addFilm" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none">Add Film</a>
-            <a id="addEvent" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Events</a>
+               <a  id="addTheater" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Threater</a>
+               <a id="addFilm" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none">Add Film</a>
+               <a id="addEvent" href="http://127.0.0.1:8500/bookmyShow/sample.cfm" class="text-decoration-none"> Add Events</a>
             </cfif>
          </div>
          <div class="menu-1 me-3">
@@ -82,7 +76,6 @@
             <a href="" class="text-decoration-none">Gift Cards</a>
          </div>
       </div>
-      
       <!-- Mobile Number Modal -->
       <div class="modal fade mt-4" data-bs-backdrop='static'  id="loginInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
@@ -92,13 +85,14 @@
                   <button  id="modal-close-btn" type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body pb-5">
-                  <div class="bwc__sc-dh558f-14 fPrBPf">
-                     <span class="bwc__sc-dh558f-12 dLwbjU">
-                     <span class="bwc__sc-dh558f-13 bPjxSZ">
-                     <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
-                     </span>
-                     </span>Continue with Google
-                  </div>
+                  <button class="bwc__sc-dh558f-14 fPrBPf  mt-3" id="login-google">
+                     <div >                    
+                        <span class="bwc__sc-dh558f-13 bPjxSZ">
+                        <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
+                        </span>
+                      Continue with Google
+                     </div>
+                  </button>
                   <div class= " mt-3  bwc__sc-dh558f-14 fPrBPf">
                      <span class="bwc__sc-dh558f-12 dLwbjU">
                      <span class="bwc__sc-dh558f-13 bPjxSZ"><img alt="email logo" src="//in.bmscdn.com/webin/common/icons/email.svg"></span>
@@ -165,9 +159,16 @@
                            </div>
                            <div class="mt-5">
                               <input  id="sign-continue-btn" type="submit" class="m-auto  hmbiuL" value="Register">
-                           </div>
-                        </form>
-                      
+                           </div>                          
+                        </form>                        
+                           <button class="bwc__sc-dh558f-14 fPrBPf sign-in-google mt-3" id="signUp-google">
+                              <div>                             
+                                 <span class="bwc__sc-dh558f-13 bPjxSZ">
+                                 <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
+                                 </span>
+                               Continue with Google
+                              </div>
+                           </button>
                      </center>
                   </div>
                </div>
@@ -180,7 +181,6 @@
          </div>
       </div>
       <!---end of Sign modal --->   
-      
       <script src="script/bookmyshow.js"></script>
    </body>
 </html>

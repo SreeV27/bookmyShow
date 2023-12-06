@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@400;500;700;900&display=swap');
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Roboto',sans-serif;
+    
+
+}
+a{
+    text-decoration: none;
+}
+.hhpXm {
+    min-height: 480px;
+    width: 92%;
+    padding: 32px 0px;
+    align-items: center;
+    display: flex;
+    background-repeat: no-repeat;
+  
+    position: relative;
+    margin: 0px auto;
+    max-width: 1440px;
+    background: linear-gradient(90deg, #1A1A1A 24.97%, #1A1A1A 38.3%, rgba(26, 26, 26, 0.0409746) 97.47%, #1A1A1A 100%);
+    background-size: cover;   
+}
+.kSSnur {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    max-width: 1240px;
+    margin: 0px auto;
+    position: relative;
+    width: 100%;
+}
+.brstsF {
+    width: 261px;
+    height: 416px;
+    overflow: hidden;
+    flex-shrink: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.hxpocV {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    width: 100%;
+}
+
+.bGEZCd {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+}
+
+.kUURKV{
+    border-radius: 16px 16px 0px 0px;
+    object-fit: cover;
+}
+
+.fGbICE {
+    border-radius: 0px 0px 16px 16px;
+    background: rgb(0, 0, 0);
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    padding: 8px;
+    width: 100%;
+}
+
+.ghYvew {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    padding-left: 32px;
+    max-width: 520px;
+}
+
+.jevoyi {
+    color: rgb(255, 255, 255);
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 42px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.dcnHkn {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px;
+    margin-top: 24px;
+}
+
+.jcAifu {
+    -webkit-box-align: center;
+    display: flex;
+    align-items: flex-end;
+}
+.kprskR {
+    letter-spacing: 0.2px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    color: rgb(255, 255, 255);
+    padding: 2px 0px 0px 8px;
+}
+.jACIue {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: rgb(255, 255, 255);
+    padding: 4px 0px 0px 8px;
+}
+.bkTGOb {
+    padding-left: 4px;
+    padding-bottom: 4px;
+    width: auto;
+    height: auto;
+}
+
+.fyqJvB {
+    border-top: none;
+    padding: 0px;
+}
+
+.fLiHio {
+    border-radius: 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    padding: 12px 24px;
+    margin: 16px 0px 0px;
+    max-width: 446px;
+    cursor: pointer;
+    background-color: rgb(51, 51, 51);
+}
+
+.OqKaT {
+    max-width: 75%;
+}
+.eHiUDc {
+    letter-spacing: 0.2px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+}
+.gsfwZd {
+    padding-top: 2px;
+    color: rgb(204, 204, 204);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+.cJOuSt {
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    margin-left: 4px;
+    padding: 8px 12px;
+    border: none;
+    color: rgb(51, 51, 51);
+}
+.keNWEl {
+    border-radius: 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    display: none;
+    padding: 12px 24px;
+    margin: 16px 0px 0px;
+    max-width: 446px;
+    cursor: pointer;
+    background-color: rgb(51, 51, 51);
+}
+.ehJgFO {
+    margin-top: 16px;
+}
+.kfhxuo {
+    display: flex;
+    flex-wrap: wrap;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+.diGRHt:first-child {
+    margin-right: 8px;
+}
+.diGRHt {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(229, 229, 229);
+    color: rgb(0, 0, 0);
+    padding: 2px 8px;
+    border-radius: 2px;
+    align-self: flex-start;
+    margin-top: 8px;
+}
+.fizEby {
+    color: black;
+    margin-right: 0px;
+}
+
+.juHVhn {
+    padding: 0px 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+
+.iYKkDH {
+    padding: 0px 4px 0px 0px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+
+.goilWl {
+    margin-top: 32px;
+}
+
+.bhdIdb {
+    text-align: center;
+    z-index: 99;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    bottom: 0px;
+    position: relative;
+    width: auto;
+    padding: 0px;
+    background: none;
+    max-width: 216px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    box-shadow: none;
+}
+
+.bGKFux {
+    padding: 0px;
+    border: 1px solid rgb(248, 68, 100);
+    color: rgb(255, 255, 255);
+    background-color: rgb(248, 68, 100);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 8px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.hhYlrx {
+    letter-spacing: 0.2px;
+    padding: 12px 8px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.leOnIc {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.gQbphg {
+    display: flex;
+    height: 48px;
+    width: 122px;
+    background-color: rgba(34, 34, 34, 0.8);
+    opacity: 0.8;
+    padding: 0px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.dONGdV {
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.fxYwyj {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+.kFwTbY {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: rgb(255, 255, 255);
+}
+
+
+
+
+
