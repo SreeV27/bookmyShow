@@ -19,7 +19,6 @@
     height: 33px;
 }
 
-
 .input{
     outline: none;
 }
@@ -257,17 +256,17 @@ input::-webkit-inner-spin-button {
     padding-bottom: 42%;
 }
 
-.jZYART {
+.textDiv {
     display: flex;
     margin: 0px auto 0px 0px;
 }
-.VWWsY {
+.titleDiv {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
 }
 
-.hpMgIh {
+.text-1 {
     word-break: break-word;
     color: rgb(51, 51, 51);
    
@@ -285,12 +284,12 @@ input::-webkit-inner-spin-button {
     font-weight: normal;
     line-height: 1.43;
 }
-.kVTwJy {
+.text2style {
     text-decoration: none;
     font-family: Roboto,sans-serif;
 }
 
-.gfZBKV {
+.text-2 {
     margin: 0px;
     word-break: break-word;
     color: rgb(220, 53, 88);   
@@ -299,23 +298,23 @@ input::-webkit-inner-spin-button {
     line-height: 1.43;
 }
 
-.jhuTSq {
+.movieMainDiv {
     position: relative;
 }
 
-.kNWDcM {
+.movieListDiv {
     overflow: hidden;
 }
 
 
 
-.kcFNYT {
+.movieLink {
     text-decoration: none;
     position: relative;
     display: block;
 }
 
-.YeNog {
+.moviesDiv {
     scroll-behavior: smooth;
     transition: transform 1000ms ease 0s;
     overscroll-behavior-x: contain;
@@ -329,7 +328,7 @@ input::-webkit-inner-spin-button {
     transform: initial;
 }
 
-.eJQlCo {
+.movieName {
     margin: 0px 0px 4px;
     word-break: break-word;
     color: rgb(34, 34, 34);
@@ -344,7 +343,7 @@ input::-webkit-inner-spin-button {
     -webkit-box-orient: vertical;
 }
 
-.fIlqSN {
+.movieGenre {
     margin: 0px;
     word-break: break-word;
     color: rgb(102, 102, 102);
@@ -359,7 +358,7 @@ input::-webkit-inner-spin-button {
     -webkit-box-orient: vertical;
 }
 
-.dXHMBz img {
+.movieImg img {
     object-fit: cover;
     transition: visibility 0s ease 0s, opacity 0.3s linear 0s;
     opacity: 1;
@@ -368,7 +367,7 @@ input::-webkit-inner-spin-button {
     border-top-right-radius: 8px;
 }
 
-.dVLjTu{
+.detailsDiv{
     margin:4px 0px 0px 0px;
     padding:4px 0px 0px 0px;
 }
@@ -386,4 +385,12 @@ input::-webkit-inner-spin-button {
 
 .sign-in-google{
     left:0;
+}
+
+.streamDiv{
+    
+        display: flex;
+        height: 100%;
+        width: 100%;
+    
 }

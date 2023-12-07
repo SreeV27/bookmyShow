@@ -4,6 +4,11 @@ $(document).ready(function () {
    $("#invalid-otp").hide();
    $("#continue-btn").hide();
    $('#otpModal').hide();
+   $("#log-out").hide();
+   $("#addTheater").hide();
+   $("#addFilm").hide();
+   $("#addEvent").hide();
+
 
 
    $("#login-continue-btn").prop('disabled', true);

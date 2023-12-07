@@ -7,14 +7,14 @@
 
 }
 
-.bzTJkU {
+.listShowDiv {
     background-color: rgb(49, 48, 53);
     color: rgb(255, 255, 255);
     font-size: 16px;
 }
 
 
-.iUglyZ {
+.listShowDivOne {
     display: flex;
     flex-flow: row;
     -webkit-box-pack: start;
@@ -32,25 +32,25 @@
 .fs-15{
     font-size: 15px;
 }
-.fDqlDq {
+.iconDiv {
     flex: 0 0 auto;
 }
 
-.jwUOBP {
+.footer-text-1 {
     flex: 0 0 auto;
     margin: 0px 16px 0px 4px;
     font-weight: 600;
 }
 
-.jNUTAs {
+.text-2 {
     flex: 1 1 0%;
 }
 
-.gipVVh {
+.icon {
     padding: 8px;
 }
 
-.ctrgkd {
+.contactToday{
     flex: 0 0 auto;
     background-color: rgb(236, 94, 113);
     border-radius: 3px;
@@ -93,7 +93,7 @@
     padding: 0px;
 }
 
-.iaUPsu {
+.logoDiv {
     display: flex;
     width: 100%;
     -webkit-box-align: center;
@@ -104,21 +104,21 @@
     background-color: rgb(51, 51, 56);
 }
 
-.igiRIk {
+.line {
     flex: 1 1 0%;
     height: 1px;
     background: rgb(93, 93, 95);
 }
 
-.LFerV {
+.logoFooter {
     padding: 0px 20px;
 }
-.dtUDzi {
+.mediaIconDiv {
     text-align: center;
     background-color: rgb(51, 51, 56);
 }
 
-.hOLPST {
+.iconsDiv {
     display: inline-block;
     margin-right: 10px;
     width: 37px;
@@ -136,7 +136,7 @@ a {
     fill: rgb(93, 93, 95);
 }
 
-.eOLamZ {
+.footerText{
     padding: 30px;
     font-size: 11px;
     color: rgb(102, 102, 102);
