@@ -61,8 +61,7 @@
                         <cfqueryparam value="#local.roleId#" cfsqltype="CF_SQL_INTEGER">
         
                             
-                    )
-                        
+                    )                        
                 </cfquery>
                 <cfreturn false> 
         </cfif>        
@@ -74,7 +73,45 @@
         <cfset session.userName="">
     </cffunction>
 
+    <cffunction  name="fetchAllMovieDetails" acess="public" returntype="query">  
 
+        <cfquery name="qryFetchAllMovieDetails">
+
+            SELECT
+                tb_movie.movie_id as movieId,
+                name,
+                release_date,
+                duration,
+                profile_img,
+                cover_img,
+                about,
+                STUFF((
+                    SELECT '/' + genre_type
+                    FROM tb_movie_genre
+                    INNER JOIN tb_genre ON tb_genre.genre_id = tb_movie_genre.genre_id
+                    WHERE tb_movie_genre.movie_id = tb_movie.movie_id
+                    FOR XML PATH('')), 1, 1, '') AS genre,
+                STUFF((
+                    SELECT '/' + language
+                    FROM tb_movie_language
+                    INNER JOIN tb_language ON tb_language.lang_id = tb_movie_language.lang_id
+                    WHERE tb_movie_language.movie_id = tb_movie.movie_id
+                    FOR XML PATH('')), 1, 1, '') AS language,
+                dimension,
+                rating,
+                cert_type
+            FROM tb_movie
+            INNER JOIN tb_movie_dimension ON tb_movie.movie_id = tb_movie_dimension.movie_id
+            INNER JOIN tb_dimension ON tb_dimension.dimension_id = tb_movie_dimension.dimension_id
+            INNER JOIN tb_movie_rating ON tb_movie.movie_id = tb_movie_rating.movie_id
+            INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
+            INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
+            GROUP BY tb_movie.movie_id, name, release_date, duration, profile_img, cover_img, about, dimension, rating, cert_type
+            ORDER BY tb_movie.movie_id DESC
+
+        </cfquery>
+        <cfreturn qryFetchAllMovieDetails>
+    </cffunction>
 
 
     <cffunction  name="fetchMovieDetails" acess="public" returntype="query">  
