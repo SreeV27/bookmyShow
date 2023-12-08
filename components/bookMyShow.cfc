@@ -1,4 +1,6 @@
 <cfcomponent>
+
+
     <cffunction name="fetchDetails" access="remote" returntype="any">
         <cfargument name="phone" type="string" required="true">
         <cfset local.result = {}>
@@ -27,7 +29,8 @@
                     <cfif qryFetchRole.recordCount gt 0>
                         <cfset local.result.role = qryFetchRole.role[1]> 
                     </cfif> 
-                </cfif>           
+                </cfif>   
+                       
         <cfreturn local.result>
     </cffunction>
 
@@ -69,8 +72,7 @@
 
 
     <cffunction  name="logout" access="remote">
-        <cfset session.userId=0>
-        <cfset session.userName="">
+        <cfset StructClear(Session)>
     </cffunction>
 
     <cffunction  name="fetchAllMovieDetails" acess="public" returntype="query">  

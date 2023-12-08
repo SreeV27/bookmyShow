@@ -9,7 +9,7 @@
     <script src="script/movie.js"></script>  
    </head>
    <body>
-        <cfif session.userId gt 0>
+        
 
             <cfinclude  template="header.cfm">
             
@@ -105,8 +105,7 @@
                 </cfoutput>
             </cfloop> 
             <cfinclude  template="footer.cfm">
-            <cfelse>
-                <cflocation  url="body.cfm">
-        </cfif>          
+            
+               
    </body>
 </html>

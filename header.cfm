@@ -34,6 +34,8 @@
          </div>
          <div class="d-flex">
             <div class="d-flex">
+
+               <cfif !StructKeyExists(session, "userId") || session.userId EQ 0>
                
                   <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
                   Log In
@@ -41,8 +43,9 @@
                   <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
                   Sign Up
                   </button>  
+               </cfif>
              
-               
+               <cfif StructKeyExists(session, "userId") && session.userId GT 0>
                   <div class="mt-2" id="profile">
                      <cfoutput>
                         <span class="text-white" id="userName">#session.userName#</span>
@@ -51,10 +54,12 @@
                   <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
                   Log Out
                   </button> 
+               </cfif>     
+                        
+               <span class="ms-4 material-symbols-outlined text-white mt-2 menu-icon" >
+                  menu
+              </span>
               
-               <span class="ms-4 material-symbols-outlined text-white mt-2">
-               menu
-               </span>
             </div>
          </div>
       </div>
@@ -62,11 +67,11 @@
          <div class="menu ms-3">
             <a href="movieList.cfm" class="text-decoration-none">Movies</a>
             <a href="" class="text-decoration-none">Events</a>
-            
+            <cfif StructKeyExists(session, "userId") && session.userId Eq 1>
                <a  id="addTheater" href="" class="text-decoration-none"> Add Threater</a>
                <a id="addFilm" href="" class="text-decoration-none">Add Film</a>
                <a id="addEvent" href="" class="text-decoration-none"> Add Events</a>
-            
+            </cfif>
          </div>
          <div class="menu-1 me-3">
             <a href="" class="text-decoration-none">ListYourShow</a>
@@ -84,22 +89,27 @@
                   <button  id="modal-close-btn" type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body pb-5">
-                  <button class="bwc__sc-dh558f-14 fPrBPf  mt-3" id="login-google">
+                  <button class="signDiv  mt-3" id="login-google">
                      <div >                    
-                        <span class="bwc__sc-dh558f-13 bPjxSZ">
+                        <span >
                         <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
                         </span>
                       Continue with Google
                      </div>
                   </button>
-                  <div class= " mt-3  bwc__sc-dh558f-14 fPrBPf">
-                     <span class="bwc__sc-dh558f-12 dLwbjU">
-                     <span class="bwc__sc-dh558f-13 bPjxSZ"><img alt="email logo" src="//in.bmscdn.com/webin/common/icons/email.svg"></span>
-                     </span>Continue with Email
-                  </div>
-                  <div class= " mt-3  bwc__sc-dh558f-14 fPrBPf">
-                     <span class="bwc__sc-dh558f-12 dLwbjU">
-                        <span class="bwc__sc-dh558f-13 bPjxSZ">
+                  <button class="signDiv  mt-3" id="login-google">
+                     <div >                    
+                        <span >
+                        <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/email.svg">
+                        </span>
+                      Continue with Email
+                     </div>
+                  </button>
+
+                  <button class="signDiv  mt-3" id="login-google">
+                     <div class="ps-3" >  
+                     <span class="sign-in-apple ms-4">
+                        <span >
                            <svg width="19" xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 0 170 170" aria-labelledby="apple-label" role="img">
                               <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.197-2.12-9.973-3.17-14.34-3.17-4.58 0-9.492 1.05-14.746 3.17-5.262 2.13-9.501 3.24-12.742 3.35-4.929.21-9.842-1.96-14.746-6.52-3.13-2.73-7.045-7.41-11.735-14.04-5.032-7.08-9.169-15.29-12.41-24.65-3.471-10.11-5.211-19.9-5.211-29.378 0-10.857 2.346-20.221 7.045-28.068 3.693-6.303 8.606-11.275 14.755-14.925s12.793-5.51 19.948-5.629c3.915 0 9.049 1.211 15.429 3.591 6.362 2.388 10.447 3.599 12.238 3.599 1.339 0 5.877-1.416 13.57-4.239 7.275-2.618 13.415-3.702 18.445-3.275 13.63 1.1 23.87 6.473 30.68 16.153-12.19 7.386-18.22 17.731-18.1 31.002.11 10.337 3.86 18.939 11.23 25.769 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.102-2.96 15.667-8.86 22.669-7.12 8.324-15.732 13.134-25.071 12.375a25.222 25.222 0 0 1-.188-3.07c0-7.778 3.386-16.102 9.399-22.908 3.002-3.446 6.82-6.311 11.45-8.597 4.62-2.252 8.99-3.497 13.1-3.71.12 1.083.17 2.166.17 3.24z"></path>
                            </svg>
@@ -107,6 +117,8 @@
                      </span>
                      Continue with Apple
                   </div>
+               </button>
+
                   <div class= " mt-3 mx-auto fs-12 text-center" >
                      OR
                   </div>
@@ -121,9 +133,9 @@
                   </div>
                </div>
                <div class="modal-footer mt-5">
-                  <button  id="login-continue-btn" type="button" class=" m-auto  hmbiuL">Continue</button>
+                  <button  id="login-continue-btn" type="button" class=" m-auto login-continue-btn ">Continue</button>
                   <div class="m-auto " id="terms">
-                     <span class="cydHdR"> I agree to the <u class="cydHdR">Terms & Conditions</u> & <u class="cydHdR"> Privacy Policy</u></span>
+                     <span class="termsAndConditionTxt"> I agree to the <u class="termsAndConditionTxt">Terms & Conditions</u> & <u class="termsAndConditionTxt"> Privacy Policy</u></span>
                   </div>
                </div>
             </div>
@@ -160,9 +172,9 @@
                               <input  id="sign-continue-btn" type="submit" class="m-auto  hmbiuL" value="Register">
                            </div>                          
                         </form>                        
-                           <button class="bwc__sc-dh558f-14 fPrBPf sign-in-google mt-3" id="signUp-google">
+                           <button class="sign-in-google mt-3" id="signUp-google">
                               <div>                             
-                                 <span class="bwc__sc-dh558f-13 bPjxSZ">
+                                 <span >
                                  <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
                                  </span>
                                Continue with Google
@@ -173,7 +185,7 @@
                </div>
                <div class="modal-footer mt-5">
                   <div class="m-auto " id="terms">
-                     <span class="cydHdR"> I agree to the <u class="cydHdR">Terms & Conditions</u> & <u class="cydHdR"> Privacy Policy</u></span>
+                     <span class="termsAndConditionTxt"> I agree to the <u class="termsAndConditionTxt">Terms & Conditions</u> & <u class="termsAndConditionTxt"> Privacy Policy</u></span>
                   </div>
                </div>
             </div>
