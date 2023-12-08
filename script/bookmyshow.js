@@ -4,12 +4,6 @@ $(document).ready(function () {
    $("#invalid-otp").hide();
    $("#continue-btn").hide();
    $('#otpModal').hide();
-   $("#log-out").hide();
-   $("#addTheater").hide();
-   $("#addFilm").hide();
-   $("#addEvent").hide();
-
-
 
    $("#login-continue-btn").prop('disabled', true);
    $('#login-continue-btn').css('background-color', '#A3636F');
@@ -78,7 +72,8 @@ $(document).ready(function () {
             console.error("Error changing session variable:", error);
          }
       });
-      window.location.href = 'http://127.0.0.1:8500/bookmyShow/body.cfm';
+      
+      window.location.href = 'body.cfm';
 
 
    });
@@ -87,6 +82,7 @@ $(document).ready(function () {
    $("#login-continue-btn").click(function () {
 
       var phone = $("#mobileNo").val();
+    
 
 
       $.ajax({
@@ -99,6 +95,7 @@ $(document).ready(function () {
          },
 
          success: function (data) {
+            console.log(data);
 
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(data, "text/xml");
@@ -115,7 +112,10 @@ $(document).ready(function () {
             $('#loginInModal').modal('hide');
             $("#userName").text("Hi " + name);
 
-            window.location.href = 'http://127.0.0.1:8500/bookmyShow/body.cfm';
+
+            
+
+            window.location.href ='body.cfm';
 
          },
          error: function (jqXHR, textStatus, errorThrown) {

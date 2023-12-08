@@ -127,7 +127,7 @@ border-bottom: none; /* Add this line to remove the bottom border */
 border-top: none; /* Add this line to remove the top border */
 }
 
-.fPrBPf {
+.signDiv {
 /*top: 0px;
     margin: auto; */
 /* right: 92px; */
@@ -148,7 +148,7 @@ transition: background 0.5s ease-out 0s;
 }
 
 
-.dLwbjU {
+.sign-in-apple {
     width: 40px;
     display: inline-flex;
     -webkit-box-align: center;
@@ -161,6 +161,7 @@ transition: background 0.5s ease-out 0s;
     height: 100%;
     text-align: center;
     margin-left: 8px;
+    padding-left: 13%;
 }
 
 .fs-12{
@@ -183,7 +184,7 @@ input::-webkit-inner-spin-button {
     opacity: 0.75;
 }
 
-.hmbiuL {
+.login-continue-btn {
     padding: 8px 0px;
     width: 72%;
     background-color: rgb(248, 68, 100);
@@ -197,7 +198,7 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
-.cydHdR {
+.termsAndConditionTxt {
     color: rgb(102, 102, 102);
    
     text-align: center;
@@ -393,4 +394,8 @@ input::-webkit-inner-spin-button {
         height: 100%;
         width: 100%;
     
+}
+
+.menu-icon{
+    cursor: pointer;
 }
