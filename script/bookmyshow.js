@@ -95,14 +95,17 @@ $(document).ready(function () {
          },
 
          success: function (data) {
-            console.log(data);
-
+           
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(data, "text/xml");
 
             // Access the values using DOM methods
-            var role = xmlDoc.querySelector("var[name='ROLE'] string").textContent;
-            var name = xmlDoc.querySelector("var[name='NAME'] string").textContent;
+            var roleElement = xmlDoc.querySelector("var[name='ROLE'] string");
+            var nameElement = xmlDoc.querySelector("var[name='NAME'] string");
+
+            if (roleElement !== null && nameElement !== null) {
+               var role = roleElement.textContent;
+               var name = nameElement.textContent;
 
 
             $("#mobileNo").val("");
@@ -116,6 +119,10 @@ $(document).ready(function () {
             
 
             window.location.href ='body.cfm';
+            }
+            else{
+               alert("please sign-up first");
+            }
 
          },
          error: function (jqXHR, textStatus, errorThrown) {
