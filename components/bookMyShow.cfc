@@ -1,6 +1,4 @@
 <cfcomponent>
-
-
     <cffunction name="fetchDetails" access="remote" returntype="any">
         <cfargument name="phone" type="string" required="true">
         <cfset local.result = {}>
@@ -11,10 +9,10 @@
                 WHERE
                 phone = <cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">
             </cfquery>
-                <cfif qryfetchDetails.recordCount gt 0>
+                <cfif qryfetchDetails.recordCount>
                     <!-- Access the role_id from the first row of the query result -->
                     <cfset session.userId=qryfetchDetails.user_id[1]>
-                    <cfset session.userName= "Hi "&qryfetchDetails.name[1]>
+                    <cfset session.userName= qryfetchDetails.name[1]>
                     <cfset local.roleId = qryfetchDetails.role_id[1]> 
                     <cfset local.result.name = qryfetchDetails.name[1]>
                     <cfset local.result.mail = qryfetchDetails.mail[1]>
@@ -26,7 +24,7 @@
                         WHERE
                         role_id = <cfqueryparam value="#local.roleId#" cfsqltype="CF_SQL_INTEGER">
                     </cfquery>  
-                    <cfif qryFetchRole.recordCount gt 0>
+                    <cfif qryFetchRole.recordCount>
                         <cfset local.result.role = qryFetchRole.role[1]> 
                     </cfif> 
                 </cfif>   
@@ -49,7 +47,7 @@
             phone = <cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">
         </cfquery> 
 
-        <cfif qryUserExists.recordCount gt 0>
+        <cfif qryUserExists.recordCount>
             <cfreturn true> 
             <cfelse>
                 <cfquery name="qryInsertUser">
@@ -109,7 +107,7 @@
             INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
             INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
             GROUP BY tb_movie.movie_id, name, release_date, duration, profile_img, cover_img, about, dimension, rating, cert_type
-            ORDER BY tb_movie.movie_id DESC
+            ORDER BY tb_movie.movie_id ASC
 
         </cfquery>
         <cfreturn qryFetchAllMovieDetails>
@@ -160,7 +158,6 @@
     <cffunction  name="fetchEventDetails" acess="public" returntype="query">
 
         <cfquery name="qryFetchEventDetails"> 
-
             SELECT tb_event.event_id,name,duration,date,rate,profile_img,cover_img,language,genre_type,location,venue 
             FROM tb_event 
             INNER JOIN tb_language 

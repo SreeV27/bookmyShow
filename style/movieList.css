@@ -86,3 +86,33 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
+
+.movie-heading-txt{
+    margin: 0px 0px 4px;
+    word-break: break-word;
+    color: rgb(0, 0, 0);
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.33;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.genre-txt{
+    margin: 0px 0px 4px;
+    word-break: break-word;
+    color: rgb(102, 102, 102);
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.43;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

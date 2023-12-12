@@ -8,6 +8,8 @@
         <title>Footer</title>
     </head>
     <body>
+        
+        
         <div class="listShowDiv mt-5">
             <div class="listShowDivOne">
                 <div class="iconDiv">
@@ -23,10 +25,9 @@
             </div>
         </div>
 
-
         <div class="logoDiv">
             <div class="line"> </div>
-            <a href="/" class="logoFooter">
+            <a href="http://127.0.0.1:8500/bookmyShow/body.cfm" class="logoFooter">
                 <img alt="bookmyshow" src="//in.bmscdn.com/webin/common/icons/logo.svg">
             </a>
             <div class="line">  </div>

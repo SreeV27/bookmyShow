@@ -12,6 +12,14 @@
         <cfreturn true>
     </cffunction>
 
+
+    <cffunction  name="onApplicationStart"  returnType="boolean">
+        <cfset application.welcome= "Hi">
+        <cfset application.key=generateSecretKey('DES')>
+        <cfreturn true> 
+
+    </cffunction>
+
    <!--- <cffunction name="onRequestStart" access="public" returntype="boolean">
         <cfargument name="targetPage" type="string" required="false">        
         <!-- Check if it's an AJAX request -->

@@ -4,9 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-      <script src="script/jquery-3.6.4.js"></script>
-      <script src="script/popper.js"></script>
-      <script src="script/bootstrap.js"></script>
+     
       <link rel="stylesheet"  href="style/common.css">
       <link rel="stylesheet"  href="style/bootstrap.css">      
       <title>header</title>
@@ -48,7 +46,8 @@
                <cfif StructKeyExists(session, "userId") && session.userId GT 0>
                   <div class="mt-2" id="profile">
                      <cfoutput>
-                        <span class="text-white" id="userName">#session.userName#</span>
+                        
+                        <span class="text-white" id="userName">#application.welcome# #session.userName#</span>
                      </cfoutput>
                   </div>
                   <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
@@ -66,7 +65,7 @@
       <div class="menu-list d-flex text-white py-2 px-5 justify-content-between">
          <div class="menu ms-3">
             <a href="movieList.cfm" class="text-decoration-none">Movies</a>
-            <a href="" class="text-decoration-none">Events</a>
+            <a href="eventList.cfm" class="text-decoration-none">Events</a>
             <cfif StructKeyExists(session, "userId") && session.userId Eq 1>
                <a  id="addTheater" href="" class="text-decoration-none"> Add Threater</a>
                <a id="addFilm" href="" class="text-decoration-none">Add Film</a>
@@ -192,6 +191,7 @@
          </div>
       </div>
       <!---end of Sign modal --->   
+      
       <script src="script/bookmyshow.js"></script>
    </body>
 </html>
