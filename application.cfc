@@ -1,8 +1,8 @@
 <cfcomponent>
     <cfset this.name = "Book My Show">
-    <cfset this.applicationTimeout = createTimeSpan( 0, 0, 1, 0 )>
+    <cfset this.applicationTimeout = createTimeSpan( 0, 0, 30, 0 )>
     <cfset this.sessionManagement = true>
-    <cfset this.sessionTimeout = CreateTimeSpan(0 ,0,1,0)> 
+    <cfset this.sessionTimeout = CreateTimeSpan(0 ,0,2,0)> 
     <cfset this.datasource = "mydb">
     
     
@@ -13,11 +13,9 @@
     </cffunction>
 
 
-    <cffunction  name="onApplicationStart"  returnType="boolean">
-        <cfset application.welcome= "Hi">
-        <cfset application.key=generateSecretKey('DES')>
-        <cfreturn true> 
-
+    <cffunction name="onApplicationStart" returnType="boolean">
+        <cfset application.key = "abdupYHvtzft70bsT3yxAg==">
+        <cfreturn true>
     </cffunction>
 
    <!--- <cffunction name="onRequestStart" access="public" returntype="boolean">
