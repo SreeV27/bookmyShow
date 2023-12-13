@@ -12,27 +12,14 @@
     <cfobject component="components/bookMyShow" name="myComponent">
 
         <cfinclude  template="header.cfm">        
-        <cfparam name="URL.encryptedMsg" default="">           
-        <cfoutput>  
-            <cftry>
-                <cfscript>  
-                    decryptedMsg = decrypt(encryptedMsg, #application.key#,"DES", 'Base64');
-                </cfscript>  
-                <cfcatch type="any">
-                    <cfscript>""
-                        writeOutput("Details currently available ");
-                    </cfscript>                        
-
-            </cfcatch>
-            </cftry>        
-            
-        </cfoutput>
-     
+        <cfparam name="URL.encryptedId" default="">  
+        <cfscript>  
+            //decryptedMsg = decrypt(encryptedMsg, #application.key#,'AES/CBC/PKCS5Padding','Base64');
+        </cfscript> 
+                    
         
-        <cfoutput>
-            <cfset movie=myComponent.fetchMovieDetailsBasedOnId(#decryptedMsg#)>
 
-        </cfoutput>
+        <cfset movie=myComponent.fetchMovieDetailsBasedOnId(encryptedId)>
        
         <cfloop query="movie">
             <cfoutput>
@@ -100,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div>
                 <section class="sectionAbout bg-white">
                     <span class=" aboutSpan">
                         <h4 class="aboutHeading">About the movie</h4>

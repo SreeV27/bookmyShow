@@ -386,6 +386,16 @@ input::-webkit-inner-spin-button {
 
 .sign-in-google{
     left:0;
+    padding: 8px 0px;
+    width: 72%;
+    
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.2s ease-in-out 0s;
+    cursor: pointer;
 }
 
 .streamDiv{
@@ -397,5 +407,19 @@ input::-webkit-inner-spin-button {
 }
 
 .menu-icon{
+    cursor: pointer;
+}
+
+#registerBtn{
+    padding: 8px 0px;
+    width: 72%;
+    background-color: rgb(248, 68, 100);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.2s ease-in-out 0s;
     cursor: pointer;
 }
