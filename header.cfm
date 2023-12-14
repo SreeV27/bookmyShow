@@ -5,8 +5,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
               
       <script src="script/jquery-3.6.4.js"></script>
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
-      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <script src="script/jquery-ui.js"></script>  
+      <link rel="stylesheet" href="style/jquery-ui.css">
       <script src="script/bootstrap-js.js"></script>  
       <script src="script/bookmyshow.js"></script>      
       <link rel="stylesheet" href="style/googleFont.css" /> 
@@ -19,7 +19,7 @@
       <!---Nav Bar--->
       <div class="nav-bar d-flex justify-content-evenly">
          <div class="d-flex logo w-75 ">
-            <a href="http://127.0.0.1:8500/bookmyShow/body.cfm" class="">
+            <a href="body.cfm" class="">
                <svg viewBox="0 0 88 26" height="33.9" width="115" xmlns="http://www.w3.org/2000/svg">
                   <title>BookMyShow</title>
                   <g fill="none">

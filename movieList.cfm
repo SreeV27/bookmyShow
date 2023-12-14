@@ -8,11 +8,11 @@
       <link rel="stylesheet" href="style/bootstrap.css">
    </head>
    <body>
-      <cfobject component="components/bookMyShow" name="myComponent">
+      <cfobject component="components/bookMyShow" name="objBookMyShow">
       <cfinclude  template="header.cfm">
       <cfinclude  template="slide.cfm">
       <h1 class="ms-5 ps-5 w-75 heading-txt">Movies</h1>
-      <cfset local.movie=myComponent.fetchAllMovieDetails()>
+      <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
       <cfoutput>
          <div class="">
          <div class="movieRowDiv">

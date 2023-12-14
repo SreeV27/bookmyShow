@@ -18,8 +18,7 @@
                <cfset local.movies=objBookMyShow.fetchAllMovieDetails()>
                <cfloop query="local.movies">
                   <cfoutput>
-                     <div>
-                       
+                     <div>                      
                        
                         <cfscript>
                            //myMessage = "#local.movies.movieId#"  
