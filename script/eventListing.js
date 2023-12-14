@@ -1,31 +1,25 @@
 
 $(document).ready(function(){
 
-    $("#calender").hide();
-    $("#langMainDiv").hide();
-    
+    $("#calender").hide();  
+    $("#lang").hide();
+    $("#categories").hide();
 
 
 });
+
 
 $(function () {
     $("#calender").datepicker();
    
 });
 
-function clearCalendar() {
-    // Get the calender input element
-    var calenderInput = document.getElementById("calender");
-
-    // Clear the value of the calender input field
-    calenderInput.value = "";
-}
 
 function toggleCalendar() {
     var calendar = document.getElementById('calender');
     var svgDate = document.getElementById('svgDate');
     var dateTxt=document.getElementById('dateTxt')
-    var dateField=document.getElementById("calender")
+    
 
     if (calendar.style.display === 'none') {
         calendar.style.display = 'block';
@@ -36,38 +30,133 @@ function toggleCalendar() {
         calendar.style.display = 'none';
         svgDate.classList.remove('rotate-down');
         dateTxt.style.color='black';
-        dateField.value="";
+       
         
     }
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-  var langMainDiv = document.querySelector('.langMainDiv');
-  var langDiv = document.querySelector('.langDiv');
-
-  langMainDiv.addEventListener('click', function () {
-    langDiv.classList.toggle('active');
-  });
-});
-
-
 function toggleLanguage() {
-    var lang = document.getElementById('langMainDiv');
+   
     var svgLanguage = document.getElementById('svgLanguage');
     var languageTxt=document.getElementById('languageTxt')
+    var main = document.getElementById('lang');
    
 
-    if (lang.style.display === 'none') {
-        lang.style.display = 'block';
+    if (main.style.display==='none') {
+        
+        main.style.display = 'block';
         svgLanguage.classList.add('rotate-down');
         languageTxt.style.color='red';
       
     } else {
-        lang.style.display = 'none';
+       
+        main.style.display = 'none';
+
         svgLanguage.classList.remove('rotate-down');
         languageTxt.style.color='black';
         
         
     }
 }
+function toggleCategories() {
+   
+    var svgCategories = document.getElementById('svgCategories');
+    var categoriesTxt=document.getElementById('categoriesTxt')
+    var main = document.getElementById('categories');
+   
+
+    if (main.style.display==='none') {
+        
+        main.style.display = 'block';
+        svgCategories.classList.add('rotate-down');
+        categoriesTxt.style.color='red';
+      
+    } else {
+       
+        main.style.display = 'none';
+
+        svgCategories.classList.remove('rotate-down');
+        categoriesTxt.style.color='black';
+        
+        
+    }
+}
+function clearCalendar() {
+    // Get the calender input element
+    var calenderInput = document.getElementById("calender");
+
+    // Clear the value of the calender input field
+    calenderInput.value = "";
+}
+
+
+function clearLanguage() {
+    // Get all elements with class 'langDiv'
+    var langDivs = document.querySelectorAll('.langDiv');
+  
+    // Reset styles for each 'langDiv'
+    langDivs.forEach(function (langDiv) {
+      // Set default background color
+      langDiv.style.backgroundColor = ''; // This will remove the inline style
+  
+      // Reset text color for the nested 'langTxt' element
+      var langTxt = langDiv.querySelector('.langTxt');
+      langTxt.style.color = ''; // This will remove the inline style
+    });
+  }
+
+  function clearCategories() {
+    // Get all elements with class 'langDiv'
+    var categoriesDivs = document.querySelectorAll('.categoriesDiv');
+  
+    // Reset styles for each 'categoriesDivDiv'
+    categoriesDivs.forEach(function (categoriesDiv) {
+      // Set default background color
+      categoriesDiv.style.backgroundColor = ''; // This will remove the inline style
+  
+      // Reset text color for the nested 'categoriesDivTxt' element
+      var categoriesDivTxt = categoriesDiv.querySelector('.categryTxt');
+      categoriesDivTxt.style.color = ''; // This will remove the inline style
+    });
+  }
+  
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements with class 'langDiv'
+    var langDivs = document.querySelectorAll('.langDiv');
+
+    // Add click event listener to each 'langDiv'
+    langDivs.forEach(function (langDiv) {
+    langDiv.addEventListener('click', function () {
+    // Toggle background color
+        this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
+
+        // Toggle text color for the nested 'langTxt' element
+        var langTxt = this.querySelector('.langTxt');
+        langTxt.style.color = langTxt.style.color === 'white' ? 'red' : 'white';
+      });
+    });
+  });
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements with class 'langDiv'
+    var categoriesDivs = document.querySelectorAll('.categoriesDiv');
+
+    // Add click event listener to each 'categoriesDiv'
+    categoriesDivs.forEach(function (categoriesDiv) {
+    categoriesDiv.addEventListener('click', function () {
+    // Toggle background color
+        this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
+
+        // Toggle text color for the nested 'langTxt' element
+        var   categryTxt = this.querySelector('.categryTxt');
+         categryTxt.style.color =   categryTxt.style.color === 'white' ? 'red' : 'white';
+      });
+    });
+  });
+
+

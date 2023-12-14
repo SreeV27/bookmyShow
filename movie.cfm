@@ -9,17 +9,13 @@
     <script src="script/movie.js"></script>  
    </head>
    <body>
-    <cfobject component="components/bookMyShow" name="myComponent">
-
+    <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfinclude  template="header.cfm">        
         <cfparam name="URL.encryptedId" default="">  
         <cfscript>  
             //decryptedMsg = decrypt(encryptedMsg, #application.key#,'AES/CBC/PKCS5Padding','Base64');
         </cfscript> 
-                    
-        
-
-        <cfset movie=myComponent.fetchMovieDetailsBasedOnId(encryptedId)>
+        <cfset movie=objBookMyShow.fetchMovieDetailsBasedOnId(encryptedId)>
        
         <cfloop query="movie">
             <cfoutput>
@@ -98,7 +94,6 @@
                 </section>
             </cfoutput>
         </cfloop> 
-        <cfinclude  template="footer.cfm">           
-               
+        <cfinclude  template="footer.cfm">  
     </body>
 </html>
