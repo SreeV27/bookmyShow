@@ -14,7 +14,7 @@
       <h1 class="ms-5 ps-5 w-75 heading-txt">Movies</h1>
       <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
       <cfoutput>
-         <div class="">
+        
          <div class="movieRowDiv">
             <cfloop query="local.movie">
                
@@ -25,8 +25,8 @@
                <a href="movie.cfm?encryptedId=#local.movie.movieId#" class="movieDiv">
                   <div class=" movieDetailsDiv">
                      <div width="100%" height="100%" data-content="Animal" class="profilePicDiv">
-                        <div class=" imgLink">
-                           <img src="assests/#local.movie.profile_img#"  alt="Animal" width="100%" height="100%">
+                        <div class="movieImg">
+                           <img src="assests/#local.movie.profile_img#"  alt="#local.movie.name#" width="100%" height="100%">
                         </div>
                      </div>
                      <div class="movieNameDiv" style="">

@@ -238,4 +238,23 @@
     </cffunction>
 
 
+    <cffunction  name="name" access="remote" returntype="any">
+        <cfquery name="qryFetchEventDetails"> 
+            SELECT tb_event.event_id,name,duration,date,rate,profile_img,cover_img,language,category,location,venue 
+            FROM tb_event 
+            INNER JOIN tb_language 
+            ON tb_event.lang_id = tb_language.lang_id           
+            INNER JOIN tb_event_venue
+            ON tb_event_venue.event_id = tb_event.event_id
+            INNER JOIN tb_venue
+            ON tb_event_venue.venue_id = tb_venue.venue_id
+			 INNER JOIN tb_category
+            ON tb_event.category_id = tb_category.category_id
+			where language ='English'
+        </cfquery>
+
+        <cfreturn qryFetchEventDetails>
+    </cffunction>
+
+
 </cfcomponent>

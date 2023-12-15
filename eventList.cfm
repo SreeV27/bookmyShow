@@ -10,6 +10,7 @@
       <script src="script/bootstrap-js.js"></script>
       <link rel="stylesheet" href="style/bootstrap.css">
       <link rel="stylesheet" href="style/eventList.css">
+      <link rel="stylesheet" href="style/movieList.css">
       <script src="script/eventListing.js"></script>
    </head>
    <body class="bg-body-secondary">
@@ -36,8 +37,6 @@
                   <input  type="text" class=" mt-2 ms-1 calender" name="calender" id="calender" >
                </div>
 
-
-
                <div class="dateDiv">
                   <div class="headingDate">
                      <div class=" dateTxtDiv">
@@ -52,7 +51,7 @@
                      <cfset local.event=objBookMyShow.fetchEventLanguages()>            
                      <cfloop query="local.event">
                         <div class="langMainDiv" >
-                           <div class=" langDiv"id="lang#local.event.language#">
+                           <div class="langDiv" id="#local.event.language#">
                               <div class="  langTxt">#local.event.language#</div>
                            </div>
                         </div>
@@ -74,20 +73,21 @@
                      <cfset local.event=objBookMyShow.fetchEventCategory()>            
                      <cfloop query="local.event">
                         <div class="categoriesMainDiv" >
-                           <div class="categoriesDiv" id="categories#local.event.category#">
+                           <div class="categoriesDiv" id="#local.event.category#">
                               <div class="categryTxt">#local.event.category#</div>
                            </div>
                         </div>
                      </cfloop>  
                   </div>
                </div>
+               <div class="filterDiv" onclick="filterValues()" >
+                  
+                   Apply Filter
+               </div>
             </div>
 
-
             <div class="eventListMainDiv">
-
                <div class="filterTxt">Events</div>
-
                <div class="eventMainListDiv mt-3">
                   <div class="divEventList">
                      <div class="event">
@@ -156,12 +156,42 @@
                   </div>                  
                </div>
 
+               <cfoutput>   
+                  
+                  <div class="movieRowDiv p-0 mt-3" id="movieRowDiv">
                      
-
-
-                  <div>
-                     hi
+                     <cfset local.event=objBookMyShow.fetchEventDetails()>
+                     <cfloop query="local.event">
+                        <a href="##" class=" movieLink">
+                           <div >
+                              <div >
+                              </div>
+                              <div width="100%" height="100%" >
+                                 <div class="movieImg">
+                                    <img src="assests/#local.event.profile_img#" alt="#local.event.profile_img#" width="100%" height="100%">
+                                    <div class="rating text-white fs-15 ">                                          
+                                       <span class="d-flex ms-2">
+                                       #dateFormat(local.event.date, 'ddd, dd mmm')#
+                                       </span>                                    
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="detailsDiv">
+                                 <div>
+                                    <div class="movieName">#local.event.name#</div>
+                                 </div>
+                                 <div>
+                                    <div class="movieGenre">#local.event.venue#:#local.event.location#  </div>
+                                 </div>
+                                 <div>
+                                    <div class="movieGenre fs-14">#local.event.category#  </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </a>    
+                     </cfloop> 
                   </div>
+               </cfoutput>
 
 
 
