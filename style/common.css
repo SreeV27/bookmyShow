@@ -423,3 +423,14 @@ input::-webkit-inner-spin-button {
     transition: background-color 0.2s ease-in-out 0s;
     cursor: pointer;
 }
+
+.fs-14{
+    
+    font-size: 14px;
+
+}
+
+.searchForm{
+    padding-top: 5px;
+    width: 100%;
+}

@@ -4,7 +4,20 @@ $(document).ready(function(){
     $("#calender").hide();  
     $("#lang").hide();
     $("#categories").hide();
-
+    $("#calender").datepicker({
+        onSelect: function(dateText, inst) {
+          // When a date is picked, set the value to the second input field
+          $("#filterDate").val(dateText);
+        },
+        onClose: function() {
+          // When the datepicker is closed, check if the calendar field is empty, and clear the second input field if it is
+          var calendarValue = $("#calender").val();
+          if (!calendarValue) {
+            $("#filterDate").val("");
+          }
+        }
+      });
+      
 
 });
 
@@ -102,6 +115,9 @@ function clearLanguage() {
       // Reset text color for the nested 'langTxt' element
       var langTxt = langDiv.querySelector('.langTxt');
       langTxt.style.color = ''; // This will remove the inline style
+
+      selectedLanguages ={};
+     
     });
   }
 
@@ -117,46 +133,104 @@ function clearLanguage() {
       // Reset text color for the nested 'categoriesDivTxt' element
       var categoriesDivTxt = categoriesDiv.querySelector('.categryTxt');
       categoriesDivTxt.style.color = ''; // This will remove the inline style
+      // Reassign an empty array to the variable
+      selectedCategory ={};
+      // Now, selectedCategory is an empty array
+     
     });
   }
   
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Get all elements with class 'langDiv'
-    var langDivs = document.querySelectorAll('.langDiv');
-
-    // Add click event listener to each 'langDiv'
-    langDivs.forEach(function (langDiv) {
-    langDiv.addEventListener('click', function () {
-    // Toggle background color
-        this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
-
-        // Toggle text color for the nested 'langTxt' element
-        var langTxt = this.querySelector('.langTxt');
-        langTxt.style.color = langTxt.style.color === 'white' ? 'red' : 'white';
-      });
-    });
-  });
-
-
+  var selectedLanguages = {};
 
   document.addEventListener('DOMContentLoaded', function () {
-    // Get all elements with class 'langDiv'
-    var categoriesDivs = document.querySelectorAll('.categoriesDiv');
-
-    // Add click event listener to each 'categoriesDiv'
-    categoriesDivs.forEach(function (categoriesDiv) {
-    categoriesDiv.addEventListener('click', function () {
-    // Toggle background color
-        this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
-
-        // Toggle text color for the nested 'langTxt' element
-        var   categryTxt = this.querySelector('.categryTxt');
-         categryTxt.style.color =   categryTxt.style.color === 'white' ? 'red' : 'white';
+      // Get all elements with class 'langDiv'
+      var langDivs = document.querySelectorAll('.langDiv');
+  
+      // Add click event listener to each 'langDiv'
+      langDivs.forEach(function (langDiv) {
+          langDiv.addEventListener('click', function () {
+              // Toggle background color
+              this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
+  
+              // Toggle text color for the nested 'langTxt' element
+              var langTxt = this.querySelector('.langTxt');
+              langTxt.style.color = langTxt.style.color === 'white' ? 'red' : 'white';
+  
+              // Get the ID of the clicked element
+              var selectedId = this.id;
+  
+              // Toggle the selection status using an object
+              if (selectedLanguages[selectedId]) {
+                  // ID is already in the object, remove it
+                  delete selectedLanguages[selectedId];
+              } else {
+                  // ID is not in the object, add it
+                  selectedLanguages[selectedId] = true;
+              }
+  
+              // Output the selectedLanguages object for testing
+              console.log(selectedLanguages);
+          });
       });
-    });
   });
+  
 
+  var selectedCategory = {};
+
+  document.addEventListener('DOMContentLoaded', function () {
+      // Get all elements with class 'langDiv'
+      var categoriesDivs = document.querySelectorAll('.categoriesDiv');
+  
+      // Add click event listener to each 'categoriesDiv'
+      categoriesDivs.forEach(function (categoriesDiv) {
+          categoriesDiv.addEventListener('click', function () {
+              // Toggle background color
+              this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'white' : 'red';
+  
+              // Toggle text color for the nested 'categryTxt' element
+              var categryTxt = this.querySelector('.categryTxt');
+              categryTxt.style.color = categryTxt.style.color === 'white' ? 'red' : 'white';
+  
+              var selectedId = this.id;
+  
+              // Toggle the selection status using an object
+              if (selectedCategory[selectedId]) {
+                  // ID is already in the object, remove it
+                  delete selectedCategory[selectedId];
+              } else {
+                  // ID is not in the object, add it
+                  selectedCategory[selectedId] = true;
+              }
+  
+              // Output the selectedCategory object for testing
+              console.log(selectedCategory);
+          });
+      });
+  });
+  
+
+
+function filterValues(){
+  
+  console.log('Selected Languages:', selectedLanguages);
+  console.log('Selected Category:',selectedCategory);
+  $.ajax({
+    type: "POST",
+    url: 'components/bookMyShow.cfc?method=event',
+
+    success: function (response) {   
+        $("#movieRowDiv").load(location.href + " #movieRowDiv");
+
+        console.log(response);
+
+    },
+    error: function (error) {
+       console.error("Error changing session variable:", error);
+    }
+ });
+  
+    
+    
+}
 
