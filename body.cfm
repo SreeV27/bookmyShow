@@ -79,7 +79,7 @@
                <cfloop query="local.event">
                   <cfoutput>
                      <div>
-                        <a href="##" class=" movieLink">
+                        <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink">
                            <div >
                               <div >
                               </div>

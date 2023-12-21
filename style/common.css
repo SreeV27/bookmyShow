@@ -429,3 +429,8 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 
 }
+
+.searchForm{
+    padding-top: 5px;
+    width: 100%;
+}

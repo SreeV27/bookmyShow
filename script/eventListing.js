@@ -4,7 +4,20 @@ $(document).ready(function(){
     $("#calender").hide();  
     $("#lang").hide();
     $("#categories").hide();
-
+    $("#calender").datepicker({
+        onSelect: function(dateText, inst) {
+          // When a date is picked, set the value to the second input field
+          $("#filterDate").val(dateText);
+        },
+        onClose: function() {
+          // When the datepicker is closed, check if the calendar field is empty, and clear the second input field if it is
+          var calendarValue = $("#calender").val();
+          if (!calendarValue) {
+            $("#filterDate").val("");
+          }
+        }
+      });
+      
 
 });
 
@@ -202,7 +215,22 @@ function filterValues(){
   
   console.log('Selected Languages:', selectedLanguages);
   console.log('Selected Category:',selectedCategory);
+  $.ajax({
+    type: "POST",
+    url: 'components/bookMyShow.cfc?method=event',
+
+    success: function (response) {   
+        $("#movieRowDiv").load(location.href + " #movieRowDiv");
+
+        console.log(response);
+
+    },
+    error: function (error) {
+       console.error("Error changing session variable:", error);
+    }
+ });
   
     
     
 }
+

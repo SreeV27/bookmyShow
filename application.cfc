@@ -14,7 +14,7 @@
 
 
     <cffunction name="onApplicationStart" returnType="boolean">
-        <cfset application.key = "abdupYHvtzft70bsT3yxAg==">
+        <cfset application.key ="abdupYHvtzft70bsT3yxAg==">
         <cfreturn true>
     </cffunction>
 

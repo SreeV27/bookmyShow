@@ -154,26 +154,6 @@
         <cfreturn qryFetchMovieDetails>
     </cffunction>
 
-
-    <cffunction  name="fetchEventDetails" acess="public" returntype="query">
-
-        <cfquery name="qryFetchEventDetails"> 
-            SELECT tb_event.event_id,name,duration,date,rate,profile_img,cover_img,language,category,location,venue 
-            FROM tb_event 
-            INNER JOIN tb_language 
-            ON tb_event.lang_id = tb_language.lang_id           
-            INNER JOIN tb_event_venue
-            ON tb_event_venue.event_id = tb_event.event_id
-            INNER JOIN tb_venue
-            ON tb_event_venue.venue_id = tb_venue.venue_id
-			 INNER JOIN tb_category
-            ON tb_event.category_id = tb_category.category_id
-        </cfquery>
-
-        <cfreturn qryFetchEventDetails>
-    </cffunction>
-
-
     <cffunction  name="fetchMovieDetailsBasedOnId" access="public" returntype="query">
         <cfargument  name="movieId" >
         <cfquery name="qryFetchMovieDetailsBasedOnId">
@@ -213,6 +193,53 @@
         <cfreturn qryFetchMovieDetailsBasedOnId>
     </cffunction>
 
+
+    <cffunction  name="fetchEventDetails" acess="public" returntype="query">
+
+        <cfquery name="qryFetchEventDetails"> 
+            SELECT tb_event.event_id,name,duration,date,rate,profile_img,cover_img,language,category,location,venue 
+            FROM tb_event 
+            INNER JOIN tb_language 
+            ON tb_event.lang_id = tb_language.lang_id           
+            INNER JOIN tb_event_venue
+            ON tb_event_venue.event_id = tb_event.event_id
+            INNER JOIN tb_venue
+            ON tb_event_venue.venue_id = tb_venue.venue_id
+			 INNER JOIN tb_category
+            ON tb_event.category_id = tb_category.category_id
+        </cfquery>        
+
+        <cfreturn qryFetchEventDetails>
+    </cffunction>
+
+    <cffunction  name="fetchEventDetailsBasedOnId" acess="public" returntype="query">
+        <cfargument  name="eventId" >
+        <cfquery name="qryFetchEventDetails">
+            SELECT tb_event.event_id, name, duration, date, rate, profile_img, cover_img,
+                   STUFF((SELECT ', ' + category
+                          FROM tb_category
+                          WHERE tb_event.category_id = tb_category.category_id
+                          FOR XML PATH('')), 1, 2, '') AS categories,
+                   STUFF((SELECT ', ' + language
+                          FROM tb_language
+                          WHERE tb_event.lang_id = tb_language.lang_id
+                          FOR XML PATH('')), 1, 2, '') AS languages,
+                   location, venue
+            FROM tb_event
+            INNER JOIN tb_language ON tb_event.lang_id = tb_language.lang_id
+            INNER JOIN tb_event_venue ON tb_event_venue.event_id = tb_event.event_id
+            INNER JOIN tb_venue ON tb_event_venue.venue_id = tb_venue.venue_id
+            INNER JOIN tb_category ON tb_event.category_id = tb_category.category_id
+            WHERE tb_event.event_id = <cfqueryparam value="#arguments.eventId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+              
+
+        <cfreturn qryFetchEventDetails>
+    </cffunction>
+
+
+    
+
     <cffunction  name="fetchEventLanguages" acess="public" returntype="query">
 
         <cfquery name="qryFetchEventLanguages"> 
@@ -238,7 +265,7 @@
     </cffunction>
 
 
-    <cffunction  name="name" access="remote" returntype="any">
+    <cffunction  name="event" access="remote" returntype="any">
         <cfquery name="qryFetchEventDetails"> 
             SELECT tb_event.event_id,name,duration,date,rate,profile_img,cover_img,language,category,location,venue 
             FROM tb_event 
@@ -252,7 +279,7 @@
             ON tb_event.category_id = tb_category.category_id
 			where language ='English'
         </cfquery>
-
+          <cfset session.event=qryFetchEventDetails>
         <cfreturn qryFetchEventDetails>
     </cffunction>
 

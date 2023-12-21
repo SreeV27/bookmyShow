@@ -20,71 +20,76 @@
          <div class="ps-5">
             <img  src="assests/eventCover.jpg" alt="promotion-banner " width="95%">
          </div>
-         <div class=" mainDiv">
-            <div class=" w-25 filterMainDiv">
-               <div class="filterTxt">Filters</div>
-
-               <div class="dateDiv">
-                  <div class="headingDate">
-                     <div class=" dateTxtDiv">
-                        <svg id="svgDate" xmlns="http://www.w3.org/2000/svg" onclick="toggleCalendar()" viewBox="0 0 15 10">
-                           <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
-                        </svg>
-                     </div>
-                     <span id="dateTxt">Date</span>
-                     <div class="clear"  onclick="clearCalendar()">Clear</div>
-                  </div>
-                  <input  type="text" class=" mt-2 ms-1 calender" name="calender" id="calender" >
-               </div>
-
-               <div class="dateDiv">
-                  <div class="headingDate">
-                     <div class=" dateTxtDiv">
-                        <svg id="svgLanguage" xmlns="http://www.w3.org/2000/svg" onclick="toggleLanguage()" viewBox="0 0 15 10">
-                           <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
-                        </svg>
-                     </div>
-                     <span id="languageTxt">Language</span>
-                     <div class="clear w-53"  onclick="clearLanguage()">Clear</div>
-                  </div>
-                  <div id="lang" >
-                     <cfset local.event=objBookMyShow.fetchEventLanguages()>            
-                     <cfloop query="local.event">
-                        <div class="langMainDiv" >
-                           <div class="langDiv" id="#local.event.language#">
-                              <div class="  langTxt">#local.event.language#</div>
-                           </div>
+         <div class="mainDiv">
+            <form class="w-25">
+               
+               <div class=" w-100 filterMainDiv">
+                  <div class="filterTxt">Filters</div>   
+                  <div class="dateDiv">
+                     <div class="headingDate">
+                        <div class=" dateTxtDiv">
+                           <svg id="svgDate" xmlns="http://www.w3.org/2000/svg" onclick="toggleCalendar()" viewBox="0 0 15 10">
+                              <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
+                           </svg>
                         </div>
-                     </cfloop>  
-                  </div>
-               </div>
-
-               <div class="dateDiv">
-                  <div class="headingDate">
-                     <div class=" dateTxtDiv">
-                        <svg id="svgCategories" xmlns="http://www.w3.org/2000/svg" onclick="toggleCategories()" viewBox="0 0 15 10">
-                           <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
-                        </svg>
+                        <span id="dateTxt">Date</span>
+                        <div class="clear"  onclick="clearCalendar()">Clear</div>
                      </div>
-                     <span id="categoriesTxt">Categories</span>
-                     <div class="clear w-50"  onclick="clearCategories()">Clear</div>
+                     <input  type="text" class=" mt-2 ms-1 calender" name="calender" id="calender" >
+                     <input type="hidden" id="filterDate">
                   </div>
-                  <div id="categories" >
-                     <cfset local.event=objBookMyShow.fetchEventCategory()>            
-                     <cfloop query="local.event">
-                        <div class="categoriesMainDiv" >
-                           <div class="categoriesDiv" id="#local.event.category#">
-                              <div class="categryTxt">#local.event.category#</div>
-                           </div>
+   
+                  <div class="dateDiv">
+                     <div class="headingDate">
+                        <div class=" dateTxtDiv">
+                           <svg id="svgLanguage" xmlns="http://www.w3.org/2000/svg" onclick="toggleLanguage()" viewBox="0 0 15 10">
+                              <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
+                           </svg>
                         </div>
-                     </cfloop>  
+                        <span id="languageTxt">Language</span>
+                        <div class="clear w-53"  onclick="clearLanguage()">Clear</div>
+                     </div>
+                     <div id="lang" >
+                        <cfset local.event=objBookMyShow.fetchEventLanguages()>            
+                        <cfloop query="local.event">
+                           <div class="langMainDiv" >
+                              <div class="langDiv" id="#local.event.language#">
+                                 <div class="  langTxt">#local.event.language#</div>
+                              </div>
+                           </div>
+                        </cfloop> 
+                        <input type="text" id="filterLanguages">
+ 
+                     </div>
+                  </div>
+   
+                  <div class="dateDiv">
+                     <div class="headingDate">
+                        <div class=" dateTxtDiv">
+                           <svg id="svgCategories" xmlns="http://www.w3.org/2000/svg" onclick="toggleCategories()" viewBox="0 0 15 10">
+                              <path fill="none" stroke="##666666" stroke-width="1.5" d="M335 3L342 9.5 335 16" transform="rotate(90 175.5 -158.5)"></path>
+                           </svg>
+                        </div>
+                        <span id="categoriesTxt">Categories</span>
+                        <div class="clear w-50"  onclick="clearCategories()">Clear</div>
+                     </div>
+                     <div id="categories" >
+                        <cfset local.event=objBookMyShow.fetchEventCategory()>            
+                        <cfloop query="local.event">
+                           <div class="categoriesMainDiv" >
+                              <div class="categoriesDiv" id="#local.event.category#">
+                                 <div class="categryTxt">#local.event.category#</div>
+                              </div>
+                           </div>
+                        </cfloop>  
+                     </div>
+                  </div>
+                  <div class="filterDiv" onclick="filterValues()" >                  
+                     Apply Filter
                   </div>
                </div>
-               <div class="filterDiv" onclick="filterValues()" >
-                  
-                   Apply Filter
-               </div>
-            </div>
+            </form>
+           
 
             <div class="eventListMainDiv">
                <div class="filterTxt">Events</div>
@@ -155,17 +160,12 @@
                      </div>
                   </div>                  
                </div>
-
-               <cfoutput>   
-                  
-                  <div class="movieRowDiv p-0 mt-3" id="movieRowDiv">
-                     
-                     <cfset local.event=objBookMyShow.fetchEventDetails()>
+               <cfset local.event=objBookMyShow.fetchEventDetails()>
+                                
+                  <div class="movieRowDiv p-0 mt-3" id="movieRowDiv"> 
                      <cfloop query="local.event">
-                        <a href="##" class=" movieLink">
-                           <div >
-                              <div >
-                              </div>
+                        <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink">
+                           <div>                              
                               <div width="100%" height="100%" >
                                  <div class="movieImg">
                                     <img src="assests/#local.event.profile_img#" alt="#local.event.profile_img#" width="100%" height="100%">
@@ -191,7 +191,7 @@
                         </a>    
                      </cfloop> 
                   </div>
-               </cfoutput>
+            
 
 
 
