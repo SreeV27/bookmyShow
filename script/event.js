@@ -13,7 +13,38 @@ function openForm() {
   }
 
   function eventBookingConfirm(){
-    alert("Booking Confirmed");
+
+    
+
+    var selectElement = document.getElementById("seatSelect");
+        // Get the selected value
+    var seats = selectElement.value;
+    var userId=$("#userId").val();
+    var eventId=$("#eventId").val();
+
+
+    $.ajax({
+
+      type: "POST",
+      url: 'components/bookMyShow.cfc?method=saveEventBookingDetails',
+      data: {
+        seats:seats,
+        eventId:eventId,
+        userId:userId
+         
+      },
+      success:function(response){
+        console.log(response);
+        alert("Booking Confirmed");
+    
+
+      },
+      error: function (error) {
+        console.error("Error changing session variable:", error);
+     }
+
+
+    });
     
 
   }

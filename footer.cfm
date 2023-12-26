@@ -15,7 +15,7 @@
     <a href="body.cfm" class="logoFooter">
         <img alt="bookmyshow" src="//in.bmscdn.com/webin/common/icons/logo.svg">
     </a>
-    <div class="line">  </div>
+    <div class="line"> </div>
 </div>
 
 <div class="mediaIconDiv">

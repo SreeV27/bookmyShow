@@ -41,12 +41,12 @@
          <div class="d-flex">
             <div class="d-flex">
                <cfif !StructKeyExists(session, "userId") || session.userId EQ 0>               
-               <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
-               Log In
-               </button>
-               <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
-               Sign Up
-               </button>  
+                  <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
+                     Log In
+                  </button>
+                  <button type="button"  id="sign-in" class="nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#signInModal">
+                     Sign Up
+                  </button>  
                </cfif>             
                <cfif StructKeyExists(session, "userId") && session.userId GT 0>
                <div class="mt-2" id="profile">
@@ -55,11 +55,11 @@
                   </cfoutput>
                </div>
                <button type="button"  id="log-out" class=" nav-btn mt-2 ms-4 ">
-               Log Out
+                  Log Out
                </button> 
                </cfif>    
                <span class="ms-4 material-symbols-outlined text-white mt-2 menu-icon" >
-               menu
+                  menu
                </span>
             </div>
          </div>
@@ -69,9 +69,9 @@
             <a href="movieList.cfm" class="text-decoration-none">Movies</a>
             <a href="eventList.cfm" class="text-decoration-none">Events</a>
             <cfif StructKeyExists(session, "userId") && session.userId Eq 1>
-            <a  id="addTheater" href="" class="text-decoration-none"> Add Threater</a>
-            <a id="addFilm" href="" class="text-decoration-none">Add Film</a>
-            <a id="addEvent" href="" class="text-decoration-none"> Add Events</a>
+               <a  id="addTheater" href="" class="text-decoration-none"> Add Threater</a>
+               <a id="addFilm" href="" class="text-decoration-none">Add Film</a>
+               <a id="addEvent" href="" class="text-decoration-none"> Add Events</a>
             </cfif>
          </div>
          <div class="menu-1 me-3">
@@ -133,7 +133,7 @@
                </div>
                <div class="modal-footer mt-5">
                   <button  id="login-continue-btn" type="button" class=" m-auto login-continue-btn ">Continue</button>
-                  <div class="m-auto " id="terms">
+                  <div class="m-auto" id="terms">
                      <span class="termsAndConditionTxt"> I agree to the <u class="termsAndConditionTxt">Terms & Conditions</u> & <u class="termsAndConditionTxt"> Privacy Policy</u></span>
                   </div>
                </div>
@@ -155,7 +155,7 @@
                         <form action="header.cfm" method="post" onsubmit="validateForm()">
                            <div>
                               <label for="name">Name</label>
-                              <input class="" type="text" name="name" id="name" ><br>
+                              <input class="" type="text" name="name" id="name"><br>
                               <span class="text-danger" id="nameError"></span>
                            </div>
                            <div class="mt-3 ms-3">
@@ -165,7 +165,7 @@
                            </div>
                            <div class="mt-3 ">
                               <label for="phno">Mobile</label>
-                              <input  class=""   type="text" maxlength="10" id="phnneNo" >
+                              <input type="text" maxlength="10" id="phnneNo" >
                            </div>
                            <div class="mt-5">
                               <input  id="registerBtn" type="submit" class="m-auto  hmbiuL" value="Register">
@@ -183,7 +183,7 @@
                   </div>
                </div>
                <div class="modal-footer mt-5">
-                  <div class="m-auto " id="terms">
+                  <div class="m-auto" id="terms">
                      <span class="termsAndConditionTxt"> I agree to the <u class="termsAndConditionTxt">Terms & Conditions</u> & <u class="termsAndConditionTxt"> Privacy Policy</u></span>
                   </div>
                </div>
