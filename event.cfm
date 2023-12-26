@@ -51,7 +51,7 @@
             <h4>Event Booking Form</h4>
             <div class="selectSeat">
                <label for="seat_select">How Many Seats?:</label>
-               <select name="seats" id="pet-select">            
+               <select name="seats" id="seatSelect">            
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -64,7 +64,11 @@
                   <option value="10">10</option>            
                </select>
             </div>
-            <button type="submit" class="btn" onclick="eventBookingConfirm()">Confirm Booking</button>
+            <cfoutput>
+               <input type="text" id="userId" value=" #session.userId#">
+               <input type="text" id="eventId" value="#eventId#">
+            </cfoutput>
+            <button type="submit" class="btn"  onclick="eventBookingConfirm()">Confirm Booking</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
       </div> 

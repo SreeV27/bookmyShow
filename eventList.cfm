@@ -21,8 +21,7 @@
             <img  src="assests/eventCover.jpg" alt="promotion-banner " width="95%">
          </div>
          <div class="mainDiv">
-            <form class="w-25">
-               
+            <form class="w-25">               
                <div class=" w-100 filterMainDiv">
                   <div class="filterTxt">Filters</div>   
                   <div class="dateDiv">
@@ -36,9 +35,7 @@
                         <div class="clear"  onclick="clearCalendar()">Clear</div>
                      </div>
                      <input  type="text" class=" mt-2 ms-1 calender" name="calender" id="calender" >
-                     <input type="hidden" id="filterDate">
-                  </div>
-   
+                  </div>   
                   <div class="dateDiv">
                      <div class="headingDate">
                         <div class=" dateTxtDiv">
@@ -54,15 +51,13 @@
                         <cfloop query="local.event">
                            <div class="langMainDiv" >
                               <div class="langDiv" id="#local.event.language#">
-                                 <div class="  langTxt">#local.event.language#</div>
+                                 <div class="langTxt">#local.event.language#</div>
                               </div>
                            </div>
                         </cfloop> 
-                        <input type="text" id="filterLanguages">
- 
+                        <input type="hidden" id="filterLanguages" value=""> 
                      </div>
-                  </div>
-   
+                  </div>   
                   <div class="dateDiv">
                      <div class="headingDate">
                         <div class=" dateTxtDiv">
@@ -82,6 +77,7 @@
                               </div>
                            </div>
                         </cfloop>  
+                        <input type="text" id="filterCategories" value="">
                      </div>
                   </div>
                   <div class="filterDiv" onclick="filterValues()" >                  
@@ -89,8 +85,6 @@
                   </div>
                </div>
             </form>
-           
-
             <div class="eventListMainDiv">
                <div class="filterTxt">Events</div>
                <div class="eventMainListDiv mt-3">
@@ -160,54 +154,37 @@
                      </div>
                   </div>                  
                </div>
-               <cfset local.event=objBookMyShow.fetchEventDetails()>
-                                
-                  <div class="movieRowDiv p-0 mt-3" id="movieRowDiv"> 
-                     <cfloop query="local.event">
-                        <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink">
-                           <div>                              
-                              <div width="100%" height="100%" >
-                                 <div class="movieImg">
-                                    <img src="assests/#local.event.profile_img#" alt="#local.event.profile_img#" width="100%" height="100%">
-                                    <div class="rating text-white fs-15 ">                                          
-                                       <span class="d-flex ms-2">
-                                       #dateFormat(local.event.date, 'ddd, dd mmm')#
-                                       </span>                                    
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="detailsDiv">
-                                 <div>
-                                    <div class="movieName">#local.event.name#</div>
-                                 </div>
-                                 <div>
-                                    <div class="movieGenre">#local.event.venue#:#local.event.location#  </div>
-                                 </div>
-                                 <div>
-                                    <div class="movieGenre fs-14">#local.event.category#  </div>
+               <cfset local.event=objBookMyShow.fetchEventDetails()>                                                            
+               <div class="movieRowDiv p-0 mt-3" id="movieRowDiv"> 
+                  <cfloop query="local.event">
+                     <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink" id="eventLinkDetails">
+                        <div>                              
+                           <div width="100%" height="100%" >
+                              <div class="movieImg">
+                                 <img src="assests/#local.event.profile_img#" alt="#local.event.profile_img#" width="100%" height="100%">
+                                 <div class="rating text-white fs-15 ">                                          
+                                    <span class="d-flex ms-2">
+                                    #dateFormat(local.event.date, 'ddd, dd mmm')#
+                                    </span>                                    
                                  </div>
                               </div>
                            </div>
-                        </a>    
-                     </cfloop> 
-                  </div>
-            
-
-
-
-
-
-
-
+                           <div class="detailsDiv">
+                              <div>
+                                 <div class="movieName">#local.event.name#</div>
+                              </div>
+                              <div>
+                                 <div class="movieGenre">#local.event.venue#:#local.event.location#  </div>
+                              </div>
+                              <div>
+                                 <div class="movieGenre fs-14">#local.event.category#  </div>
+                              </div>
+                           </div>
+                        </div>
+                     </a>    
+                  </cfloop> 
+               </div>            
             </div>
-
-
-
-
-
-
-
-
          </div>
      </cfoutput>
    </body>
