@@ -65,8 +65,8 @@
                </select>
             </div>
             <cfoutput>
-               <input type="text" id="userId" value=" #session.userId#">
-               <input type="text" id="eventId" value="#eventId#">
+               <input type="hidden" id="userId" value=" #session.userId#">
+               <input type="hidden" id="eventId" value="#eventId#">
             </cfoutput>
             <button type="submit" class="btn"  onclick="eventBookingConfirm()">Confirm Booking</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>

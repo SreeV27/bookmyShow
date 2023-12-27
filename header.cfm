@@ -13,7 +13,7 @@
       <link rel="stylesheet"  href="style/bootstrap.css">
       <link rel="stylesheet"  href="style/footer.css"> 
       <link rel="stylesheet"  href="style/common.css">       
-      <title>header</title>
+      <title>Book My Show</title>
    </head>
    <body>
       <!---Nav Bar--->

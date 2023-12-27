@@ -6,13 +6,33 @@ $(document).ready(function () {
        $("#calender").datepicker("show");
    });
 
+   var date = new Date();
+   var weekday = date.toLocaleString('en-us', {
+       weekday: 'short'
+   });
+   var day = date.toLocaleString('en-us', {
+       day: '2-digit'
+   });
+   var month = date.toLocaleString('en-us', {
+       month: 'short'
+   });
+   var formattedDate = date.toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+
+  // Set the value of the input field
+    $("#calender").val(formattedDate);    
+    $("#weekday").text(weekday);
+    $("#day").text(day);
+    $("#month").text(month);
+
    $("#calender").datepicker({
       minDate: new Date(),
-       onSelect: function (dateText, inst) {
-           // Format the selected date
+       onSelect: function (dateText, inst) {  
 
-           // Set the formatted date to the second input field
-           $("#filterDate").val(dateText);
+
            var date = new Date(dateText);
            var weekday = date.toLocaleString('en-us', {
                weekday: 'short'
@@ -23,7 +43,12 @@ $(document).ready(function () {
            var month = date.toLocaleString('en-us', {
                month: 'short'
            });
-
+           var formattedDate = date.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+          });
+          
            $("#weekday").text(weekday);
            $("#day").text(day);
            $("#month").text(month);
@@ -39,3 +64,4 @@ $(document).ready(function () {
        }
    });
 });
+
