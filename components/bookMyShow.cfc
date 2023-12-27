@@ -56,8 +56,7 @@
                         <cfqueryparam value="#arguments.name#" cfsqltype="CF_SQL_VARCHAR">,
                         <cfqueryparam value="#arguments.mail#" cfsqltype="CF_SQL_VARCHAR">,
                         <cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">,               
-                        <cfqueryparam value="#local.roleId#" cfsqltype="CF_SQL_INTEGER">
-        
+                        <cfqueryparam value="#local.roleId#" cfsqltype="CF_SQL_INTEGER">        
                             
                     )                        
                 </cfquery>
@@ -80,6 +79,7 @@
                 profile_img,
                 cover_img,
                 about,
+                
                 STUFF((
                     SELECT '/' + genre_type
                     FROM tb_movie_genre
@@ -228,14 +228,12 @@
     </cffunction>    
 
     <cffunction  name="fetchEventLanguages" acess="public" returntype="query">
-
         <cfquery name="qryFetchEventLanguages"> 
             SELECT DISTINCT language
             FROM tb_event 
             INNER JOIN tb_language 
             ON tb_event.lang_id = tb_language.lang_id            
         </cfquery>
-
         <cfreturn qryFetchEventLanguages>
     </cffunction>
 
@@ -413,6 +411,30 @@
         <cfreturn true>
     </cffunction>
     
+    <cffunction  name="theaterListBasedOnMovie" access="public">
+        <cfargument  name="movieId">
+        <cfquery name="qryTheaterList">
+            SELECT tb_theater.id, tb_theater.name,tb_theater.address,tb_theater.location,tb_theater.phno,
+                STRING_AGG(tb_theater_time.time, ',') AS times
+                FROM
+                tb_theater
+                INNER JOIN
+                tb_movie_theater ON tb_movie_theater.theater_id = tb_theater.id
+                INNER JOIN
+                tb_theater_time ON tb_theater.id = tb_theater_time.theater_id
+                WHERE
+                tb_movie_theater.movie_id = <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+                GROUP BY
+                tb_theater.id, tb_theater.name,  tb_theater.address, tb_theater.location, tb_theater.phno;
+        </cfquery>
+        <cfreturn qryTheaterList>
+    </cffunction>
 
+    <cffunction  name="getSeatDetails">
+        <cfquery name="qryGetSeatDetails">
+            SELECT *FROM tb_seat
+        </cfquery>
+        <cfreturn qryGetSeatDetails>
+    </cffunction>
 
 </cfcomponent>

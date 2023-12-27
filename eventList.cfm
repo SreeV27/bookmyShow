@@ -77,7 +77,7 @@
                               </div>
                            </div>
                         </cfloop>  
-                        <input type="text" id="filterCategories" value="">
+                        <input type="hidden" id="filterCategories" value="">
                      </div>
                   </div>
                   <div class="filterDiv" onclick="filterValues()" >                  
