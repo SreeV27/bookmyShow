@@ -14,7 +14,13 @@
     <body>
         <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfinclude  template="header.cfm">
-        <cfparam name="URL.movieId" default="">        
+        <cfparam name="URL.movieId" default=""> 
+        <cfset session.movieId=movieId>  
+        <cfif structKeyExists(form,"movieId")>
+            <cfset local.movieId="#form.movieId#">   
+            <cfset session.movieId=local.movieId>          
+        </cfif>
+             
         <cfset local.theaterList=objBookMyShow.theaterListBasedOnMovie(session.movieId) >
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
         <cfset formId=1>            
@@ -31,7 +37,7 @@
                     </cfloop>                   
                 </div> 
             </div>            
-            <input  type="text" class="ms-3 mt-2 ms-1 calender " name="calender"  id="calender"/>
+            <input  type="hidden" class="ms-3 mt-2 ms-1 calender " name="calender"  id="calender"/>
             <div class="d-flex px-3 justify-content-between pb-1">
                 <div class="dateDiv py-2 mt-2" id="datepickerTrigger"> 
                     <div id="weekday" class="date"></div>
@@ -44,7 +50,7 @@
                     </div>
                     <div class="movie-lang-div d-flex ">
                         <span class="text-filter">Filter Price Range</span>
-                        <span class="material-symbols-outlined ">
+                        <span class="material-symbols-outlined  pointer">
                             expand_more
                             </span>
                     </div>
@@ -53,7 +59,7 @@
                     </div>
     
                     <div class="movie-lang-div d-flex ">
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined pointer">
                             search
                         </span>                    
                     </div>
@@ -101,6 +107,7 @@
                                         <form action="seat.cfm"  method="post">
                                             <input type="hidden" name="movieId" id="movieId" value="#session.movieId#">                                            
                                             <input type="hidden" name="time" id="time" value="#time#">
+                                            <input type="hidden" name="date" id="date" class="date">
                                             <input type="hidden" name="theaterId" id="theaterId" value="#local.theaterList.id#">
                                             <button  type="submit" class="bg-white theater-time ms-3" >#time#</button>
                                         </form>
