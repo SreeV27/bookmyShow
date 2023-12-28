@@ -23,7 +23,9 @@ $(document).ready(function () {
   });
 
   // Set the value of the input field
-    $("#calender").val(formattedDate);    
+    $("#calender").val(formattedDate);   
+    $(".date").val(formattedDate);   
+
     $("#weekday").text(weekday);
     $("#day").text(day);
     $("#month").text(month);
@@ -31,7 +33,6 @@ $(document).ready(function () {
    $("#calender").datepicker({
       minDate: new Date(),
        onSelect: function (dateText, inst) {  
-
 
            var date = new Date(dateText);
            var weekday = date.toLocaleString('en-us', {
@@ -48,7 +49,7 @@ $(document).ready(function () {
             day: '2-digit',
             year: 'numeric'
           });
-          
+          $(".date").val(formattedDate);   
            $("#weekday").text(weekday);
            $("#day").text(day);
            $("#month").text(month);

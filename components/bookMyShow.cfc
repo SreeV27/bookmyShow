@@ -437,4 +437,21 @@
         <cfreturn qryGetSeatDetails>
     </cffunction>
 
+    <cffunction  name="theaterDetailsBasedOnId" access="public">
+        <cfargument  name="theaterId">
+        <cfquery name="qryTheaterDetails">
+          SELECT tb_theater.id, tb_theater.name,tb_theater.location,
+            STRING_AGG(tb_theater_time.time, ',') AS times
+            FROM
+            tb_theater               
+            INNER JOIN
+            tb_theater_time ON tb_theater.id = tb_theater_time.theater_id
+            WHERE
+            tb_theater.id =<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+            GROUP BY
+            tb_theater.id, tb_theater.name, tb_theater.location        
+        </cfquery>
+        <cfreturn qryTheaterDetails>
+    </cffunction>
+
 </cfcomponent>

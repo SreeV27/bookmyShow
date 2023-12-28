@@ -76,10 +76,10 @@
                                     </div>
                                 </div>
                                 <div class="w-50 bookingDiv">     
-                                    <a href="theaterList.cfm?movieID=#encryptedId#"  style="">
+                                    <a href="theaterList.cfm?movieID=#encryptedId#"  >
                                         <button  class="btnBookTicket">
                                             <div class="bookTicketBtnDiv">
-                                                <span  class="bookTicketBtn" style="">Book tickets</span>
+                                                <span  class="bookTicketBtn" >Book tickets</span>
                                             </div>
                                         </button>
                                     </a>                          

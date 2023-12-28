@@ -160,3 +160,7 @@
     color: #6c6c6c;
     font-size: 12px;
 }
+
+.pointer{
+    cursor: pointer;
+}
