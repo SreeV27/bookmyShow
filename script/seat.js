@@ -1,25 +1,74 @@
 
-$(document).ready(function(){
-
-
-
-});
 var totalRate=0;
-function changeStyle(element,rate,movieId,seatNo,theaterId) {
-    
+var seatsArray = [];
+
+var time="";
+var date="";
+
+function changeStyle(element,rate,seatNo,type,seatId) {
+
+    var currentColor = window.getComputedStyle(element).backgroundColor;    
+    if (currentColor == "rgb(30, 168, 60)") {
+        element.style.backgroundColor = 'white';
+        element.style.color='#1ea83c';       
+        totalRate -= rate;     
+        let index = seatsArray.indexOf(seatId);
+        // Check if the value is found in the array
+        if (index !== -1) {
+        // Remove the element at the found index
+            seatsArray.splice(index, 1);
+        }
+                
+    } 
+    if(currentColor == "rgb(255, 255, 255)") {
+        element.style.backgroundColor = '#1ea83c';
+        element.style.color='white';
+        totalRate += rate;
+       
+            seatsArray.push(seatId);
+       
+    }
+    time=$(".time").val();
+    date=$(".date").val();
+    if(totalRate == 0){
+        $("#payBtn").html("Pay");
+    }
+    else{
+        $("#payBtn").html("Pay Rs." + totalRate + ".00");
+
+    }
    
-    var currentColor = window.getComputedStyle(element).backgroundColor;
+ 
+}
 
-    element.style.backgroundColor = (currentColor === 'rgb(30, 168, 60)') ? 'white' : 'rgb(30, 168, 60)';
-    element.style.color = (currentColor === 'rgb(30, 168, 60)') ? '#1ea83c' : 'white';
-    var time=$(".time").val();
-    var date=$(".date").val();
-    totalRate += rate;
 
-   
+function booking(movieId,theaterId,userId){
+    time=$(".time").val();
+    date=$(".date").val();    
+    var seatsString = seatsArray.join(',');   
 
-    console.log(rate+":"+movieId+":"+seatNo+":"+theaterId+":"+time+":"+date+":"+totalRate);
-    
+    $.ajax({
+        type:'post',
+        url:'components/bookMyShow.cfc?method=movieBooking',
+        data:{
+            movieId:movieId,
+            theaterId:theaterId,
+            userId:userId,
+            date:date,
+            time:time,
+            seatsString: seatsString,
+            amount:totalRate
+        },
+        success:function(data){
+            alert("booking Sucessfull");
 
-  
+        },
+        error:function(error){
+            console.error("Error changing session variable:", error);
+
+        }
+
+
+    });
+
 }

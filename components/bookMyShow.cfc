@@ -454,4 +454,52 @@
         <cfreturn qryTheaterDetails>
     </cffunction>
 
+
+    <cffunction  name="movieBooking" access="remote"> 
+        <cfargument  name="movieId">
+        <cfargument  name="theaterId">
+        <cfargument  name="userId">
+        <cfargument  name="date">
+        <cfargument  name="time">
+        <cfargument  name="amount">
+        <cfargument  name="seatsString">
+
+        <cfquery name="qryMoviebooking">
+            INSERT INTO tb_movie_booking(movieId,theaterId,userId,date,time,seats,amount)
+            VALUES(
+                <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">,
+                <cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">,
+                <cfqueryparam value="#arguments.userId#" cfsqltype="CF_SQL_INTEGER">,
+                <cfqueryparam value="#arguments.date#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#arguments.time#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#arguments.seatsString#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#arguments.amount#" cfsqltype="CF_SQL_INTEGER">
+
+            )
+        </cfquery>
+    </cffunction>
+
+
+    <cffunction  name="fetchBookedSeatDetails" access="public">
+        <cfargument  name="movieId">
+        <cfargument  name="theaterId">
+        <cfargument  name="date">
+        <cfargument  name="time">
+        <cfquery name="qryFetchBookedSeatDetails">
+                SELECT
+                    TRIM(VALUE) AS Seat
+                FROM
+                    tb_movie_booking
+                CROSS APPLY
+                    STRING_SPLIT(seats, ',')
+                WHERE
+                    movieId =<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+                    AND theaterId = <cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+                    AND date =<cfqueryparam value="#arguments.date#" cfsqltype="CF_SQL_VARCHAR">
+                    AND time = <cfqueryparam value="#arguments.time#" cfsqltype="CF_SQL_VARCHAR">
+
+        </cfquery>
+        <cfreturn qryFetchBookedSeatDetails>
+    </cffunction>
+
 </cfcomponent>
