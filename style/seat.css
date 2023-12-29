@@ -80,3 +80,10 @@
 .fs-15{
     font-size: 15px;
 }
+
+.booked{
+
+    color: white;
+    border: #eee!important;
+    background: #eee!important;
+}
