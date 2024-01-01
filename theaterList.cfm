@@ -8,19 +8,18 @@
     <link rel="stylesheet" href="style/jquery-ui.css">
     <script src="script/jquery-ui.js"></script>
     <script src="script/bootstrap-js.js"></script>
-    <script src="script/theater.js"></script>
+    <script src="script/theaterList.js"></script>
     <link rel="stylesheet" href="style/theaterList.css">    
 </head>
     <body>
         <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfinclude  template="header.cfm">
         <cfparam name="URL.movieId" default=""> 
-        <cfset session.movieId=movieId>  
-        <cfif structKeyExists(form,"movieId")>
-            <cfset local.movieId="#form.movieId#">   
-            <cfset session.movieId=local.movieId>          
-        </cfif>
-             
+        <cfset local.encryptedMovieId = replace(movieId,"!","+", "all")>
+        <cfset local.encryptedMovieId = replace(local.encryptedMovieId,"@","\", "all")>
+        <cfset local.decryptedMovieId = decrypt(local.encryptedMovieId,#application.key#, 'AES', 'Base64')>
+        <cfset session.encryptedMovieId=local.encryptedMovieId>  
+        <cfset session.movieId=local.decryptedMovieId>              
         <cfset local.theaterList=objBookMyShow.theaterListBasedOnMovie(session.movieId) >
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
         <cfset formId=1>            

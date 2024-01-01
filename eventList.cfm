@@ -154,10 +154,13 @@
                      </div>
                   </div>                  
                </div>
-               <cfset local.event=objBookMyShow.fetchEventDetails()>                                                            
+               <cfset local.event=objBookMyShow.fetchEventDetails()> 
+               <cfset local.encryptedEventId= encrypt(local.event.event_id,#application.key#,'AES', 'Base64')>
+                  <cfset local.encryptedEventId = replace(local.encryptedEventId, "+", "!", "all")>
+                  <cfset local.encryptedEventId = replace(local.encryptedEventId, "\", "@", "all")>                                                           
                <div class="movieRowDiv p-0 mt-3" id="movieRowDiv"> 
                   <cfloop query="local.event">
-                     <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink" id="eventLinkDetails">
+                     <a href="event.cfm?eventId=#local.encryptedEventId#" class=" movieLink" id="eventLinkDetails">
                         <div>                              
                            <div width="100%" height="100%" >
                               <div class="movieImg">

@@ -21,8 +21,7 @@
             <cfset local.time="#form.time#">
             <cfset session.time=local.time>
             <cfset local.date="#form.date#">
-            <cfset session.date=local.date>
-            
+            <cfset session.date=local.date>            
         </cfif>
         <cfset local.theater=objBookMyShow.theaterDetailsBasedOnId(session.theaterId)>
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
@@ -30,14 +29,13 @@
             <div class="d-flex header justify-content-between pe-3">   
                 <div class="d-flex">
                     <form action="theaterList.cfm" class="text-black">
-                        <input type="hidden" name="movieId" value="#session.movieId#">
+                        <input type="hidden" name="movieId" value="#session.encryptedMovieId#">
                         <button type="submit" class="border-0 bg-white">
                             <span class="material-symbols-outlined mt-1">
                                 arrow_back_ios
                             </span>
                         </button>                        
-                    </form>
-                    
+                    </form>                    
                     <div>
                         <div class="d-flex">
                             <div>#local.movieList.name#</div>
@@ -53,7 +51,7 @@
                 </div>     
                 <div>
                     <form action="theaterList.cfm" class="text-black">
-                        <input type="hidden" name="movieId" value="#session.movieId#">
+                        <input type="hidden" name="movieId" value="#session.encryptedMovieId#">
                         <button type="submit" class="border-0 bg-white"><span class="material-symbols-outlined ">
                             close
                         </span></button>                        

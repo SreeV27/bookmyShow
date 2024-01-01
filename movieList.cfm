@@ -15,12 +15,12 @@
       <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
       <cfoutput>        
          <div class="movieRowDiv">
-            <cfloop query="local.movie">               
-               <cfscript>
-                  // myMessage = "#local.movie.movieId#"  
-                  //encryptedMsg = encrypt(myMessage,#application.key#,'AES', 'Base64'); 
-               </cfscript>
-               <a href="movie.cfm?encryptedId=#local.movie.movieId#" class="movieDiv">
+            <cfloop query="local.movie">                             
+               <cfset local.encryptedMovieId= encrypt(#local.movie.movieId#,#application.key#,'AES', 'Base64')>
+               <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
+               <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
+
+               <a href="movie.cfm?movieId=#local.encryptedMovieId#" class="movieDiv">
                   <div class=" movieDetailsDiv">
                      <div width="100%" height="100%" data-content="Animal" class="profilePicDiv">
                         <div class="movieImg">
