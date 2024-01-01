@@ -502,4 +502,44 @@
         <cfreturn qryFetchBookedSeatDetails>
     </cffunction>
 
+    <cffunction  name="searchValue" access="public" returntype="any">   
+        <cfargument  name="value">
+        <cfset local.result ={}>
+        <cfquery name="qryFetchSearchMovieDetails">
+            SELECT   movie_id as movieId
+            FROM tb_movie
+            WHERE LOWER(name)=LOWER(<cfqueryparam value="#arguments.value#" cfsqltype="CF_SQL_VARCHAR">)
+        </cfquery>
+        <cfif qryFetchSearchMovieDetails.recordCount>
+            <cfset local.result.flag=1>
+            <cfset local.result.id=qryFetchSearchMovieDetails.movieId[1]>
+        </cfif>
+         
+        
+        <cfquery  name="qryFetchSearchEventDetails">
+            SELECT   event_id as eventId
+            FROM tb_event
+            WHERE LOWER(name)=LOWER(<cfqueryparam value="#arguments.value#" cfsqltype="CF_SQL_VARCHAR">)
+        </cfquery>
+        <cfif qryFetchSearchEventDetails.recordCount>
+            <cfset local.result.flag=2>
+            <cfset local.result.id=qryFetchSearchEventDetails.eventId[1]>
+        </cfif>
+
+
+        <cfquery  name="qryFetchSearchTheaterDetails">
+            SELECT tb_theater.id as theaterId
+            FROM
+            tb_theater  
+            WHERE
+			LOWER(name)=LOWER(<cfqueryparam value="#arguments.value#" cfsqltype="CF_SQL_VARCHAR">)           
+        </cfquery>
+        <cfif qryFetchSearchTheaterDetails.recordCount>
+            <cfset local.result.flag=3>
+            <cfset local.result.id=qryFetchSearchTheaterDetails.theaterId[1]>
+        </cfif>
+
+        <cfreturn local.result>  
+    </cffunction>
+
 </cfcomponent>

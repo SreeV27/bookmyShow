@@ -19,17 +19,12 @@
          <cfloop query="local.movies">
             <cfoutput>
                <div> 
-                  <cfscript>
-                     //myMessage = "#local.movies.movieId#"  
-                     // Encrypt with AES/CBC/PKCS5Padding and Base64 encoding
-                     //encryptedMsg = encrypt(myMessage, application.key, 'AES', 'Base64');                           
-                     //writeOutput(encryptedMsg); 
-                     // Assuming encryptedMsg is the encrypted message obtained from the encryption process
-                     // decryptedMsg = decrypt(encryptedMsg, #application.key#, 'AES', 'Base64');                           
-                     // Output the decrypted message
-                     // writeOutput(decryptedMsg);
-                  </cfscript>
-                  <a href="movie.cfm?encryptedId=#local.movies.movieId#" id="" class=" movieLink">
+                  <cfset local.movieId=local.movies.movieId>
+                  <cfset local.encryptedMovieId= encrypt(local.movieId,#application.key#,'AES', 'Base64')>
+                  <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
+                  <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
+
+                  <a href="movie.cfm?movieId=#local.encryptedMovieId#" id="" class=" movieLink">
                      <div >
                         <div class="">
                         </div>
@@ -59,7 +54,7 @@
    </div>
 </div>
 <div class="streamDiv px-5 mt-3">
-   <img src="https://assets-in.bmscdn.com/discovery-catalog/collections/tr:w-1440,h-120/stream-leadin-web-collection-202210241242.png" alt="Stream" width="100%" height="100%">
+   <img src="assests/stream.jpg" alt="Stream" width="100%" height="100%">
 </div>
 <div class=" titleDiv px-5 pt-5">
    <div class="textDiv">
@@ -78,7 +73,10 @@
          <cfloop query="local.event">
             <cfoutput>
                <div>
-                  <a href="event.cfm?eventId=#local.event.event_id#" class=" movieLink">
+                  <cfset local.encryptedEventId= encrypt(local.event.event_id,#application.key#,'AES', 'Base64')>
+                  <cfset local.encryptedEventId = replace(local.encryptedEventId, "+", "!", "all")>
+                  <cfset local.encryptedEventId = replace(local.encryptedEventId, "\", "@", "all")>
+                  <a href="event.cfm?eventId=#local.encryptedEventId#" class=" movieLink">
                      <div >
                         <div >
                         </div>

@@ -11,12 +11,13 @@
    <body>
         <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfinclude  template="header.cfm">        
-        <cfparam name="URL.encryptedId" default="">  
-        <cfscript>  
-            //decryptedMsg = decrypt(encryptedMsg, #application.key#,'AES/CBC/PKCS5Padding','Base64');
-        </cfscript> 
-        <cfset session.movieId=encryptedId> 
-        <cfset local.movie=objBookMyShow.fetchMovieDetailsBasedOnId(encryptedId)>       
+        <cfparam name="URL.movieId" default=""> 
+        <cfset local.encryptedMovieId = replace(movieId,"!","+", "all")>
+        <cfset local.encryptedMovieId = replace(local.encryptedMovieId,"@","\", "all")>
+        <cfset local.decryptedMovieId = decrypt(local.encryptedMovieId,#application.key#, 'AES', 'Base64')>        
+        <cfset session.movieId=local.decryptedMovieId> 
+        
+        <cfset local.movie=objBookMyShow.fetchMovieDetailsBasedOnId(local.decryptedMovieId)>     
        
         <cfloop query="local.movie">
             <cfoutput>                
@@ -75,8 +76,11 @@
                                         <span class="starIcon ">  * #dateFormat(local.movie.release_date, 'dd mmm, yyyy')#</span>
                                     </div>
                                 </div>
-                                <div class="w-50 bookingDiv">     
-                                    <a href="theaterList.cfm?movieID=#encryptedId#"  >
+                                <div class="w-50 bookingDiv">
+                                    <cfset local.encryptedMovieId= encrypt(local.decryptedMovieId,#application.key#,'AES', 'Base64')>
+                                    <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
+                                    <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
+                                    <a href="theaterList.cfm?movieId=#local.encryptedMovieId#">
                                         <button  class="btnBookTicket">
                                             <div class="bookTicketBtnDiv">
                                                 <span  class="bookTicketBtn" >Book tickets</span>

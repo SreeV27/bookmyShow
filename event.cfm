@@ -11,7 +11,10 @@
       <cfobject component="components/bookMyShow" name="objBookMyShow">
       <cfinclude  template="header.cfm">
       <cfparam name="URL.eventId" default="">  
-      <cfset local.event=objBookMyShow.fetchEventDetailsBasedOnId(eventId)>
+      <cfset local.encryptedeventId = replace(eventId,"!","+", "all")>
+      <cfset local.encryptedeventId = replace(local.encryptedeventId,"@","\", "all")>
+      <cfset local.decryptedEventId = decrypt(local.encryptedeventId,#application.key#, 'AES', 'Base64')> 
+      <cfset local.event=objBookMyShow.fetchEventDetailsBasedOnId(local.decryptedEventId)>
       <cfoutput>
          <cfloop query="local.event">
             <div class="cover" style="background-image: url('assests/#local.event.cover_img#')"></div>
@@ -66,7 +69,7 @@
             </div>
             <cfoutput>
                <input type="hidden" id="userId" value=" #session.userId#">
-               <input type="hidden" id="eventId" value="#eventId#">
+               <input type="hidden" id="eventId" value="#local.decryptedEventId#">
             </cfoutput>
             <button type="submit" class="btn"  onclick="eventBookingConfirm()">Confirm Booking</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
