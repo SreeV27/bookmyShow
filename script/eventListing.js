@@ -3,6 +3,7 @@ $(document).ready(function () {
    $("#calender").hide();
    $("#lang").hide();
    $("#categories").hide();
+   
    $("#calender").datepicker({
       onSelect: function (dateText, inst) {
          // When a date is picked, set the value to the second input field

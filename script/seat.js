@@ -72,3 +72,8 @@ function booking(movieId,theaterId,userId){
     });
 
 }
+
+function backPage(){
+
+    window.history.back();
+}
