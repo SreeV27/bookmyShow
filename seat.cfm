@@ -27,15 +27,12 @@
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
         <cfoutput>
             <div class="d-flex header justify-content-between pe-3">   
-                <div class="d-flex">
-                    <form action="theaterList.cfm" class="text-black">
-                        <input type="hidden" name="movieId" value="#session.encryptedMovieId#">
-                        <button type="submit" class="border-0 bg-white">
-                            <span class="material-symbols-outlined mt-1">
-                                arrow_back_ios
-                            </span>
-                        </button>                        
-                    </form>                    
+                <div class="d-flex">                    
+                    <button  class="border-0 bg-white" onclick="backPage()"> 
+                        <span class="material-symbols-outlined mt-1">
+                            arrow_back_ios
+                        </span>
+                    </button>                     
                     <div>
                         <div class="d-flex">
                             <div>#local.movieList.name#</div>
@@ -49,13 +46,10 @@
                         </div>
                     </div> 
                 </div>     
-                <div>
-                    <form action="theaterList.cfm" class="text-black">
-                        <input type="hidden" name="movieId" value="#session.encryptedMovieId#">
-                        <button type="submit" class="border-0 bg-white"><span class="material-symbols-outlined ">
-                            close
-                        </span></button>                        
-                    </form>
+                <div>                    
+                    <button type="submit" class="border-0 bg-white" onclick="backPage()"><span class="material-symbols-outlined ">
+                        close
+                    </span></button>
                 </div>                        
             </div>
             <div class="ps-5 d-flex bg-light py-2">

@@ -1,10 +1,6 @@
 $(document).ready(function () {
 
 
-
-  
-
-
    $("#invalid-otp").hide();
    $("#continue-btn").hide();
    $('#otpModal').hide();
