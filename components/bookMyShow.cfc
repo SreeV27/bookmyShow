@@ -249,20 +249,35 @@
     </cffunction> 
     <cffunction  name="fetchEventLanguages" access="public" returntype="query">
         <cfquery name="qryFetchEventLanguages"> 
-            SELECT DISTINCT language
-            FROM tb_event 
-            INNER JOIN tb_language 
-            ON tb_event.lang_id = tb_language.lang_id            
+            SELECT  *
+            FROM tb_language 
+                     
         </cfquery>
         <cfreturn qryFetchEventLanguages>
     </cffunction>
 
+    <cffunction  name="fetchLanguages" access="remote" returntype="query">
+        <cfquery name="qryFetchEventLanguages"> 
+            SELECT *
+            FROM tb_language          
+        </cfquery>
+        <cfreturn qryFetchEventLanguages>
+    </cffunction>
+
+    
+
     <cffunction  name="fetchEventCategory" access="public" returntype="query">
         <cfquery name="qryFetchEventCategory"> 
-            SELECT DISTINCT category
-            FROM tb_event            
-			INNER JOIN tb_category
-            ON tb_event.category_id = tb_category.category_id           
+            SELECT *
+            FROM  tb_category                  
+        </cfquery>
+        <cfreturn qryFetchEventCategory>
+    </cffunction>
+
+    <cffunction  name="fetchCategory" access="remote" returntype="query">
+        <cfquery name="qryFetchEventCategory"> 
+            SELECT *
+            FROM  tb_category                  
         </cfquery>
         <cfreturn qryFetchEventCategory>
     </cffunction>
@@ -586,31 +601,79 @@
 
 
 
-    <cffunction  name="updateEventDetails">
-        <cfargument  name="eventName"  required="true">
-        <cfargument  name="date"  required="true">
-        <cfargument  name="duration"  required="true">
-        <cfargument  name="location"  required="true">
-        <cfargument  name="venue"  required="true">
-        <cfargument  name="rate"  required="true">
+    <cffunction  name="updateEventDetails" access="remote">
+        <cfargument name="id" required="true">
+        <cfargument name="eventName" required="true">
+        <cfargument name="duration" required="true">       
+        <cfargument name="rate" required="true">
+        <cfargument name="date" required="true">
+
         <cfquery name="qryUpdateEventDetails">
             UPDATE tb_event
             SET
-            name =<cfqueryparam value="#arguments.eventName#" cfsqltype="CF_SQL_VARCHAR">,
-            duration=<cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
-            duration=<cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
-            duration=<cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
-            duration=<cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
-            duration=<cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">
-
-           
-
-
-
-
+                name = <cfqueryparam value="#arguments.eventName#" cfsqltype="CF_SQL_VARCHAR">,
+                date = <cfqueryparam value="#arguments.date#" cfsqltype="CF_SQL_DATE">,
+                duration = <cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,               
+                rate = <cfqueryparam value="#arguments.rate#" cfsqltype="CF_SQL_INTEGER">
+            WHERE event_id = <cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
+
+    </cffunction>
+
+
+    <cffunction  name="deleteEvent" access="remote">
+        <cfargument  name="eventId" >
+        <cfquery name="qryDeleteEventVenue">
+            DELETE FROM tb_event_venue WHERE event_id = <cfqueryparam value="#arguments.eventId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery> 
+        
     </cffunction>
    
+
+    <cffunction  name="fecthLocations" access="remote" returntype="query">
+        <cfquery name="qryFecthLocations">
+            SELECT * FROM tb_venue
+        </cfquery>
+        <cfreturn qryFecthLocations>
+    </cffunction>
+
+
+    <cffunction  name="fecthVenues" access="remote" returntype="query">
+        <cfargument  name="location">
+        <cfquery name="qryFecthVenues">
+            SELECT venue FROM tb_venue WHERE location=<cfqueryparam value="#arguments.location#" cfsqltype="CF_SQL_VARCHAR">
+        </cfquery>        
+            <cfreturn qryFecthVenues>
+    </cffunction>
+
+
+    <cffunction  name="saveEvent" access="public">
+        <cfargument name="name">
+       <cfargument name="date">
+       <cfargument name="duration">
+       <cfargument name="lang">
+       <cfargument  name="category">
+       <cfargument name="location">
+       <cfargument name="venue">
+       <cfargument name="rate">
+       <cfargument name="fileupload1">
+       <cfargument name="fileupload2">
+       
+       <cfset destination=ExpandPath("/bookmyShow/assests")>
+
+       <cffile action = "upload" 
+          fileField = "#arguments.fileupload1#"
+          destination = "#destination#"
+          nameConflict = "MakeUnique"
+          allowedextensions=".jpg, .jpeg, .png" >
+
+          
+       <cffile action = "upload" 
+       fileField = "#arguments.fileupload2#"
+       destination = "#destination#"
+       nameConflict = "MakeUnique"
+       allowedextensions=".jpg, .jpeg, .png" >
+    </cffunction>
 
 </cfcomponent>
 
