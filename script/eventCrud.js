@@ -23,9 +23,12 @@ $(".view").click(function(){
              // Add a new option to the select element
             $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
             // Set the value of the select element
-            $("#location").val($(data).find("field[name='LOCATION'] string").text());
+            // $("#location").val($(data).find("field[name='LOCATION'] string").text());
             var venue = $("#venue").val($(data).find("field[name='VENUE'] string").text());
             var rate = $("#rate").val($(data).find("field[name='RATE'] number").text());
+            let eventimg = $(data).find("field[name='PROFILE_IMG'] string").text();
+            let path = "assests/" + eventimg;
+            $("#profileImg").attr("src", path);
             $("#eventName").prop("disabled", true);
             $("#date").prop("disabled", true);
             $("#duration").prop("disabled", true);
@@ -66,6 +69,9 @@ $(".edit").click(function(){
             $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
             // Set the value of the select element
             $("#location").val($(data).find("field[name='LOCATION'] string").text());
+            let eventimg = $(data).find("field[name='PROFILE_IMG'] string").text();
+            let path = "assests/" + eventimg;
+            $("#profileImg").attr("src", path);
             var venue = $("#venue").val($(data).find("field[name='VENUE'] string").text());
             var rate = $("#rate").val($(data).find("field[name='RATE'] number").text());  
             $("#id").prop("disabled", true);
@@ -367,30 +373,3 @@ addRateInput.on("input", function() {
 });
 
 
-// $("#saveEventDetails").click(function(){
-
-//     var fileInput = document.getElementById('addProfileImage');
-//     var fileName = fileInput.value.toLowerCase();
-//     if (!fileName.endsWith('.jpg') && !fileName.endsWith('.jpeg') && !fileName.endsWith('.png')) {
-//       alert('Please select a valid JPEG or PNG image.');
-//       event.preventDefault(); 
-//     }
-
-//     var name=$("#addEventName").val();
-//     var date=$("#addDate").val();
-//     var duration=$("#addDuration").val();
-//     var location=$("#addLocation").val();
-//     var venue=$("#addVenue").val();
-//     var lang=$("#addLang").val();
-//     var category=$("#addCateogry").val();
-//     var venue=$("#addVenue").val();
-//     var rate=$("#addRate").val();
-    
-
-//     console.log(location+":"+venue+":"+lang);
-
-
-
-
-
-// });

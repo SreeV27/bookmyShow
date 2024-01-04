@@ -12,7 +12,7 @@
         <cfinclude  template="header.cfm">
         <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfset local.event=objBookMyShow.fetchEventDetails()>
-        <cfoutput>
+        <cfoutput>          
             <div class="px-5 pt-5 ">
                 <div class="d-flex justify-content-between">
                     <h2>Event Details</h2>
@@ -22,7 +22,7 @@
                 <center>
                     <table class="mt-5 table">
                         <tr>
-                            <th>Id</th>
+                            <th class="d-none">Id</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Location</th>
@@ -33,7 +33,7 @@
                         </tr>        
                         <cfloop query="local.event">
                             <tr>
-                                <td>#local.event.event_id#</td>
+                                <td class="d-none">#local.event.event_id#</td>
                                 <td>#local.event.name#</td>
                                 <td>#local.event.category#</td>
                                 <td>#local.event.location#</td>
@@ -46,65 +46,68 @@
                     </table>
                 </center>             
             </div>            
-        </cfoutput>    
-
-
-        
+        </cfoutput>            
 <!-- Button trigger modal -->
-
   
-  <!-- Modal -->
+  <!-- View Modal -->
   <div class="modal fade eventModal" id="eventModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content w-100">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Event Details</h5>
           <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="d-flex">
-            <label  class="d-none" for="id">Event Id</label>
-            <input type="hidden" id="id" required>
-          </div>
-          <div class="d-flex justify-content-between px-5">
-            <label for="eventName">Event name</label>
-            <div class="">
-              <input type="text"id="eventName" required>
+        <div class="modal-body d-flex">
+          <div class="w-25"><img id="profileImg" alt="img" height=100% width="100%"></div>
+          <div>
+            <div class="d-flex">
+              <label  class="d-none" for="id">Event Id</label>
+              <input type="hidden" id="id" required>
             </div>
-          </div>
-          <div class="mt-2 d-flex justify-content-between px-5">
-            <label for="date">Date</label>
-            <div class="">
-              <input type="text"  id="date" required>
+            <div class="d-flex justify-content-between ps-4">
+              <label for="eventName">Event name</label>
+              <div class="">
+                <input type="text"id="eventName" required>
+              </div>
             </div>
-          </div>
-          <div class="mt-2 d-flex justify-content-between px-5">
-            <label for="duration">Duration</label>
-            <div class="">
-              <input type="text"  id="duration" required>
+            <div class="mt-2 d-flex justify-content-between ps-4">
+              <label for="date">Date</label>
+              <div class="">
+                <input type="text"  id="date" required>
+              </div>
             </div>
-          </div>
-       
-          <div class="mt-2 d-flex px-5">
-            <label for="location">Location</label>
-            <div class=" ms-4 ps-16">
-              <select id="location"  required></select>
+            <div class="mt-2 d-flex justify-content-between ps-4">
+              <label for="duration">Duration</label>
+              <div class="">
+                <input type="text"  id="duration" required>
+              </div>
             </div>
-          </div>
-          <div class="mt-2 d-flex justify-content-between px-5">
-            <label for="venue">Venue</label>
-            <div class="">
-              <input type="text" id="venue" required>
+         
+            <div class="mt-2 d-flex px-4">
+              <label for="location">Location</label>
+              <div class=" ms-4 ">
+                <select id="location"  required></select>
+              </div>
             </div>
-          </div>
-          <div class="mt-2 d-flex justify-content-between px-5">
-            <label for="rate">Rate</label>
-            <div class="">
-              <input type="text"   id="rate" required>
+            <div class="mt-2 d-flex justify-content-between ps-4">
+              <label for="venue">Venue</label>
+              <div class="">
+                <input type="text" id="venue" required>
+              </div>
             </div>
+            <div class="mt-2 d-flex justify-content-between ps-4">
+              <label for="rate">Rate</label>
+              <div class="">
+                <input type="text"   id="rate" required>
+              </div>
+            </div>
+
           </div>
+
+
+          
         </div>
         <div class="modal-footer">
           <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -113,8 +116,6 @@
       </div>
     </div>
   </div>
-
-
   <!---Add Modal--->
   <div class="modal fade eventAddModal" id="eventAddModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -202,8 +203,7 @@
               </center>
             </div>            
           </form>              
-          <cfif  structKeyExists(form,"saveEventDetails")>   
-            <cfdump var="dfdfd">   
+          <cfif  structKeyExists(form,"saveEventDetails")> 
             <cfinvoke component="components/bookMyShow" method="saveEvent" fileupload1="form.profileImage" fileupload2="form.coverImage">
                <cfinvokeargument name="name" value="#form.name#">
                <cfinvokeargument name="date" value="#form.date#">
@@ -219,12 +219,6 @@
       </div>
     </div>
   </div>
-
- 
-
-
-  
-
   
   <script src="script/jquery-3.6.4.js"></script>
   <script src="script/popper.js"></script>

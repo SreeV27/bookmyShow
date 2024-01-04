@@ -34,6 +34,7 @@
                     <cflocation url="theater.cfm?theaterId=#local.encryptedTheaterId#" >
                 </cfif>
                 <cfelse>
+                    
                     <cflocation url="body.cfm">
             </cfif>
             <cfelse>

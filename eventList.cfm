@@ -15,6 +15,7 @@
    </head>
    <body class="bg-body-secondary">
      <cfoutput>
+      
          <cfobject component="components/bookMyShow" name="objBookMyShow">
          <cfinclude  template="header.cfm">
          <div class="ps-5">

@@ -61,6 +61,7 @@ function booking(movieId,theaterId,userId){
         },
         success:function(data){
             alert("booking Sucessfull");
+            window.location.href="body.cfm"
 
         },
         error:function(error){
@@ -74,6 +75,5 @@ function booking(movieId,theaterId,userId){
 }
 
 function backPage(){
-
     window.history.back();
 }

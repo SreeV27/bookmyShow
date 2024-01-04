@@ -16,6 +16,7 @@
       <cfset local.decryptedEventId = decrypt(local.encryptedeventId,#application.key#, 'AES', 'Base64')> 
       <cfset local.event=objBookMyShow.fetchEventDetailsBasedOnId(local.decryptedEventId)>
       <cfoutput>
+         
          <cfloop query="local.event">
             <div class="cover" style="background-image: url('assests/#local.event.cover_img#')"></div>
             <div class="detailsMainDiv d-flex px-3">

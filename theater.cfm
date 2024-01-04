@@ -21,9 +21,11 @@
         <cfset local.decryptedTheaterId = decrypt(local.encryptedTheaterId,#application.key#, 'AES', 'Base64')>  
         <cfset local.theater =objBookMyShow.theaterDetails(local.decryptedTheaterId)>    
         <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)>  
-        <cfset formId=1>         
+        <cfset formId=1>      
+        <cfset screeNo=1>   
       
         <cfoutput>
+            
             <div class="px-4 bg-secondary-subtle">
                 <div class="bg-white py-3 px-3">
                     <div class="d-flex">
@@ -104,6 +106,9 @@
                                         <span class="info-txt">INFO</span>
                                     </div>
                                 </div>
+                                <div class="ms-3 nonCancelTxt">Screen-#screeNo#</div>
+                                <cfset screeNo+=1>
+
                             </div>
                             <div>
                                 <div class="ps-5 d-flex">

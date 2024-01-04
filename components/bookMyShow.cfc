@@ -64,7 +64,6 @@
         </cfif>        
     </cffunction>
 
-
     <cffunction  name="logout" access="remote">
         <cfset StructClear(Session)>
     </cffunction>
@@ -106,7 +105,6 @@
         </cfquery>
         <cfreturn qryFetchAllMovieDetails>
     </cffunction>
-
 
     <cffunction  name="fetchMovieDetails" access="public" returntype="query"> 
         <cfquery name="qryFetchMovieDetails">
@@ -205,7 +203,7 @@
     <cffunction  name="fetchEventDetailsBasedOnId" access="public" returntype="query">
         <cfargument  name="eventId" >
         <cfquery name="qryFetchEventDetails">
-            SELECT tb_event.event_id, name, duration, date, rate, profile_img, cover_img,
+            SELECT tb_event.event_id, name, duration, date, rate,profile_img, cover_img,
                    STUFF((SELECT ', ' + category
                           FROM tb_category
                           WHERE tb_event.category_id = tb_category.category_id
@@ -475,7 +473,7 @@
     <cffunction  name="theaterDetailsBasedOnId" access="public">
         <cfargument  name="theaterId">
         <cfquery name="qryTheaterDetails">
-          SELECT tb_theater.id, tb_theater.name,tb_theater.location,
+          SELECT tb_theater.id, tb_theater.name,tb_theater.location,tb_theater.address,tb_theater.phno,
             STRING_AGG(tb_theater_time.time, ',') AS times
             FROM
             tb_theater               
@@ -484,7 +482,24 @@
             WHERE
             tb_theater.id =<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
             GROUP BY
-            tb_theater.id, tb_theater.name, tb_theater.location        
+            tb_theater.id, tb_theater.name, tb_theater.location,tb_theater.address,tb_theater.phno        
+        </cfquery>
+        <cfreturn qryTheaterDetails>
+    </cffunction>
+
+    <cffunction  name="fetchTheaterDetailsBasedOnId" access="remote">
+        <cfargument  name="theaterId">
+        <cfquery name="qryTheaterDetails">
+          SELECT tb_theater.id, tb_theater.name,tb_theater.location,tb_theater.address,tb_theater.phno,
+            STRING_AGG(tb_theater_time.time, ',') AS times
+            FROM
+            tb_theater               
+            INNER JOIN
+            tb_theater_time ON tb_theater.id = tb_theater_time.theater_id
+            WHERE
+            tb_theater.id =<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+            GROUP BY
+            tb_theater.id, tb_theater.name, tb_theater.location,tb_theater.address,tb_theater.phno        
         </cfquery>
         <cfreturn qryTheaterDetails>
     </cffunction>
@@ -647,6 +662,14 @@
     </cffunction>
 
 
+    <cffunction  name="fetchTheaterDetails" access="remote" returntype="query">
+        <cfquery name="qryFetchTheaterDetails">
+            SELECT * FROM tb_theater
+        </cfquery>
+        <cfreturn qryFetchTheaterDetails>
+    </cffunction>
+
+
     <cffunction  name="saveEvent" access="public">
         <cfargument name="name">
        <cfargument name="date">
@@ -660,21 +683,55 @@
        <cfargument name="fileupload2">
        
        <cfset destination=ExpandPath("/bookmyShow/assests")>
-
        <cffile action = "upload" 
           fileField = "#arguments.fileupload1#"
           destination = "#destination#"
           nameConflict = "MakeUnique"
           allowedextensions=".jpg, .jpeg, .png" >
-
+          <cfset profileFile = cffile.serverfile>
           
        <cffile action = "upload" 
        fileField = "#arguments.fileupload2#"
        destination = "#destination#"
        nameConflict = "MakeUnique"
-       allowedextensions=".jpg, .jpeg, .png" >
-    </cffunction>
+       allowedextensions=".jpg, .jpeg, .png">
+       <cfset coverFile = cffile.serverfile>
 
+       <cfquery name="qryInsertEventDetails" result="insertResult">
+            INSERT INTO tb_event(name,duration,rate,lang_id,cover_img,profile_img,date,category_id)
+            VALUES(
+               <cfqueryparam value="#arguments.name#" cfsqltype="CF_SQL_VARCHAR">,
+               <cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">, 
+               <cfqueryparam value="#arguments.rate#" cfsqltype="CF_SQL_INTEGER">, 
+               <cfqueryparam value="#arguments.lang#" cfsqltype="CF_SQL_INTEGER">,
+               <cfqueryparam value="#coverFile#" cfsqltype="CF_SQL_VARCHAR">,
+               <cfqueryparam value="#profileFile#" cfsqltype="CF_SQL_VARCHAR">,
+               <cfqueryparam value="#arguments.date#" cfsqltype="CF_SQL_DATE">,
+               <cfqueryparam value="#arguments.category#" cfsqltype="CF_SQL_INTEGER">  
+
+            )
+       </cfquery>
+       <!-- Get the ID of the newly inserted event -->
+       <cfset local.newEventID =#insertResult.GENERATEDKEY#>
+        <cfquery name="qryGetVenueId">
+            SELECT venue_id
+            FROM tb_venue
+            WHERE 
+            location =<cfqueryparam value="#arguments.location#" cfsqltype="CF_SQL_VARCHAR">
+            AND
+            venue =<cfqueryparam value="#arguments.venue#" cfsqltype="CF_SQL_VARCHAR">
+        </cfquery>
+        <cfset local.venueId=#qryGetVenueId.venue_id#>
+
+        <cfquery name="qryAddEventVenue">
+            INSERT INTO tb_event_venue(event_id,venue_id)
+            VALUES(
+                    <cfqueryparam value="#local.newEventID#" cfsqltype="CF_SQL_INTEGER">, 
+                    <cfqueryparam value="#local.venueId#" cfsqltype="CF_SQL_INTEGER">
+            )            
+        </cfquery>
+       <cflocation  url="eventCrud.cfm">       
+    </cffunction>
 </cfcomponent>
 
 
