@@ -24,6 +24,7 @@
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
         <cfset formId=1>            
         <cfoutput>
+            
             <div class="pb-3 movie-details-div">
                 <div class="movie-name pt-3 ps-3" >#local.movieList.name# - #local.movieList.language#</div>
                 <div class="d-flex">

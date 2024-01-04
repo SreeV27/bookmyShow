@@ -13,7 +13,8 @@
       <cfinclude  template="slide.cfm">
       <h1 class="ms-5 ps-5 w-75 heading-txt">Movies</h1>
       <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
-      <cfoutput>        
+      <cfoutput> 
+                
          <div class="movieRowDiv">
             <cfloop query="local.movie">                             
                <cfset local.encryptedMovieId= encrypt(#local.movie.movieId#,#application.key#,'AES', 'Base64')>

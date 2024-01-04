@@ -69,9 +69,9 @@
             <a href="movieList.cfm" class="text-decoration-none">Movies</a>
             <a href="eventList.cfm" class="text-decoration-none">Events</a>
             <cfif StructKeyExists(session, "userId") && session.userId Eq 1>
-               <a  id="addTheater" href="theaterCrud.cfm" class="text-decoration-none"> Add Threater</a>
-               <a id="addFilm" href="filmCrud.cfm" class="text-decoration-none">Add Film</a>
-               <a id="addEvent" href="eventCrud.cfm" class="text-decoration-none"> Add Events</a>
+               <a  id="addTheater" href="theaterCrud.cfm" class="text-decoration-none">Threater</a>
+               <a id="addFilm" href="filmCrud.cfm" class="text-decoration-none">Film</a>
+               <a id="addEvent" href="eventCrud.cfm" class="text-decoration-none">Events</a>
             </cfif>
          </div>
          <div class="menu-1 me-3">

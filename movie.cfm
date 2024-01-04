@@ -20,7 +20,8 @@
         <cfset local.movie=objBookMyShow.fetchMovieDetailsBasedOnId(local.decryptedMovieId)>     
        
         <cfloop query="local.movie">
-            <cfoutput>                
+            <cfoutput>  
+                              
                 <div class="movie">
                     <div class="hhpXm" id="movieDiv"> 
                         <input type="hidden" id="profile_img" value="assests/#local.movie.cover_img#">                       

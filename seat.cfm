@@ -26,6 +26,7 @@
         <cfset local.theater=objBookMyShow.theaterDetailsBasedOnId(session.theaterId)>
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
         <cfoutput>
+            
             <div class="d-flex header justify-content-between pe-3">   
                 <div class="d-flex">                    
                     <button  class="border-0 bg-white" onclick="backPage()"> 
