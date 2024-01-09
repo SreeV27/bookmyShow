@@ -40,7 +40,7 @@
                                 <td>#local.event.venue#</td>
                                 <td><button type="button" class="view border-0 bg-white btn btn-primary" data-eventid="#local.event.event_id#" data-toggle="modal" data-target=".eventModal"><img src="assests/file.png" height="15px" width="15px" alt="view"></button></td>
                                 <td><button type="button" class="edit border-0 bg-white btn btn-primary" data-eventid="#local.event.event_id#" data-toggle="modal" data-target=".eventModal"><img src="assests/pen.png" height="15px" width="15px" alt="Edit"></button></td>                                
-                                <td><button type="button" class="deleteEventBtn border-0 bg-white"  data-eventid="#local.event.event_id#"><img src="assests/trash.png" height="15px" width="15px" alt="Delete"></button></td>
+                                <td><button type="button" class="deleteEventBtn border-0 bg-white mt-1"  data-eventid="#local.event.event_id#"><img src="assests/trash.png" height="15px" width="15px" alt="Delete"></button></td>
                             </tr>
                         </cfloop>
                     </table>
@@ -127,7 +127,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" class="" enctype="multipart/form-data"  method="post" > 
+          <form action="##" class="" enctype="multipart/form-data"  method="post" > 
             <div class="d-flex justify-content-between px-5">
               <label for="addEventName">Event name</label>
               <div class="">
