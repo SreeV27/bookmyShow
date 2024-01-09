@@ -275,7 +275,7 @@ function filterValues() {
 
    $.ajax({
       type: "POST",
-      url: 'components/bookMyShow.cfc?method=eventFiltering',
+      url: 'components/bookMyShow.cfc?method=eventFilter',
       data: {
          date: date,
          languages: languages,
