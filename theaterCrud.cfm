@@ -193,8 +193,7 @@
                     </div>        
                 </div>
             </div>
-        </div>  
-    
+        </div>      
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>
