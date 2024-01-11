@@ -41,3 +41,8 @@
 .p-15{
     padding-left: 15%;
 }
+
+
+.hidden {
+    display: none;
+}

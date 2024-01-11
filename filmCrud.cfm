@@ -70,7 +70,7 @@
                 <div class="modal-body pe-3"> 
                     <div class="d-flex">
                         <div>
-                            <img id="profileImg" alt="img" height=100% width="100%" >
+                            <img id="profileImg" alt="img" height=75% width="100%" >
                         </div>
                         <div>
                             <div class="d-flex justify-content-between ps-4">
@@ -131,7 +131,6 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="saveBtn" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
             </div>
@@ -151,7 +150,7 @@
                 <div class="modal-body pe-3"> 
                     <div class="d-flex">
                         <div>
-                            <img id="editProfileImg" alt="img" height=100% width="100%" >
+                            <img id="editProfileImg" alt="img"  width="100%" >
                         </div>
                         <div>
                             <div class="d-flex justify-content-between ps-4">
@@ -166,26 +165,60 @@
                                     <input type="time" id="time" name="time">
                                     <span class="d-none" id="convertedTime"></span>
                                 </div>
-                            </div>                
-                            <div class="mt-2 d-flex px-4">
-                                <label for="editLanguage">Language</label>
-                                <div class=" ms-5 p-8">
-                                    <textarea id="editLanguage" name="editLanguage" rows="1" cols="21" ></textarea>
+                            </div>      
+                            <cfoutput>          
+                                <div class="mt-2 d-flex px-4">
+                                    <label for="editLanguage">Language</label>
+                                    <div class=" ms-5 p-8">
+                                        <textarea id="editLanguage" name="editLanguage"  rows="1" cols="21"  readonly></textarea>
+                                        <button  id="add" class="btn btn-success" onclick="toggleLangDiv()">Add</button>
+                                        <cfset local.lang=objBookMyShow.fetchEventLanguages()>  
+                                        <div id="selectLangDiv" class="hidden">
+                                            <div id="langContainer" class="ms-3">
+                                                <!-- Initial time input field -->
+                                                <button class="btn btn-success" onclick="addLanguage()">Add</button>
+                                                <div class="lang-container mt-2">
+                                                    <select  id="lang" class="langInput">
+                                                        <cfloop query="local.lang">
+                                                            <option value="#local.lang.lang_id#">#local.lang.language#</option>
+                                                        </cfloop>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                     
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt-2 d-flex justify-content-between ps-4">
-                                <label for="editGenre">Genre</label>
-                                <div class="">
-                                    <textarea id="editGenre" name="editGenre" rows="1" cols="21" > </textarea>                        </div>
-                            </div>
-                            <cfset local.dimension=objBookMyShow.fetchDimensions()>  
-                            <cfoutput>
+                                
+                                <div class="mt-2 d-flex justify-content-between ps-4">
+                                    <label for="editGenre">Genre</label>
+                                    <div class="">                                        
+                                        <textarea id="editGenre" name="editGenre" rows="1" cols="21" readonly> </textarea>
+                                        <div>
+                                            <button  id="addGenre" class="btn btn-success" onclick="toggleGenreDiv()">Add</button>
+                                            <cfset local.genre=objBookMyShow.fetchGenre()>   
+                                            <div id="selectGenreDiv" class="hidden">
+                                                <div id="genreContainer" class="ms-3">
+                                                    <!-- Initial time input field -->
+                                                    <button class="btn btn-success" onclick="addGenre()">Add</button>                                                    
+                                                    <div class="genre-container mt-2">
+                                                        <select  id="genre" class="genreInput">
+                                                            <cfloop query="local.genre">
+                                                                <option value="#local.genre.genre_id#">#local.genre.genre_type#</option>
+                                                            </cfloop>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <cfset local.dimension=objBookMyShow.fetchDimensions()> 
                                 <div class="mt-2 d-flex px-4">
                                     <label for="editDimension">Dimension</label>
                                     <div class=" ms-5">
                                         <select class="ms-3" id="editDimension" > 
                                             <cfloop query="local.dimension">
-                                                <option id="#local.dimension.dimension#" value="#local.dimension.dimension#">#local.dimension.dimension#</option>
+                                                <option value="#local.dimension.dimension_id#">#local.dimension.dimension#</option>
                                             </cfloop>                                
                                         </select>
                                     </div>
@@ -206,7 +239,7 @@
                                     <div class="p-15">
                                         <select class="ms-3 " id="editCertificate" > 
                                             <cfloop query="local.cert">
-                                                <option  value="#local.cert.cert_type#">#local.cert.cert_type#</option>
+                                                <option  value="#local.cert.cert_id#">#local.cert.cert_type#</option>
                                             </cfloop> 
                                         </select>
                                     </div>

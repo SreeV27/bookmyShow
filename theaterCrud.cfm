@@ -178,7 +178,7 @@
                                     <div class="time-container mt-2">
                                       <input type="time" name="time" class="timeInput"  onchange="updateFormattedTimes()"> 
                                     </div>
-                                   </div>
+                                </div>
                             </div>    
                             <input type="hidden" id="formattedTimes" name="time" readonly>
 
