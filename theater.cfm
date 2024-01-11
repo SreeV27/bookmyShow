@@ -22,10 +22,8 @@
         <cfset local.theater =objBookMyShow.theaterDetails(local.decryptedTheaterId)>    
         <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)>  
         <cfset formId=1>      
-        <cfset screeNo=1>   
-      
+        <cfset screeNo=1> 
         <cfoutput>
-            
             <div class="px-4 bg-secondary-subtle">
                 <div class="bg-white py-3 px-3">
                     <div class="d-flex">

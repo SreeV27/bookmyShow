@@ -78,6 +78,7 @@
                 profile_img,
                 cover_img,
                 about,
+                status,
                 
                 STUFF((
                     SELECT '/' + genre_type
@@ -100,15 +101,15 @@
             INNER JOIN tb_movie_rating ON tb_movie.movie_id = tb_movie_rating.movie_id
             INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
             INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
-            GROUP BY tb_movie.movie_id, name, release_date, duration, profile_img, cover_img, about, dimension, rating, cert_type
+            GROUP BY tb_movie.movie_id, name, release_date, status,duration, profile_img, cover_img, about, dimension, rating, cert_type
             ORDER BY tb_movie.movie_id ASC
         </cfquery>
         <cfreturn qryFetchAllMovieDetails>
     </cffunction>
 
-    <cffunction  name="fetchMovieDetails" access="public" returntype="query"> 
+    <cffunction  name="fetchMovieDetails" access="public" returntype="query" maxrows="5"> 
         <cfquery name="qryFetchMovieDetails">
-            SELECT TOP 5
+            SELECT 
                 tb_movie.movie_id as movieId,
                 name,
                 release_date,
@@ -155,6 +156,7 @@
                 profile_img,
                 cover_img,
                 about,
+                status,
                 STUFF((
                     SELECT '/' + genre_type
                     FROM tb_movie_genre
@@ -177,7 +179,50 @@
             INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
             INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
 			WHERE tb_movie.movie_id = <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
-            GROUP BY tb_movie.movie_id, name, release_date, duration, profile_img, cover_img, about, dimension, rating, cert_type
+            GROUP BY tb_movie.movie_id, name, release_date,status, duration, profile_img, cover_img, about, dimension, rating, cert_type
+          
+        </cfquery>
+        <cfreturn qryFetchMovieDetailsBasedOnId>
+    </cffunction>
+
+
+    <cffunction  name="movieDetailsBasedOnId" access="remote" returntype="query">
+        <cfargument  name="movieId" >
+        <cfquery name="qryFetchMovieDetailsBasedOnId">
+            SELECT 
+                tb_movie.movie_id as movieId,
+                name,
+                release_date,
+                duration,
+                profile_img,
+                cover_img,
+                about,
+                status,
+                STUFF((
+                    SELECT '/' + genre_type
+                    FROM tb_movie_genre
+                    INNER JOIN tb_genre ON tb_genre.genre_id = tb_movie_genre.genre_id
+                    WHERE tb_movie_genre.movie_id = tb_movie.movie_id
+                    FOR XML PATH('')), 1, 1, '') AS genre,
+                STUFF((
+                    SELECT '/' + language
+                    FROM tb_movie_language
+                    INNER JOIN tb_language ON tb_language.lang_id = tb_movie_language.lang_id
+                    WHERE tb_movie_language.movie_id = tb_movie.movie_id
+                    FOR XML PATH('')), 1, 1, '') AS language,
+                dimension,
+                tb_dimension.dimension_id as dimensionId,
+                rating,
+                cert_type,
+                tb_certificate.cert_id  as certId
+            FROM tb_movie
+            INNER JOIN tb_movie_dimension ON tb_movie.movie_id = tb_movie_dimension.movie_id
+            INNER JOIN tb_dimension ON tb_dimension.dimension_id = tb_movie_dimension.dimension_id
+            INNER JOIN tb_movie_rating ON tb_movie.movie_id = tb_movie_rating.movie_id
+            INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
+            INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
+			WHERE tb_movie.movie_id = <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+            GROUP BY tb_movie.movie_id, name, release_date, tb_dimension.dimension_id,tb_certificate.cert_id ,status,duration, profile_img, cover_img, about, dimension, rating, cert_type
           
         </cfquery>
         <cfreturn qryFetchMovieDetailsBasedOnId>
@@ -262,6 +307,13 @@
         <cfreturn qryFetchEventLanguages>
     </cffunction>
 
+    <cffunction  name="fetchGenre" access="public" returntype="query">
+        <cfquery name="qryFetchGenre"> 
+            SELECT *
+            FROM  tb_genre                
+        </cfquery>
+        <cfreturn qryFetchGenre>
+    </cffunction>
     
 
     <cffunction  name="fetchEventCategory" access="public" returntype="query">
@@ -582,17 +634,17 @@
        
        <cfset destination=ExpandPath("/bookmyShow/assests")>
        <cffile action = "upload" 
-          fileField = "#arguments.fileupload1#"
-          destination = "#destination#"
-          nameConflict = "MakeUnique"
-          allowedextensions=".jpg, .jpeg, .png" >
-          <cfset profileFile = cffile.serverfile>
+            fileField = "#arguments.fileupload1#"
+            destination = "#destination#"
+            nameConflict = "MakeUnique"
+            allowedextensions=".jpg,.jpeg,.png" >
+        <cfset profileFile = cffile.serverfile>
           
        <cffile action = "upload" 
-       fileField = "#arguments.fileupload2#"
-       destination = "#destination#"
-       nameConflict = "MakeUnique"
-       allowedextensions=".jpg, .jpeg, .png">
+            fileField = "#arguments.fileupload2#"
+            destination = "#destination#"
+            nameConflict = "MakeUnique"
+            allowedextensions=".jpg,.jpeg,.png">
        <cfset coverFile = cffile.serverfile>
 
        <cfquery name="qryInsertEventDetails" result="insertResult">
@@ -691,22 +743,83 @@
 
             <cfquery name="qryAddtime">
                 <!--- Assuming time is a comma-separated string --->
-                <cfset var timeArray = ListToArray(arguments.time, ",")>
+                <cfset var timeArray = ListToArray(arguments.formattedTimes, ",")>
             
                 <!--- Loop through the array and insert each value into the table --->
                 <cfloop array="#timeArray#" index="local.time">
                     INSERT INTO tb_theater_time (theater_id, time)
                     VALUES (
                         <cfqueryparam value="#local.newTheaterId#" cfsqltype="CF_SQL_INTEGER">, 
-                        <cfqueryparam value="#local.time#" cfsqltype="CF_SQL_varchar">
+                        <cfqueryparam value="#local.time#" cfsqltype="CF_SQL_VARCHAR">
                     )
                 </cfloop>
             </cfquery>
-
+            <cflocation  url="theaterCrud.cfm">    
             <cfreturn true>
         </cfif>       
     </cffunction>
 
+    <cffunction  name="deleteMovie" access="remote">
+        <cfargument  name="movieId" >
+        <cfquery name="qryDeleteMovie">
+           UPDATE tb_movie SET status = 0
+           WHERE movie_id = <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>         
+    </cffunction>
+
+    <cffunction name="fetchDimensions" access="public" returntype="query"> 
+        <cfquery name="qryFetchDimensions">
+            SELECT *FROM tb_dimension
+        </cfquery>
+        <cfreturn qryFetchDimensions>
+    </cffunction>
+
+    <cffunction name="fetchCertificate" access="public" returntype="query"> 
+        <cfquery name="qryFetchCertificate">
+            SELECT *FROM tb_certificate
+        </cfquery>
+        <cfreturn qryFetchCertificate>
+    </cffunction>
+   
+    <cffunction  name="updateMovieDetails" access="remote">
+        <cfargument  name="movieId">
+        <cfargument  name="name">
+        <cfargument  name="duration">
+        <cfargument  name="langId">
+        <cfargument  name="genreId">
+        <cfargument  name="dimension">
+        <cfargument  name="status">
+        <cfargument  name="cert">
+        <cfargument  name="about">
+        <cfquery name="qryUpdateMovie">
+            UPDATE tb_movie
+            SET
+            name= <cfqueryparam value="#arguments.name#" cfsqltype="CF_SQL_VARCHAR">,
+            duration= <cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
+            status= <cfqueryparam value="#arguments.status#" cfsqltype="CF_SQL_VARCHAR">,
+            about= <cfqueryparam value="#arguments.about#" cfsqltype="CF_SQL_VARCHAR">
+            WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+
+        <cfquery name="qryUpdateMovieCert">
+            UPDATE tb_movie_cert
+            SET
+            cert_id=<cfqueryparam value="#arguments.cert#" cfsqltype="CF_SQL_INTEGER">
+            WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+
+        <cfquery name="qryUpdateMovieCert">
+            UPDATE tb_movie_dimension
+            SET
+            dimension_id=<cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_INTEGER">
+            WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+
+       
+
+        
+
+    </cffunction>
 
 </cfcomponent>
 

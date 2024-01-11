@@ -178,7 +178,7 @@
                                     <div class="time-container mt-2">
                                       <input type="time" name="time" class="timeInput"  onchange="updateFormattedTimes()"> 
                                     </div>
-                                   </div>
+                                </div>
                             </div>    
                             <input type="hidden" id="formattedTimes" name="time" readonly>
 
@@ -193,8 +193,7 @@
                     </div>        
                 </div>
             </div>
-        </div>  
-    
+        </div>      
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>
