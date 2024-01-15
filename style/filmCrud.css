@@ -46,3 +46,13 @@
 .hidden {
     display: none;
 }
+select {
+    width: 100px;
+}
+
+
+
+
+  .custom-select2 {
+    width: 200px; /* Set your desired width */
+  }

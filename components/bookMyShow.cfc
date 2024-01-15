@@ -815,12 +815,41 @@
             WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
 
-       
+        <cfif len(trim(langId))>
+            <cfquery name="qryAddLang">              
+                <cfset var langArray = ListToArray(arguments.langId, ",")>
+                <cfloop array="#langArray#" index="langId">
+                    <cfif len(trim(langId))>
+                        INSERT INTO tb_movie_language (movie_id, lang_id)
+                        VALUES (
+                            <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                            <cfqueryparam value="#langId#" cfsqltype="CF_SQL_INTEGER">
+                        )
+                    </cfif>
+                </cfloop>
+            </cfquery>
+        </cfif>
 
-        
+        <cfif len(trim(genreId))>
+            <cfquery name="qryAddGenre">              
+                <cfset var genreArray = ListToArray(arguments.genreId, ",")>
+                <cfloop array="#genreArray#" index="genreId">
+                    <cfif len(trim(genreId))>
+                        INSERT INTO tb_movie_genre (movie_id,genre_id)
+                        VALUES (
+                            <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                            <cfqueryparam value="#genreId#" cfsqltype="CF_SQL_INTEGER">
+                        )
+                    </cfif>
 
+                </cfloop>
+            </cfquery>
+        </cfif>
     </cffunction>
 
+    <cffunction  name="insertMovie">
+        
+    </cffunction>
 </cfcomponent>
 
 
