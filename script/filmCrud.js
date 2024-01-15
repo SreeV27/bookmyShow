@@ -1,8 +1,15 @@
 $(document).ready(function () {
    $("#statusDiv").hide();
+  
 
 
 });
+var countGenre = 0
+var countLang = 0
+
+function reloadPage() {
+   window.location.href = "filmCrud.cfm"
+}
 
 $(".deleteMovieBtn").click(function () {
    var movieId = $(this).data("movieid");
@@ -30,7 +37,7 @@ $(".deleteMovieBtn").click(function () {
 
 $(".view").click(function () {
    var movieId = $(this).data("movieid");
-   
+
 
    $.ajax({
 
@@ -132,37 +139,37 @@ $(".edit").click(function () {
 
 
    $("#saveBtn").click(function () {
-     
-      var duration=$("#convertedTime").text();
-      var langId=getAllSelectedLang();
-      var genreId=getAllSelectedGenre();
-      var name =$("#editMovieName").val();
-      var dimension =$("#editDimension").val();
-      var status =$("#editStatus").val();
-      var cert =$("#editCertificate").val();
-      var about =$("#editAbout").val();
+
+      var duration = $("#convertedTime").text();
+      var langId = getAllSelectedLang();
+      var genreId = getAllSelectedGenre();
+      var name = $("#editMovieName").val();
+      var dimension = $("#editDimension").val();
+      var status = $("#editStatus").val();
+      var cert = $("#editCertificate").val();
+      var about = $("#editAbout").val();
       $.ajax({
 
          url: 'components/bookMyShow.cfc?method=updateMovieDetails',
-   
+
          // Type of Request
          type: "POST",
          data: {
-            name:name,
+            name: name,
             movieId: movieId,
-            duration:duration,
-            langId:langId,
-            genreId:genreId,
-            dimension:dimension,
-            status:status,
-            cert:cert,
-            about:about
+            duration: duration,
+            langId: langId,
+            genreId: genreId,
+            dimension: dimension,
+            status: status,
+            cert: cert,
+            about: about
          },
          success: function (data) {
-           alert("Updated Successfully");
-           window.location.href = "filmCrud.cfm";
-          
-   
+            alert("Updated Successfully");
+            window.location.href = "filmCrud.cfm";
+
+
          },
          error: function (jqXHR, textStatus, errorThrown) {
             console.error("AJAX Error: " + textStatus, errorThrown);
@@ -170,8 +177,6 @@ $(".edit").click(function () {
       });
 
 
-
-     
    });
 });
 
@@ -227,6 +232,26 @@ function toggleLangDiv() {
    if (computedStyle.display === "none") {
       selectDiv.style.display = "block";
       selectbtn.style.display = "none";
+      countLang = 0;
+
+   } else {
+      selectDiv.style.display = "none";
+      selectbtn.style.display = "block";
+   }
+}
+
+function toggleDeleteLangDiv() {
+   var selectDiv = document.getElementById("selectLangDiv");
+   var selectbtn = document.getElementById("add");
+
+   // Get the computed style of the element
+   var computedStyle = window.getComputedStyle(selectDiv);
+
+   // Toggle the visibility of the div
+   if (computedStyle.display === "none") {
+      selectDiv.style.display = "block";
+      selectbtn.style.display = "none";
+
    } else {
       selectDiv.style.display = "none";
       selectbtn.style.display = "block";
@@ -243,9 +268,25 @@ function addLanguage() {
    clonedLangInput.value = '';
    clonedLangInput.selectedIndex = 0;
 
-   // Append the cloned container to the timeContainer div
+   // Add a delete button
+   var deleteButton = document.createElement('button');
+   deleteButton.innerHTML = 'Delete';
+
+   deleteButton.style.backgroundColor = '#dc3545';
+   deleteButton.style.color = 'white';
+   deleteButton.style.border = 'none';
+   deleteButton.style.borderRadius = '5px';
+   deleteButton.style.padding = '5px 10px';
+   deleteButton.onclick = function () {
+      // Remove the cloned genre container when delete button is clicked
+      document.getElementById('langContainer').removeChild(clonedLangContainer);
+   };
+   // Append the delete button to the cloned container
+   clonedLangContainer.appendChild(deleteButton);
+   // Append the cloned container to the langContainer div
    document.getElementById('langContainer').appendChild(clonedLangContainer);
-   event.preventDefault();
+
+
 }
 
 function getAllSelectedLang() {
@@ -256,12 +297,35 @@ function getAllSelectedLang() {
    var selectedValues = selectedOptions.map(function (option) {
       return option.value;
    });
-   return (selectedValues.join(','));
-
+   if (countLang == 1) {
+      return ("");
+   } else {
+      return (selectedValues.join(','));
+   }
 
 }
 
 function toggleGenreDiv() {
+   var selectDiv = document.getElementById("selectGenreDiv");
+   var selectbtn = document.getElementById("addGenre");
+
+   // Get the computed style of the element
+   var computedStyle = window.getComputedStyle(selectDiv);
+
+   // Toggle the visibility of the div
+   if (computedStyle.display === "none") {
+      selectDiv.style.display = "block";
+      selectbtn.style.display = "none";
+      countGenre = 0;
+   } else {
+      selectDiv.style.display = "none";
+      selectbtn.style.display = "block";
+
+   }
+
+}
+
+function toggleDeleteGenreDiv() {
    var selectDiv = document.getElementById("selectGenreDiv");
    var selectbtn = document.getElementById("addGenre");
 
@@ -278,19 +342,47 @@ function toggleGenreDiv() {
    }
 }
 
+
+function deleteGenre() {
+   toggleDeleteGenreDiv();
+   countGenre += 1;
+}
+
+function deleteLang() {
+   toggleDeleteLangDiv();
+   countLang += 1;
+}
+
+
 function addGenre() {
-   // Clone the existing time container
+   // Clone the existing genre container
    var originalGenreContainer = document.querySelector('.genre-container');
    var clonedGenreContainer = originalGenreContainer.cloneNode(true);
 
-   // Clear the value of the cloned time input
+   // Clear the value of the cloned genre input
    var clonedGenreInput = clonedGenreContainer.querySelector('.genreInput');
    clonedGenreInput.value = '';
    clonedGenreInput.selectedIndex = 0;
 
-   // Append the cloned container to the timeContainer div
+   // Add a delete button
+   var deleteButton = document.createElement('button');
+   deleteButton.innerHTML = 'Delete';
+
+   deleteButton.style.backgroundColor = '#dc3545';
+   deleteButton.style.color = 'white';
+   deleteButton.style.border = 'none';
+   deleteButton.style.borderRadius = '5px';
+   deleteButton.style.padding = '5px 10px';
+   deleteButton.onclick = function () {
+      // Remove the cloned genre container when delete button is clicked
+      document.getElementById('genreContainer').removeChild(clonedGenreContainer);
+   };
+
+   // Append the delete button to the cloned container
+   clonedGenreContainer.appendChild(deleteButton);
+
+   // Append the cloned container to the genreContainer div
    document.getElementById('genreContainer').appendChild(clonedGenreContainer);
-   event.preventDefault();
 }
 
 function getAllSelectedGenre() {
@@ -301,7 +393,56 @@ function getAllSelectedGenre() {
    var selectedValues = selectedOptions.map(function (option) {
       return option.value;
    });
-   return (selectedValues.join(','));
+
+   if (countGenre == 1) {
+      return ("");
+   } else {
+      return (selectedValues.join(','));
+   }
 
 
+}
+
+$("#saveBtn1").click(function () {
+
+
+   alert(getAllSelectedLang());
+
+});
+
+function getSelectedGenre() {
+   // Get all checkboxes with the name 'eventLanguages'
+   var checkboxes = document.querySelectorAll('input[name="genres"]:checked');
+   // Create an array to store selected values
+   var selectedValuesGenre = [];
+   // Loop through the selected checkboxes and add their values to the array
+   checkboxes.forEach(function(checkbox) {
+       selectedValuesGenre.push(checkbox.value);
+   });
+   // Display selected values (you can modify this part based on your requirements)
+   alert("Selected Values: " + selectedValuesGenre.join(','));
+}
+
+function getSelectedLanguages() {
+   // Get all checkboxes with the name 'eventLanguages'
+   var checkboxes = document.querySelectorAll('input[name="languages"]:checked');
+   // Create an array to store selected values
+   var selectedValuesLang = [];
+   // Loop through the selected checkboxes and add their values to the array
+   checkboxes.forEach(function(checkbox) {
+       selectedValuesLang.push(checkbox.value);
+   });
+   // Display selected values (you can modify this part based on your requirements)
+   alert("Selected Values: " + selectedValuesLang.join(','));
+}
+
+function validateRating(input) {
+   // Remove any non-numeric characters except dot
+   input.value = input.value.replace(/[^0-9.]/g, '');
+
+   // Check if the value is a valid floating-point number
+   if (!/^\d*\.?\d*$/.test(input.value)) {
+       alert("Please enter a valid integer or floating-point number");
+       input.value = ''; // You can choose to clear the input or keep the last valid value
+   }
 }
