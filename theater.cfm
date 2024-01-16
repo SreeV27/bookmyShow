@@ -15,12 +15,14 @@
     <body>
         <cfinclude  template="header.cfm">
         <cfobject component="components/bookMyShow" name="objBookMyShow">
-        <cfparam name="URL.theaterId" default="">  
+        <cfparam name="URL.theaterId" default="">
+          
         <cfset local.encryptedTheaterId = replace(theaterId,"!","+", "all")>
         <cfset local.encryptedTheaterId = replace(local.encryptedTheaterId,"@","\", "all")>
         <cfset local.decryptedTheaterId = decrypt(local.encryptedTheaterId,#application.key#, 'AES', 'Base64')>  
         <cfset local.theater =objBookMyShow.theaterDetails(local.decryptedTheaterId)>    
-        <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)>  
+        <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)> 
+         <cfdump var="#local.theater#">
         <cfset formId=1>      
         <cfset screeNo=1> 
         <cfoutput>
@@ -31,7 +33,7 @@
                             favorite
                         </span>
                         <div class="theater-heading ps-2 w-50">
-                            #local.theater.name#: #local.theater.location#
+                            #local.theaterTime.name#: #local.theaterTime.location#
                         </div>                
                     </div>
                     <div class="d-flex mt-3 px-1 justify-content-between">    
@@ -42,7 +44,7 @@
                                 </svg>
                             </div>
                             <div class="theater-location ps-2 pt-2">
-                                #local.theater.address#
+                                #local.theaterTime.address#
                              </div>
                             <div class="pt-1  ps-2">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.8611 2.26753C13.8648 2.26878 13.872 2.2723 13.8797 2.28001C13.8873 2.28763 13.8908 2.29474 13.8921 2.29843L9.03847 13.9339C9.03626 13.9392 9.03414 13.9446 9.03212 13.9499C9.02732 13.9518 9.02018 13.9541 9.01037 13.956C9.00307 13.9485 8.99558 13.9393 8.98887 13.9293C8.98588 13.9248 8.98341 13.9207 8.9814 13.917L7.92379 8.5629C7.88459 8.36445 7.72968 8.20917 7.53132 8.1695L2.27187 7.11761C2.27386 7.11364 2.27653 7.10884 2.2801 7.10323C2.29313 7.08274 2.31456 7.05769 2.34525 7.03273L13.8611 2.26753ZM13.5418 1.31879C13.9463 1.18394 14.3392 1.32526 14.5868 1.57291C14.8344 1.82055 14.9758 2.21336 14.8409 2.61791C14.837 2.62952 14.8328 2.64099 14.828 2.65229L9.96725 14.3049C9.81214 14.7388 9.39251 14.9598 8.9666 14.9598C8.7025 14.9598 8.48847 14.8321 8.34878 14.7064C8.20537 14.5773 8.08803 14.4052 8.02559 14.2179C8.01891 14.1978 8.0135 14.1774 8.00941 14.1566L7.00751 9.08454L2.00187 8.08342C1.98154 8.07935 1.96149 8.07402 1.94182 8.06747C1.52699 7.92919 1.2666 7.53023 1.2666 7.12646C1.2666 6.70638 1.53417 6.36938 1.82258 6.1771C1.84974 6.159 1.8786 6.1436 1.90876 6.13112L13.5087 1.33112C13.5196 1.32662 13.5306 1.32251 13.5418 1.31879Z" fill="red"></path>        </svg>
@@ -108,25 +110,30 @@
                                 <cfset screeNo+=1>
 
                             </div>
-                            <div>
-                                <div class="ps-5 d-flex">
-                                    <cfset timeArray = listToArray(local.theaterTime.times, ",")>                                    
-                                    <cfloop array="#timeArray#" index="time">
-                                        <form action="seat.cfm"  method="post">
-                                            <input type="hidden" name="movieId" id="movieId" value="#local.theater.movieId#">                                            
-                                            <input type="hidden" name="time" id="time" value="#time#">
-                                            <input type="hidden" name="date" id="date" class="date">
-                                            <input type="hidden" name="theaterId" id="theaterId" value="#local.theaterTime.id#">
-                                            <button  type="submit" class="bg-white theater-time ms-3" >#time#</button>
-                                        </form>
-                                        <cfset formId+=1>                                        
-                                    </cfloop>    
+                            <cfif structKeyExists(local.theater, "movieId")>
+                                <div>
+                                    <div class="ps-5 d-flex">
+                                        <cfset timeArray = listToArray(local.theaterTime.times, ",")>                                    
+                                        <cfloop array="#timeArray#" index="time">
+                                            <form action="seat.cfm"  method="post">
+                                                <input type="hidden" name="movieId" id="movieId" value="#local.theater.movieId#">                                            
+                                                <input type="hidden" name="time" id="time" value="#time#">
+                                                <input type="hidden" name="date" id="date" class="date">
+                                                <input type="hidden" name="theaterId" id="theaterId" value="#local.theaterTime.id#">
+                                                <button  type="submit" class="bg-white theater-time ms-3" >#time#</button>
+                                            </form>
+                                            <cfset formId+=1>                                        
+                                        </cfloop>    
+                                    </div>
+                                    <div class="ps-5 ms-4 mt-3 d-flex">
+                                        <span class="gold-icon mt-2"></span>
+                                        <span class="px-2 nonCancelTxt">Non-cancellable</span>
+                                    </div>
                                 </div>
-                                <div class="ps-5 ms-4 mt-3 d-flex">
-                                    <span class="gold-icon mt-2"></span>
-                                    <span class="px-2 nonCancelTxt">Non-cancellable</span>
-                                </div>
-                            </div>
+                                <cfelse>
+                                    <p>No data<p>
+                            </cfif>
+                            
                         </div>
                     </cfloop>      
                 </div>            

@@ -1,6 +1,31 @@
 $(document).ready(function () {
    $("#statusDiv").hide();
-  
+
+   $('input[name="language"]').change(function () {
+      var selectedLangs = [];
+      $('input[name="language"]:checked').each(function () {
+         selectedLangs.push($(this).val());
+      });
+      $('#selectedLanguages').val(selectedLangs.join(', '));
+   });
+
+
+   $('input[name="genres"]').change(function () {
+      var selectedGenre = [];
+      $('input[name="genres"]:checked').each(function () {
+         selectedGenre.push($(this).val());
+      });
+      $('#Genre').val(selectedGenre.join(', '));
+   });
+
+
+   $('input[name="theater"]').change(function () {
+      var selectedGenre = [];
+      $('input[name="theater"]:checked').each(function () {
+         selectedGenre.push($(this).val());
+      });
+      $('#selectedTheater').val(selectedGenre.join(', '));
+   });
 
 
 });
@@ -416,8 +441,8 @@ function getSelectedGenre() {
    // Create an array to store selected values
    var selectedValuesGenre = [];
    // Loop through the selected checkboxes and add their values to the array
-   checkboxes.forEach(function(checkbox) {
-       selectedValuesGenre.push(checkbox.value);
+   checkboxes.forEach(function (checkbox) {
+      selectedValuesGenre.push(checkbox.value);
    });
    // Display selected values (you can modify this part based on your requirements)
    alert("Selected Values: " + selectedValuesGenre.join(','));
@@ -429,8 +454,8 @@ function getSelectedLanguages() {
    // Create an array to store selected values
    var selectedValuesLang = [];
    // Loop through the selected checkboxes and add their values to the array
-   checkboxes.forEach(function(checkbox) {
-       selectedValuesLang.push(checkbox.value);
+   checkboxes.forEach(function (checkbox) {
+      selectedValuesLang.push(checkbox.value);
    });
    // Display selected values (you can modify this part based on your requirements)
    alert("Selected Values: " + selectedValuesLang.join(','));
@@ -442,7 +467,25 @@ function validateRating(input) {
 
    // Check if the value is a valid floating-point number
    if (!/^\d*\.?\d*$/.test(input.value)) {
-       alert("Please enter a valid integer or floating-point number");
-       input.value = ''; // You can choose to clear the input or keep the last valid value
+      alert("Please enter a valid integer or floating-point number");
+      input.value = ''; // You can choose to clear the input or keep the last valid value
    }
+}
+
+function convertTime() {
+   // Get the input value in 24-hour format
+   var inputTime = document.getElementById('addduration').value;
+
+   // Split the hours and minutes
+   var [hours, minutes] = inputTime.split(':');
+
+   // Convert hours to 12-hour format
+   var ampm = hours >= 12 ? 'pm' : 'am';
+   hours = hours % 12 || 12;
+
+   // Format the result
+   var formattedTime = hours + 'h ' + minutes + 'm';
+
+   // Set the result to the text input field
+   document.getElementById('moviedDuration').value = formattedTime;
 }

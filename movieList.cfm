@@ -13,14 +13,12 @@
       <cfinclude  template="slide.cfm">
       <h1 class="ms-5 ps-5 w-75 heading-txt">Movies</h1>
       <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
-      <cfoutput> 
-                
+      <cfoutput>                 
          <div class="movieRowDiv">
             <cfloop query="local.movie">                             
                <cfset local.encryptedMovieId= encrypt(#local.movie.movieId#,#application.key#,'AES', 'Base64')>
                <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
                <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
-
                <a href="movie.cfm?movieId=#local.encryptedMovieId#" class="movieDiv">
                   <div class=" movieDetailsDiv">
                      <div width="100%" height="100%" data-content="Animal" class="profilePicDiv">
