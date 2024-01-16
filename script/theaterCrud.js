@@ -48,24 +48,31 @@ $(".view").click(function () {
  
  $(".deleteTheaterBtn").click(function () {
     var theaterId = $(this).data("theaterid");
-    $.ajax({
-       url: 'components/bookMyShow.cfc?method=deleteTheater',
-       type: "POST",
-       data: {
-          theaterId: theaterId,
- 
-       },
-       success: function (data) {
-          alert("Deleted Successfully");
-          location.reload();
- 
-       },
-       error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX Error: " + textStatus, errorThrown);
-       }
- 
- 
+
+    $("#deleteYes").click(function(){
+
+      $.ajax({
+         url: 'components/bookMyShow.cfc?method=deleteTheater',
+         type: "POST",
+         data: {
+            theaterId: theaterId,
+   
+         },
+         success: function (data) {
+            alert("Deleted Successfully");
+            location.reload();
+   
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error: " + textStatus, errorThrown);
+         }
+   
+   
+      });
+
+
     });
+   
  
  });
  

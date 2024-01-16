@@ -25,8 +25,7 @@
         </cfif>
         <cfset local.theater=objBookMyShow.theaterDetailsBasedOnId(session.theaterId)>
         <cfset local.movieList=objBookMyShow.fetchMovieDetailsBasedOnId(session.movieId) >
-        <cfoutput>
-            
+        <cfoutput>            
             <div class="d-flex header justify-content-between pe-3">   
                 <div class="d-flex">                    
                     <button  class="border-0 bg-white" onclick="backPage()"> 
@@ -40,8 +39,7 @@
                             <span class=" ms-1 ">
                                 <span class="movie-cert p-1 fs-9">#local.movieList.cert_type#</span>
                             </span>  
-                        </div>
-        
+                        </div>        
                         <div class="theater-date-details">
                             #local.theater.name#: #local.theater.location# | #dateFormat(session.date, 'ddd, dd mmm')#, #session.time#
                         </div>
@@ -56,8 +54,7 @@
             <div class="ps-5 d-flex bg-light py-2">
                 <cfset timeArray = listToArray(local.theater.times, ",")>                                    
                 <cfloop array="#timeArray#" index="time">                                           
-                        <button  type="submit" class="bg-white theater-time ms-3" >#time#</button>                    
-                                                      
+                    <button  type="submit" class="bg-white theater-time ms-3" >#time#</button> 
                 </cfloop>    
             </div>
             <cfset local.seatList=objBookMyShow.getSeatDetails()>           

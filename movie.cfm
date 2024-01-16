@@ -15,13 +15,10 @@
         <cfset local.encryptedMovieId = replace(movieId,"!","+", "all")>
         <cfset local.encryptedMovieId = replace(local.encryptedMovieId,"@","\", "all")>
         <cfset local.decryptedMovieId = decrypt(local.encryptedMovieId,#application.key#, 'AES', 'Base64')>        
-        <cfset session.movieId=local.decryptedMovieId> 
-        
-        <cfset local.movie=objBookMyShow.fetchMovieDetailsBasedOnId(local.decryptedMovieId)>     
-       
+        <cfset session.movieId=local.decryptedMovieId>         
+        <cfset local.movie=objBookMyShow.fetchMovieDetailsBasedOnId(local.decryptedMovieId)> 
         <cfloop query="local.movie">
-            <cfoutput>  
-                              
+            <cfoutput>       
                 <div class="movie">
                     <div class="hhpXm" id="movieDiv"> 
                         <input type="hidden" id="profile_img" value="assests/#local.movie.cover_img#">                       
@@ -71,8 +68,6 @@
                                     <div class="movieDetailsDiv ">#local.movie.duration#
                                         <span class="starIcon">  *  </span>
                                         <a href="" class="text-white bHMPWI text-decoration-none">#local.movie.genre#</a>
-                                        
-                                        
                                         <span class="starIcon">  *  </span>#local.movie.cert_type#
                                         <span class="starIcon ">  * #dateFormat(local.movie.release_date, 'dd mmm, yyyy')#</span>
                                     </div>
@@ -87,8 +82,7 @@
                                                 <span  class="bookTicketBtn" >Book tickets</span>
                                             </div>
                                         </button>
-                                    </a>                          
-                                                                    
+                                    </a>                            
                                 </div>
                             </div>
                         </div>

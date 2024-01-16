@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theater</title>
     <link rel="stylesheet" href="style/bootstrap.min.css">
-    <link rel="stylesheet" href="style/theaterCrud.css">
-    
+    <link rel="stylesheet" href="style/theaterCrud.css">    
 </head>
     <body>
         <cfinclude  template="header.cfm">
@@ -17,7 +16,6 @@
                 <div class="d-flex justify-content-between">
                     <h2>Theater Details</h2>
                     <button type="button" class="addTheaterBtn mt-1 px-1" id="addTheaterBtn" data-toggle="modal" data-target=".eventTheaterModal">Add Theater</button>
-
                 </div>
                 <center>
                     <table class="mt-5 table">
@@ -30,7 +28,6 @@
                             <th>View</th>
                             <th>Edit</th>
                             <th>Delete</th>
-
                         </tr>        
                         <cfloop query="local.theater">
                             <tr>
@@ -39,14 +36,13 @@
                                     <td class="text-danger">#local.theater.name#</td>
                                 <cfelse>
                                     <td>#local.theater.name#</td>
-                                </cfif>
-                                
+                                </cfif>                                
                                 <td>#local.theater.address#</td>
                                 <td>#local.theater.location#</td>
                                 <td>#local.theater.phno#</td>
                                 <td><button type="button" class="view border-0 bg-white btn btn-primary" data-theaterid="#local.theater.id#" data-toggle="modal" data-target=".theaterModal"><img src="assests/file.png" height="15px" width="15px" alt="view"></button></td>
                                 <td><button type="button" class="edit border-0 bg-white btn btn-primary" data-theaterid="#local.theater.id#" data-toggle="modal" data-target=".theaterModal"><img src="assests/pen.png" height="15px" width="15px" alt="Edit"></button></td>                                
-                                <td><button type="button" class="deleteTheaterBtn border-0 bg-white mt-1"  data-theaterid="#local.theater.id#"><img src="assests/trash.png" height="15px" width="15px" alt="Delete"></button></td>
+                                <td><button type="button" class="deleteTheaterBtn border-0 bg-white mt-1"  data-theaterid="#local.theater.id#" data-toggle="modal" data-target=".deleteConfirmModal"><img src="assests/trash.png" height="15px" width="15px" alt="Delete"></button></td>
                             </tr>
                         </cfloop>
                     </table>
@@ -110,7 +106,6 @@
             </div>
             </div>
         </div>
-
          <!---Add Modal--->
         <div class="modal fade eventTheaterModal" id="eventTheaterModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -181,19 +176,36 @@
                                 </div>
                             </div>    
                             <input type="hidden" id="formattedTimes" name="time" readonly>
-
                             <div class="mt-3">
                                 <center>
                                     <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button  type="submit"  name="saveTheaterDetails"  id="saveTheaterDetails" class="btn btn-primary">Save</button>
                                 </center>
                             </div>            
-                        </form>              
-                      
+                        </form>
                     </div>        
                 </div>
             </div>
-        </div>      
+        </div>   
+        <!---Delete Confirm Modal--->
+        <div class="modal fade deleteConfirmModal" id="deleteConfirmModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body pe-5">                                
+                        <h4 >Are you Sure? </h4>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" id="deleteYes" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>

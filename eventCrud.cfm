@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event</title>
     <link rel="stylesheet" href="style/bootstrap.min.css">
-    <link rel="stylesheet" href="style/eventCrud.css">
-    
+    <link rel="stylesheet" href="style/eventCrud.css">    
 </head>
     <body>
         <cfinclude  template="header.cfm">
@@ -17,7 +16,6 @@
                 <div class="d-flex justify-content-between">
                     <h2>Event Details</h2>
                     <button type="button" class="addEventBtn mt-1" id="addEventBtn" data-toggle="modal" data-target=".eventAddModal">Add Event</button>
-
                 </div>
                 <center>
                     <table class="mt-5 table">
@@ -83,8 +81,7 @@
               <div class="">
                 <input type="text"  id="duration" required>
               </div>
-            </div>
-         
+            </div>         
             <div class="mt-2 d-flex px-4">
               <label for="location">Location</label>
               <div class=" ms-4 ">
@@ -103,11 +100,7 @@
                 <input type="text"   id="rate" required>
               </div>
             </div>
-
-          </div>
-
-
-          
+          </div>          
         </div>
         <div class="modal-footer">
           <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>

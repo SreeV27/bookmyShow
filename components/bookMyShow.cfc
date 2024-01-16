@@ -446,8 +446,11 @@
             tb_theater               
             INNER JOIN
             tb_theater_time ON tb_theater.id = tb_theater_time.theater_id
-            WHERE
-            tb_theater.id =<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+            <cfif len(trim(arguments.theaterId))>
+                WHERE
+                tb_theater.id =<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+            </cfif>
+            
             GROUP BY
             tb_theater.id, tb_theater.name, tb_theater.location,tb_theater.address,tb_theater.phno,tb_theater.status       
         </cfquery>
@@ -513,8 +516,7 @@
         <cfif qryFetchSearchMovieDetails.recordCount>
             <cfset local.result.flag=1>
             <cfset local.result.id=qryFetchSearchMovieDetails.movieId[1]>
-        </cfif>         
-        
+        </cfif>  
         <cfquery  name="qryFetchSearchEventDetails">
             SELECT   event_id as eventId
             FROM tb_event
@@ -524,24 +526,19 @@
             <cfset local.result.flag=2>
             <cfset local.result.id=qryFetchSearchEventDetails.eventId[1]>
         </cfif>
-
-
         <cfquery  name="qryFetchSearchTheaterDetails">
             SELECT tb_theater.id as theaterId
             FROM
             tb_theater  
             WHERE
-			LOWER(name)=LOWER(<cfqueryparam value="#arguments.value#" cfsqltype="CF_SQL_VARCHAR">)     
-            AND status =1      
+			LOWER(name)=LOWER(<cfqueryparam value="#arguments.value#" cfsqltype="CF_SQL_VARCHAR">)
         </cfquery>
         <cfif qryFetchSearchTheaterDetails.recordCount>
             <cfset local.result.flag=3>
             <cfset local.result.id=qryFetchSearchTheaterDetails.theaterId[1]>
         </cfif>
-
         <cfreturn local.result>  
     </cffunction>
-
 
     <cffunction  name="theaterDetails" access="public" returntype="query">
         <cfargument  name="theaterId">
@@ -558,14 +555,12 @@
                 INNER JOIN tb_movie_dimension ON tb_movie.movie_id = tb_movie_dimension.movie_id
                 INNER JOIN tb_dimension ON tb_dimension.dimension_id = tb_movie_dimension.dimension_id
                 INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
-                INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
-                WHERE tb_theater.id=<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">
+                INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id 
+                WHERE tb_theater.id=<cfqueryparam value="#arguments.theaterId#" cfsqltype="CF_SQL_INTEGER">               
                 GROUP BY tb_theater.id,tb_movie.movie_id, tb_movie.name,tb_theater.name, dimension, cert_type,tb_theater.address,tb_theater.location	
         </cfquery>
         <cfreturn qryTheaterDetails>
     </cffunction>
-
-
 
     <cffunction  name="updateEventDetails" access="remote">
         <cfargument name="id" required="true">
@@ -841,15 +836,128 @@
                             <cfqueryparam value="#genreId#" cfsqltype="CF_SQL_INTEGER">
                         )
                     </cfif>
-
                 </cfloop>
             </cfquery>
         </cfif>
     </cffunction>
 
-    <cffunction  name="insertMovie">
+    <cffunction  name="insertMovie" access="public">
+        <cfargument name="name" >
+        <cfargument name="releaseDate">
+        <cfargument name="duration" >
+        <cfargument name="about">  
+        <cfargument name="rating">
+        <cfargument name="certificate">
+        <cfargument name="dimension"> 
+        <cfargument name="language">
+        <cfargument name="genre">        
+        <cfargument name="theater">  
+        
+        <cfargument name="fileupload1">
+        <cfargument name="fileupload2"> 
+        <cfset destination=ExpandPath("/bookmyShow/assests")>
+        <cffile action = "upload" 
+                fileField = "#arguments.fileupload1#"
+                destination = "#destination#"
+                nameConflict = "MakeUnique"
+                allowedextensions=".jpg,.jpeg,.png" >
+        <cfset profileFile = cffile.serverfile>            
+        <cffile action = "upload" 
+                fileField = "#arguments.fileupload2#"
+                destination = "#destination#"
+                nameConflict = "MakeUnique"
+                allowedextensions=".jpg,.jpeg,.png">
+        <cfset coverFile = cffile.serverfile>              
+        <cfquery name="qryInsertMovie" result="insertResult">
+            INSERT INTO tb_movie(name,release_date,duration,profile_img,cover_img,about,status)
+            VALUES(
+                <cfqueryparam value="#arguments.name#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#arguments.releaseDate#" cfsqltype="CF_SQL_DATE">,
+                <cfqueryparam value="#arguments.duration#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#profileFile#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#coverFile#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="#arguments.about#" cfsqltype="CF_SQL_VARCHAR">,
+                <cfqueryparam value="1" cfsqltype="CF_SQL_INTEGER">
+            )
+        </cfquery>
+        <cfset local.movieId =#insertResult.GENERATEDKEY#>
+
+        <cfquery name="qryInsertMovieCert">
+            INSERT INTO tb_movie_cert(movie_id,cert_id)
+            VALUES(
+                <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                <cfqueryparam value="#arguments.certificate#" cfsqltype="CF_SQL_INTEGER">
+            )
+        </cfquery>
+
+        <cfquery name="qryInsertMovieCert">
+            INSERT INTO tb_movie_dimension(movie_id,dimension_id)
+            VALUES(
+                <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_INTEGER">
+            )
+        </cfquery>
+
+        <cfquery name="qryInsertMovieRating">
+            INSERT INTO tb_movie_rating(movie_id,rating)
+            VALUES(
+                <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_VARCHAR">
+            )
+        </cfquery>
+
+        
+        <cfif len(trim(genre))>
+            <cfquery name="qryAddMovieGenre">              
+                <cfset var genreArray = ListToArray(arguments.genre, ",")>
+                <cfloop array="#genreArray#" index="genreId">
+                    <cfif len(trim(genreId))>
+                        INSERT INTO tb_movie_genre (movie_id,genre_id)
+                        VALUES (
+                            <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                            <cfqueryparam value="#genreId#" cfsqltype="CF_SQL_INTEGER">
+                        )
+                    </cfif>
+                </cfloop>
+            </cfquery>
+        </cfif>
+      
+
+        <cfif len(trim(language))>
+            <cfquery name="qryAddLang">              
+                <cfset var langArray = ListToArray(arguments.language, ",")>
+                <cfloop array="#langArray#" index="langId">
+                    <cfif len(trim(langId))>
+                        INSERT INTO tb_movie_language (movie_id,lang_id)
+                        VALUES (
+                            <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                            <cfqueryparam value="#langId#" cfsqltype="CF_SQL_INTEGER">
+                        )
+                    </cfif>
+                </cfloop>
+            </cfquery>
+        </cfif>
+
+        <cfif len(trim(theater))>
+            <cfquery name="qryAddLang">              
+                <cfset var theaterArray = ListToArray(arguments.theater, ",")>
+                <cfloop array="#theaterArray#" index="theaterId">
+                    <cfif len(trim(theaterId))>
+                        INSERT INTO tb_movie_theater (movie_id,theater_id)
+                        VALUES (
+                            <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                            <cfqueryparam value="#theaterId#" cfsqltype="CF_SQL_INTEGER">
+                        )
+                    </cfif>
+                </cfloop>
+            </cfquery>
+        </cfif>
+
+        <cflocation  url="filmCrud.cfm"> 
         
     </cffunction>
+
+   
 </cfcomponent>
 
 

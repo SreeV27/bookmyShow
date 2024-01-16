@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/bootstrap.css">
     <link rel="stylesheet" href="style/jquery-ui.css">
-    <link rel="stylesheet" href="style/filmCrud.css">   
-  
+    <link rel="stylesheet" href="style/filmCrud.css"> 
 </head>
     <body>
         <cfinclude  template="header.cfm">
         <cfobject component="components/bookMyShow" name="objBookMyShow">
         <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
+        <cfset local.theater=objBookMyShow.fetchTheaterDetailsBasedOnId("")>
         <cfoutput>          
             <div class="px-5 pt-5 ">
                 <div class="d-flex justify-content-between">
@@ -23,7 +23,7 @@
                 <center>
                     <table class="mt-5 table">
                         <tr>
-                            <th>Id</th>
+                            <th class="d-none">Id</th>
                             <th>Name</th>
                             <th>Duration</th>
                             <th>Language</th>
@@ -37,7 +37,7 @@
                         </tr>        
                         <cfloop query="local.movie">
                             <tr>
-                                <td >#local.movie.movieId#</td>
+                                <td class="d-none">#local.movie.movieId#</td>
                                 <cfif local.movie.status == 0>
                                     <td class="text-danger">#local.movie.name#</td>
                                 <cfelse>
@@ -95,7 +95,8 @@
                             <div class="mt-2 d-flex justify-content-between ps-4">
                                 <label for="genre">Genre</label>
                                 <div class="">
-                                    <textarea id="genre" name="genre" rows="3" cols="21" > </textarea>                        </div>
+                                    <textarea id="genre" name="genre" rows="3" cols="21" > </textarea>
+                                </div>
                             </div>
                             <div class="mt-2 d-flex px-4">
                                 <label for="dimension">Dimension</label>
@@ -272,127 +273,160 @@
             <div class="modal fade movieAddModal" id="movieAddModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <form action="##" enctype="multipart/form-data"  method="post">
                     <div class="modal-dialog" role="document">
-                    <div class="modal-content1">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Movie Details</h5>
-                            <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close" onclick="reloadPage()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body pe-3"> 
-                            <cfset local.lang=objBookMyShow.fetchEventLanguages()>
-                            <cfset local.genre=objBookMyShow.fetchGenre()>
-                            <cfset local.dimension=objBookMyShow.fetchDimensions()>
-                            <cfset local.cert=objBookMyShow.fetchCertificate()>
-                            <div class="d-flex  ps-4">
-                                <label for="addMovieName">Name</label>
-                                <div class="">
-                                    <input type="text"id="addMovieName">
+                        <div class="modal-content1">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Movie Details</h5>
+                                <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close" onclick="reloadPage()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pe-3"> 
+                                <cfset local.lang=objBookMyShow.fetchEventLanguages()>
+                                <cfset local.genre=objBookMyShow.fetchGenre()>
+                                <cfset local.dimension=objBookMyShow.fetchDimensions()>
+                                <cfset local.cert=objBookMyShow.fetchCertificate()>
+                               
+                                <div class="d-flex  ps-4 justify-content-evenly">
+                                    <label for="addMovieName">Name</label>
+                                    <div class="">
+                                        <input type="text"id="addMovieName" name="addMovieName">
+                                    </div>
+                                </div> 
+                                <div class="d-flex  ps-4 justify-content-evenly">
+                                    <label for="addReleaseDate">Release Date</label>
+                                    <div class="">
+                                        <input type="date" id="addReleaseDate" name="addReleaseDate">
+                                    </div>
                                 </div>
-                            </div> 
-                            <div class="d-flex  ps-4">
-                                <label for="addReleaseDate">Release Date</label>
-                                <div class="">
-                                    <input type="date" id="addReleaseDate">
+                                <div class="d-flex  ps-4">
+
+                                    <label for="addduration">Duration</label>
+                                    <div class="">
+                                        <input type="time" id="addduration" name="addduration" onchange="convertTime()">
+                                        <input type="hidden" name="moviedDuration" id="moviedDuration">
+                                    </div>
+                                </div>
+                                <div class="mt-2 ps-5">
+                                    <label for="addProfileImage">Profile Image</label>
+                                    <div class="">
+                                    <input type="file" name="profileImage" id="addProfileImage"  accept="image/jpeg, image/png"required>
+                                    </div>
+                                </div>
+                                <div class="mt-2 ps-5">
+                                    <label for="addCoverImage">Cover Image</label>
+                                    <div class="">
+                                    <input type="file" name="coverImage" id="addCoverImage" accept="image/jpeg, image/png" required>
+                                    </div>
+                                </div>
+                                <div class="mt-2 d-flex px-4">
+                                    <label for="addAbout">About</label>
+                                    <div class=" ms-5 p-17">
+                                        <textarea id="addAbout" name="addAbout" rows="3" cols="21" ></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    Select Language
+                                  <input type="hidden" id="selectedLanguages" name="selectedLanguages">
+                                </div>
+                                <div class="d-flex">
+                                    <cfloop query="local.lang">
+                                        <div class=class="d-flex align-items-baseline mt-2">
+                                            <input type="checkbox" name="language" value="#local.lang.lang_id#" id="lang_#local.lang.lang_id#" class="ms-2">
+                                            <label for="lang_#local.lang.lang_id#">#local.lang.language#</label> 
+                                        </div>                                        
+                                    </cfloop>  
+                                </div>    
+                                <div>
+                                    Select Genre
+                                    <input type="hidden" id="Genre" name="genre">
+                                </div>
+                                <div class="d-flex">
+                                    <cfloop query="local.genre">
+                                        <div class=class="d-flex align-items-baseline mt-2">
+                                            <input type="checkbox" name="genres" value="#local.genre.genre_id#" id="lang_#local.genre.genre_id#" class="ms-2">
+                                            <label for="lang_#local.genre.genre_id#">#local.genre.genre_type#</label> 
+                                        </div>
+                                       
+                                    </cfloop>  
+                                </div> 
+                                <div class="mt-2 d-flex ps-4">
+                                    <label for="addCertificate">Certificate</label>
+                                    <div class="p-15">
+                                        <select class="ms-3 " id="addCertificate" name="addCertificate"> 
+                                            <option value="" selected></option>
+                                            <cfloop query="local.cert">
+                                                <option  value="#local.cert.cert_id#">#local.cert.cert_type#</option>
+                                            </cfloop> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-2 d-flex px-4">
+                                    <label for="addDimension">Dimension</label>
+                                    <div class=" ms-5">
+                                        <select class="ms-3" id="addDimension" name="addDimension"> 
+                                            <option value="" selected></option>
+                                            <cfloop query="local.dimension">
+                                                <option value="#local.dimension.dimension_id#">#local.dimension.dimension#</option>
+                                            </cfloop>                                
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex  ps-4">
+                                    <label for="addRating">Rating</label>
+                                    <div class="">
+                                        <input type="text" id="addRating"  name="addRating" oninput="validateRating(this)">
+                                    </div>
+                                </div>
+                                <div>
+                                    Select Theater
+                                  <input type="hidden" id="selectedTheater" name="selectedTheater"> 
+                                </div>
+                                <div class="d-flex">
+                                    <cfloop query="local.theater">
+                                        <div class="d-flex align-items-baseline mt-2">
+                                            <input type="checkbox" name="theater" value="#local.theater.id#" id="theater_#local.theater.id#" class="ms-2">
+                                            <label for="theater_#local.theater.id#">#local.theater.name#</label> 
+                                        </div>
+                                        
+                                    </cfloop>  
                                 </div>
                             </div>
-                            <div class="d-flex  ps-4">
-                                <label for="addduration">Duration</label>
-                                <div class="">
-                                    <input type="time" id="addduration">
-                                </div>
+                            <div class="modal-footer">
+                            <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage()">Close</button>
+                            <button type="submit" id="saveBtn" name="saveMovieDetails" class="btn btn-primary" >Save</button>
                             </div>
-                            <div class="mt-2 ps-5">
-                                <label for="addProfileImage">Profile Image</label>
-                                <div class="">
-                                  <input type="file" name="profileImage" id="addProfileImage"  accept="image/jpeg, image/png"required>
-                                </div>
-                              </div>
-                              <div class="mt-2 ps-5">
-                                <label for="addCoverImage">Cover Image</label>
-                                <div class="">
-                                  <input type="file" name="coverImage" id="addCoverImage" accept="image/jpeg, image/png" required>
-                                </div>
-                              </div>
-                              <div class="mt-2 d-flex px-4">
-                                <label for="editAbout">About</label>
-                                <div class=" ms-5 p-17">
-                                    <textarea id="editAbout" name="editAbout" rows="3" cols="21" ></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                 Select Language
-                            </div>
-                            <div class="d-flex">
-                                <cfloop query="local.lang">
-                                    <input type="checkbox" name="languages" value="#local.lang.lang_id#" id="lang_#local.lang.lang_id#" class="ms-2">
-                                    <label for="lang_#local.lang.lang_id#">#local.lang.language#</label> 
-                                </cfloop>  
-                            </div>    
-                            <div>
-                                Select Genre
-                           </div>
-                           <div class="d-flex">
-                               <cfloop query="local.genre">
-                                   <input type="checkbox" name="genres" value="#local.genre.genre_id#" id="lang_#local.genre.genre_id#" class="ms-2">
-                                   <label for="lang_#local.genre.genre_id#">#local.genre.genre_type#</label> 
-                               </cfloop>  
-                           </div> 
-                           <div class="mt-2 d-flex ps-4">
-                                <label for="editCertificate">Certificate</label>
-                                <div class="p-15">
-                                    <select class="ms-3 " id="editCertificate" > 
-                                        <option value="" selected></option>
-                                        <cfloop query="local.cert">
-                                            <option  value="#local.cert.cert_id#">#local.cert.cert_type#</option>
-                                        </cfloop> 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-2 d-flex px-4">
-                                <label for="editDimension">Dimension</label>
-                                <div class=" ms-5">
-                                    <select class="ms-3" id="editDimension" > 
-                                        <option value="" selected></option>
-                                        <cfloop query="local.dimension">
-                                            <option value="#local.dimension.dimension_id#">#local.dimension.dimension#</option>
-                                        </cfloop>                                
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="d-flex  ps-4">
-                                <label for="addRating">Rating</label>
-                                <div class="">
-                                    <input type="text"id="addRating" oninput="validateRating(this)">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage()">Close</button>
-                        <button type="button" id="saveBtn" name="saveMovieDetails" class="btn btn-primary" onclick="getSelectedGenre()">Save</button>
                         </div>
                     </div>
-                </div>
-                </form>
-                <cfif  structKeyExists(form,"saveMovieDetails")> 
-                    <cfinvoke component="components/bookMyShow" method="saveEvent" fileupload1="form.profileImage" fileupload2="form.coverImage">
-                       <cfinvokeargument name="name" value="#form.name#">
-                       <cfinvokeargument name="date" value="#form.date#">
-                       <cfinvokeargument name="duration" value="#form.duration#">
-                       <cfinvokeargument name="lang" value="#form.lang#">  
-                       <cfinvokeargument name="category" value="#form.category#">
-                       <cfinvokeargument name="location" value="#form.location#">
-                       <cfinvokeargument name="venue" value="#form.venue#"> 
-                       <cfinvokeargument name="rate" value="#form.rate#">              
+                </form>   
+
+                <cfif  structKeyExists(form,"saveMovieDetails")>
+                    <cfinvoke component="components/bookMyShow" method="insertMovie" fileupload1="form.profileImage" fileupload2="form.coverImage">
+                       <cfinvokeargument name="name" value="#form.addMovieName#">
+                       <cfinvokeargument name="releaseDate" value="#form.addReleaseDate#">
+                       <cfinvokeargument name="duration" value="#form.moviedDuration#">
+                       <cfinvokeargument name="about" value="#form.addAbout#">  
+                       <cfinvokeargument name="rating" value="#form.addRating#">
+                       <cfinvokeargument name="certificate" value="#form.addCertificate#">
+                       <cfinvokeargument name="dimension" value="#form.addDimension#">
+                        <cfif structKeyExists(form,"selectedLanguages")>                        
+                            <cfinvokeargument name="language" value="#form.selectedLanguages#">
+                        </cfif>
+                        <cfif structKeyExists(form,"genre")>                        
+                            <cfinvokeargument name="genre" value="#form.genre#">
+                        </cfif>
+                        <cfif structKeyExists(form,"selectedTheater")>                        
+                            <cfinvokeargument name="theater" value="#form.selectedTheater#">
+                        </cfif>
+                                         
                     </cfinvoke>
                  </cfif>
             </div>
          </cfoutput>
+        
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>
-        <script src="script/filmCrud.js"></script>
-    
+        <script src="script/filmCrud.js"></script>   
 
     </body>
 </html>
