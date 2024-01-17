@@ -15,16 +15,14 @@
     <body>
         <cfinclude  template="header.cfm">
         <cfobject component="components/bookMyShow" name="objBookMyShow">
-        <cfparam name="URL.theaterId" default="">
-          
+        <cfparam name="URL.theaterId" default="">                
         <cfset local.encryptedTheaterId = replace(theaterId,"!","+", "all")>
         <cfset local.encryptedTheaterId = replace(local.encryptedTheaterId,"@","\", "all")>
-        <cfset local.decryptedTheaterId = decrypt(local.encryptedTheaterId,#application.key#, 'AES', 'Base64')>  
+        <cfset local.decryptedTheaterId = decrypt(local.encryptedTheaterId,#application.key#, 'AES', 'Base64')>       
         <cfset local.theater =objBookMyShow.theaterDetails(local.decryptedTheaterId)>    
-        <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)> 
-         <cfdump var="#local.theater#">
+        <cfset local.theaterTime =objBookMyShow.theaterDetailsBasedOnId(local.decryptedTheaterId)>
         <cfset formId=1>      
-        <cfset screeNo=1> 
+        <cfset screeNo=1>       
         <cfoutput>
             <div class="px-4 bg-secondary-subtle">
                 <div class="bg-white py-3 px-3">
@@ -89,28 +87,27 @@
                             </div>
                         </div>  
                     </div> 
-                    <cfloop query="local.theater">
-                        <div class="d-flex py-3 px-3 topBorder"> 
-                            <div>
-                                <div class="d-flex">
-                                    <div>
-                                        <span class="heart">
-                                            favorite
-                                        </span>
+                    <cfif  local.theater.recordCount>
+                        <cfloop query="local.theater">
+                            <div class="d-flex py-3 px-3 topBorder"> 
+                                <div>
+                                    <div class="d-flex">
+                                        <div>
+                                            <span class="heart">
+                                                favorite
+                                            </span>
+                                        </div>
+                                        <div class="theater-name ms-2">
+                                            #local.theater.movieName#
+                                        </div>
+                                        <div class="info"> 
+                                            <img src="assests/info.jpg"  width="15px" height="15px" alt="info">
+                                            <span class="info-txt">INFO</span>
+                                        </div>
                                     </div>
-                                    <div class="theater-name ms-2">
-                                        #local.theater.movieName#
-                                    </div>
-                                    <div class="info"> 
-                                        <img src="assests/info.jpg"  width="15px" height="15px" alt="info">
-                                        <span class="info-txt">INFO</span>
-                                    </div>
-                                </div>
-                                <div class="ms-3 nonCancelTxt">Screen-#screeNo#</div>
-                                <cfset screeNo+=1>
-
-                            </div>
-                            <cfif structKeyExists(local.theater, "movieId")>
+                                    <div class="ms-3 nonCancelTxt">Screen-#screeNo#</div>
+                                    <cfset screeNo+=1>
+                                </div>                                                       
                                 <div>
                                     <div class="ps-5 d-flex">
                                         <cfset timeArray = listToArray(local.theaterTime.times, ",")>                                    
@@ -130,12 +127,11 @@
                                         <span class="px-2 nonCancelTxt">Non-cancellable</span>
                                     </div>
                                 </div>
-                                <cfelse>
-                                    <p>No data<p>
-                            </cfif>
-                            
-                        </div>
-                    </cfloop>      
+                            </div>
+                        </cfloop>  
+                    <cfelse>
+                        <p>No films running currently</p>
+                    </cfif> 
                 </div>            
             <div>
         </cfoutput>        
