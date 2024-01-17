@@ -32,7 +32,7 @@
     </cffunction>
 
 
-    <cffunction name="insertUser" access="remote" returntype="boolean">
+    <cffunction name="insertUser" access="remote" returnformat="json">
         <cfargument name="name" type="string" required="true">
         <cfargument name="mail" type="string" required="true">
         <cfargument name="phone" type="string" required="true">
@@ -45,7 +45,7 @@
             phone = <cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">
         </cfquery> 
         <cfif qryUserExists.recordCount>
-            <cfreturn true> 
+            <cfreturn SerializeJSON({ "success": true })> 
             <cfelse>
                 <cfquery name="qryInsertUser">
                     INSERT
@@ -60,7 +60,7 @@
                             
                     )                        
                 </cfquery>
-                <cfreturn false> 
+                 <cfreturn SerializeJSON({ "success": false })> 
         </cfif>        
     </cffunction>
 
@@ -562,6 +562,10 @@
         <cfreturn qryTheaterDetails>
     </cffunction>
 
+
+
+
+
     <cffunction  name="updateEventDetails" access="remote">
         <cfargument name="id" required="true">
         <cfargument name="eventName" required="true">
@@ -842,7 +846,7 @@
     </cffunction>
 
     <cffunction  name="insertMovie" access="public">
-        <cfargument name="name" >
+        <cfargument name="name">
         <cfargument name="releaseDate">
         <cfargument name="duration" >
         <cfargument name="about">  
@@ -851,8 +855,7 @@
         <cfargument name="dimension"> 
         <cfargument name="language">
         <cfargument name="genre">        
-        <cfargument name="theater">  
-        
+        <cfargument name="theater">         
         <cfargument name="fileupload1">
         <cfargument name="fileupload2"> 
         <cfset destination=ExpandPath("/bookmyShow/assests")>
@@ -905,7 +908,6 @@
                 <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_VARCHAR">
             )
         </cfquery>
-
         
         <cfif len(trim(genre))>
             <cfquery name="qryAddMovieGenre">              
@@ -920,8 +922,7 @@
                     </cfif>
                 </cfloop>
             </cfquery>
-        </cfif>
-      
+        </cfif>      
 
         <cfif len(trim(language))>
             <cfquery name="qryAddLang">              
@@ -952,7 +953,6 @@
                 </cfloop>
             </cfquery>
         </cfif>
-
         <cflocation  url="filmCrud.cfm"> 
         
     </cffunction>

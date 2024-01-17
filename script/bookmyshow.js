@@ -199,14 +199,11 @@ function insertUser() {
          phone: phone
 
       },
-
       success: function (data) {
-
-
-         let result = $(data).find("boolean").attr("value");
-
-         if (result === "true") {
-
+         console.log(data);
+         var obj = $.parseJSON(data);
+         let result= (obj['success']); 
+         if (result ===true) {
             alert("User Already Exist");
 
          } else {
@@ -217,7 +214,6 @@ function insertUser() {
          var phone = $("#phnneNo").val("");
          $('#signInModal').modal('hide');
       },
-
 
       error: function (jqXHR, textStatus, errorThrown) {
          console.error("AJAX Error: " + textStatus, errorThrown);
