@@ -1,12 +1,8 @@
 <!--- User.cfc --->
-<cfcomponent persistent="true"  entityname="userDetail" table="userDetail"> 
-    <cfproperty name="id" generator="increment" type="numeric">     
-    <cfproperty name="firstname"> 
-    <cfproperty name="lastname"> 
-    <cfproperty name="dob" type="date">
-    <cfproperty name="address">    
-    <cfproperty name="postalcode"> 
-    <cfproperty name="email"> 
-    <cfproperty name="phone">
-    
+<cfcomponent persistent="true"  entityname="user" table="tb_user"> 
+    <cfproperty name="user_id"  fieldtype="id" generator="native" type="numeric">     
+    <cfproperty name="name"> 
+    <cfproperty name="mail"> 
+    <cfproperty name="phone" >
+    <cfproperty name="role_id" type="numeric"> 
 </cfcomponent>
