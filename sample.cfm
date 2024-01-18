@@ -7,6 +7,7 @@
   
 </head>
   <body>
+   
    <cfset userDetails=entityLoad("userDetail")/>
    <cfdump var="#userDetails#">
 

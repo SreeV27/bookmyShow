@@ -72,6 +72,7 @@
                <a  id="addTheater" href="theaterCrud.cfm" class="text-decoration-none">Threater</a>
                <a id="addFilm" href="filmCrud.cfm" class="text-decoration-none">Film</a>
                <a id="addEvent" href="eventCrud.cfm" class="text-decoration-none">Events</a>
+               <a id="addUser" href="userCrud.cfm" class="text-decoration-none">Users</a>
             </cfif>
          </div>
          <div class="menu-1 me-3">
