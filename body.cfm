@@ -2,11 +2,11 @@
 <cfobject component="components/bookMyShow" name="objBookMyShow">
 <cfinclude  template="header.cfm">
 <cfinclude  template="slide.cfm">
-<div class=" titleDiv px-5 ">
+<div class="titleDiv px-5 ">
    <div class="textDiv">
-      <h2 class=" text-1">Recommended Movies</h2>
+      <h2 class="text-1">Recommended Movies</h2>
    </div>
-   <div class=" ">
+   <div>
       <a href="movieList.cfm" class="text2style">
          <div class="text-2">See All ></div>
       </a>
@@ -23,7 +23,6 @@
                   <cfset local.encryptedMovieId= encrypt(local.movieId,#application.key#,'AES', 'Base64')>
                   <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
                   <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
-
                   <a href="movie.cfm?movieId=#local.encryptedMovieId#" id="" class=" movieLink">
                      <div >
                         <div class="">
@@ -56,11 +55,11 @@
 <div class="streamDiv px-5 mt-3">
    <img src="assests/stream.jpg" alt="Stream" width="100%" height="100%">
 </div>
-<div class=" titleDiv px-5 pt-5">
+<div class="titleDiv px-5 pt-5">
    <div class="textDiv">
-      <h2 class=" text-1">Events</h2>
+      <h2 class="text-1">Events</h2>
    </div>
-   <div class=" ">
+   <div>
       <a href="eventList.cfm" class="text2style">
          <div class="text-2">See All ></div>
       </a>
@@ -77,8 +76,8 @@
                   <cfset local.encryptedEventId = replace(local.encryptedEventId, "+", "!", "all")>
                   <cfset local.encryptedEventId = replace(local.encryptedEventId, "\", "@", "all")>
                   <a href="event.cfm?eventId=#local.encryptedEventId#" class=" movieLink">
-                     <div >
-                        <div >
+                     <div>
+                        <div>
                         </div>
                         <div width="100%" height="100%" >
                            <div class=" movieImg">
@@ -100,8 +99,7 @@
                         </div>
                      </div>
                   </a>
-               </div>
-               
+               </div>               
             </cfoutput>
          </cfloop>
       </div>

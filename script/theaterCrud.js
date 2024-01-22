@@ -1,47 +1,47 @@
 $(".view").click(function () {
+   $("#theaterTime").show();
+   
+   var theaterId = $(this).data("theaterid");
+   $('#location').empty();
+   $.ajax({
 
-    var theaterId = $(this).data("theaterid");
-    $('#location').empty();
-    $.ajax({
- 
-       url: 'components/bookMyShow.cfc?method=fetchTheaterDetailsBasedOnId',
-       // Type of Request
-       type: "POST",
-       data: {
-          theaterId: theaterId
-       },
-       success: function (data) {
-          console.log(data);
-          $("#theaterName").val($(data).find("field[name='NAME'] string").text());
-          $("#address").val($(data).find("field[name='ADDRESS'] string").text());
-          $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
-          $("#phno").val($(data).find("field[name='PHNO'] string").text());
-          $("#time").val($(data).find("field[name='TIMES'] string").text());
-          var statusValue = parseFloat($(data).find("field[name='STATUS'] number").text());
-          $("#status").empty();
-          if (statusValue === 1.0) {
-             $("#status").append('<option value="1" selected>Active</option>');
-          } else {
-             $("#status").append('<option value="0" selected>InActive</option>');
-          }
- 
- 
-          $("#theaterName").prop("disabled", true);
-          $("#address").prop("disabled", true);
-          $("#location").prop("disabled", true);
-          $("#phno").prop("disabled", true);
-          $("#time").prop("disabled", true);
-          $("#status").prop("disabled", true);
-          $("#saveBtn").hide();
- 
- 
-       },
-       error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX Error: " + textStatus, errorThrown);
-       }
- 
- 
-    });
+      url: 'components/bookMyShow.cfc?method=fetchTheaterDetailsBasedOnId',
+      // Type of Request
+      type: "POST",
+      data: {
+         theaterId: theaterId
+      },
+      success: function (data) {
+         console.log(data);
+         $("#theaterName").val($(data).find("field[name='NAME'] string").text());
+         $("#address").val($(data).find("field[name='ADDRESS'] string").text());
+         $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
+         $("#phno").val($(data).find("field[name='PHNO'] string").text());
+         $("#time").val($(data).find("field[name='TIMES'] string").text());
+         var statusValue = parseFloat($(data).find("field[name='STATUS'] number").text());
+         $("#status").empty();
+         if (statusValue === 1.0) {
+            $("#status").append('<option value="1" selected>Active</option>');
+         } else {
+            $("#status").append('<option value="0" selected>InActive</option>');
+         } 
+
+         $("#theaterName").prop("disabled", true);
+         $("#address").prop("disabled", true);
+         $("#location").prop("disabled", true);
+         $("#phno").prop("disabled", true);
+         $("#time").prop("disabled", true);
+         $("#status").prop("disabled", true);
+         $("#saveBtn").hide();
+
+
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+         console.error("AJAX Error: " + textStatus, errorThrown);
+      }
+
+
+   });
  
  
  });
@@ -77,49 +77,50 @@ $(".view").click(function () {
  });
  
  
- $(".edit").click(function () {
-    $("#saveBtn").show();
-    var theaterId = $(this).data("theaterid");
-    $('#status').empty();
-    $('#location').empty();
-    $.ajax({
- 
-       url: 'components/bookMyShow.cfc?method=fetchTheaterDetailsBasedOnId',
-       // Type of Request
-       type: "POST",
-       data: {
-          theaterId: theaterId
-       },
-       success: function (data) {
- 
-          $("#theaterName").val($(data).find("field[name='NAME'] string").text());
-          $("#address").val($(data).find("field[name='ADDRESS'] string").text());
-          $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
-          $("#phno").val($(data).find("field[name='PHNO'] string").text());
-          $("#time").val($(data).find("field[name='TIMES'] string").text());
-          var statusValue = $(data).find("field[name='STATUS'] number").text();
-          $("#status").empty();
-          if (statusValue == "1.0") {
-             $("#status").append('<option value="1" selected>Active</option>');
-             $("#status").append('<option value="0">Inactive</option>');
-          } else {
-             $("#status").append('<option value="1">Active</option>');
-             $("#status").append('<option value="0" selected>Inactive</option>');
-          }
- 
-          $("#theaterName").prop("disabled", false);
-          $("#address").prop("disabled", false);
-          $("#location").prop("disabled", true);
-          $("#phno").prop("disabled", true);
-          $("#time").prop("disabled", true);
-          $("#status").prop("disabled", false);
-          $("#saveBtn").show();
- 
- 
-       },
-       error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX Error: " + textStatus, errorThrown);
-       }
+$(".edit").click(function () {
+   $("#theaterTime").hide();
+   $("#saveBtn").show();
+   var theaterId = $(this).data("theaterid");
+   $('#status').empty();
+   $('#location').empty();
+   $.ajax({
+
+      url: 'components/bookMyShow.cfc?method=fetchTheaterDetailsBasedOnId',
+      // Type of Request
+      type: "POST",
+      data: {
+         theaterId: theaterId
+      },
+      success: function (data) {
+
+         $("#theaterName").val($(data).find("field[name='NAME'] string").text());
+         $("#address").val($(data).find("field[name='ADDRESS'] string").text());
+         $("#location").append('<option value="' + $(data).find("field[name='LOCATION'] string").text() + '">' + $(data).find("field[name='LOCATION'] string").text() + '</option>');
+         $("#phno").val($(data).find("field[name='PHNO'] string").text());
+         $("#time").val($(data).find("field[name='TIMES'] string").text());
+         var statusValue = $(data).find("field[name='STATUS'] number").text();
+         $("#status").empty();
+         if (statusValue == "1.0") {
+            $("#status").append('<option value="1" selected>Active</option>');
+            $("#status").append('<option value="0">Inactive</option>');
+         } else {
+            $("#status").append('<option value="1">Active</option>');
+            $("#status").append('<option value="0" selected>Inactive</option>');
+         }
+
+         $("#theaterName").prop("disabled", false);
+         $("#address").prop("disabled", false);
+         $("#location").prop("disabled", true);
+         $("#phno").prop("disabled", true);
+         $("#time").prop("disabled", true);
+         $("#status").prop("disabled", false);
+         $("#saveBtn").show();
+
+
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+         console.error("AJAX Error: " + textStatus, errorThrown);
+      }
  
  
     });

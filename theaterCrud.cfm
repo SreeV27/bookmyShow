@@ -91,12 +91,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mt-2 d-flex justify-content-between ps-4">
-                        <label for="time">Theater Time</label>
-                        <div class="">
-                            <textarea id="time" rows="4" cols="22"></textarea>
-                        </div>
-                    </div>              
+                    <div id="theaterTime">
+                        <div class="mt-2 d-flex justify-content-between ps-4" >
+                            <label for="time">Theater Time</label>
+                            <div class="">
+                                <textarea id="time" rows="4" cols="22"></textarea>
+                            </div>
+                        </div>   
+                    </div>
+                               
                 
                 </div>
                 <div class="modal-footer">

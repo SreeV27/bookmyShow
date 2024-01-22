@@ -65,7 +65,7 @@
                                             <a href="" class=" fizEby text-decoration-none">#local.movie.language#</a>
                                         </div>
                                     </div>
-                                    <div class="movieDetailsDiv ">#local.movie.duration#
+                                    <div class="movieDetailsDiv">#local.movie.duration#
                                         <span class="starIcon">  *  </span>
                                         <a href="" class="text-white bHMPWI text-decoration-none">#local.movie.genre#</a>
                                         <span class="starIcon">  *  </span>#local.movie.cert_type#

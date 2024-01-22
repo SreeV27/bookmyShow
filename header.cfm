@@ -40,7 +40,7 @@
          </div>
          <div class="d-flex">
             <div class="d-flex">
-               <cfif !StructKeyExists(session, "userId") || session.userId EQ 0>               
+               <cfif !StructKeyExists(session,"userId") || session.userId EQ 0>               
                   <button type="button"  id="log-in" class=" nav-btn mt-2 ms-4 " data-bs-toggle="modal" data-bs-target="#loginInModal">
                      Log In
                   </button>
@@ -48,7 +48,7 @@
                      Sign Up
                   </button>  
                </cfif>             
-               <cfif StructKeyExists(session, "userId") && session.userId GT 0>
+               <cfif StructKeyExists(session,"userId") && session.userId GT 0>
                <div class="mt-2" id="profile">
                   <cfoutput>                        
                      <span class="text-white" id="userName">Hi #session.userName#</span>
@@ -172,7 +172,7 @@
                               <input  id="registerBtn" type="submit" class="m-auto  hmbiuL" value="Register">
                            </div>
                         </form>
-                        <button class="sign-in-google mt-3" id="signUp-google">
+                        <button class="sign-in-google mt-3" id="signUpGoogle">
                            <div>                             
                               <span >
                               <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
@@ -180,6 +180,7 @@
                               Continue with Google
                            </div>
                         </button>
+                        
                      </center>
                   </div>
                </div>
@@ -191,6 +192,6 @@
             </div>
          </div>
       </div>
-      <!---end of Sign modal ---> 
+      <!---end of Sign modal --->        
    </body>
 </html>

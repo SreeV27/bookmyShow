@@ -1,8 +1,8 @@
 <cfcomponent>
     <cfset this.name = "Book My Show">
-    <cfset this.applicationTimeout = createTimeSpan( 0, 0, 0, 20 )>
+    <cfset this.applicationTimeout = createTimeSpan( 0, 0, 5,0 )>
     <cfset this.sessionManagement = true>
-    <cfset this.sessionTimeout = CreateTimeSpan(0 ,0,0,10)>    
+    <cfset this.sessionTimeout = CreateTimeSpan(0 ,0,2,0)>    
     <cfset this.ormsettings={}/>
     <cfset this.ormsettings.cfclocation="components"/>
     <cfset this.ormsettings.dbcreate="update"/>

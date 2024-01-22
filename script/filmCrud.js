@@ -1,6 +1,6 @@
 $(document).ready(function () {
    $("#statusDiv").hide();
-
+   new MultiSelectTag('theaters')  // id
    $('input[name="language"]').change(function () {
       var selectedLangs = [];
       $('input[name="language"]:checked').each(function () {
@@ -19,13 +19,16 @@ $(document).ready(function () {
    });
 
 
-   $('input[name="theater"]').change(function () {
-      var selectedGenre = [];
-      $('input[name="theater"]:checked').each(function () {
-         selectedGenre.push($(this).val());
-      });
-      $('#selectedTheater').val(selectedGenre.join(', '));
-   });
+   // $('input[name="theater"]').change(function () {
+   //    var selectedGenre = [];
+   //    $('input[name="theater"]:checked').each(function () {
+   //       selectedGenre.push($(this).val());
+   //    });
+   //    $('#selectedTheater').val(selectedGenre.join(', '));
+   // });
+
+  
+
 
 
 });
@@ -429,9 +432,20 @@ function getAllSelectedGenre() {
 }
 
 $("#saveBtn1").click(function () {
+    // Get the select element
+    var selectElement = document.getElementById("theaters");
+    // Get the hidden input element
+    var hiddenInput = document.getElementById("selectedTheater");
+    // Get all selected options
+    var selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
+ 
+    // Set the hidden input value to the selected options
+    hiddenInput.value = selectedOptions.join(',');
+    // Log the selected options (optional)
+    console.log(selectedOptions);
 
 
-   alert(getAllSelectedLang());
+   
 
 });
 
