@@ -1,6 +1,16 @@
 $(document).ready(function(){
 
     document.getElementById("eventBookingFormDiv").style.display = "none";
+    // Get the element by its ID using jQuery
+    const myElement = $("#movieDiv");
+    // Get the URL from the hidden input
+    const profileImgUrl = $("#profile_img").val();
+    // Set the background property using the dynamically obtained URL
+    myElement.css({
+        background: `url('${profileImgUrl}')`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    });
 });
 function openForm() {
     document.getElementById("eventBookingFormDiv").style.display = "block";

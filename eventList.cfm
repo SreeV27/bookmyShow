@@ -14,8 +14,7 @@
       <script src="script/eventListing.js"></script>
    </head>
    <body class="bg-body-secondary">
-     <cfoutput>
-      
+     <cfoutput>      
          <cfobject component="components/bookMyShow" name="objBookMyShow">
          <cfinclude  template="header.cfm">
          <div class="ps-5">
@@ -97,7 +96,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -105,7 +103,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -113,7 +110,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -121,7 +117,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -129,7 +124,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -137,7 +131,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -145,7 +138,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="event">
                         <div class="eventDiv">
                            <div class="eventNameDiv">
@@ -155,8 +147,7 @@
                      </div>
                   </div>                  
                </div>
-               <cfset local.event=objBookMyShow.fetchEventDetails()> 
-                                                                      
+               <cfset local.event=objBookMyShow.fetchEventDetails()>                                                                       
                <div class="movieRowDiv p-0 mt-3" id="movieRowDiv"> 
                   <cfloop query="local.event">
                      <cfset local.encryptedEventId= encrypt(local.event.event_id,#application.key#,'AES', 'Base64')>

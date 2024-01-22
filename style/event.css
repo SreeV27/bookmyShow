@@ -148,3 +148,16 @@ body, html {
 .selectSeat{
     padding: 24px 10px;
 }
+
+.hhpXm {
+    min-height: 400px;
+    width: 92%;
+    padding: 32px 0px;
+    align-items: center;
+    display: flex;               
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: 0px auto;
+    max-width: 1440px;
+}

@@ -1,4 +1,16 @@
 <cfcomponent>
+    
+    <cffunction name="signInWithGoogle" access="remote">
+		<cfset clientID ="1076698100399-au2dd41l4tuklhipi3p52r5bodsr6pec.apps.googleusercontent.com">
+		<cfset clientSecret ="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">
+		<cfset redirectURI ="http://127.0.0.1:8500/bookmyShow/body.cfm">
+		<cfset authURL ="https://accounts.google.com/o/oauth2/auth">
+		<cfset responseType ="code">		
+		<cfset scope ="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
+		<cfset local.url="#authURL#?client_id=#clientID#&redirect_uri=#redirectURI#&scope=#scope#&response_type=#responseType#">
+		<cfreturn local.url>
+	</cffunction>
+
     <cffunction name="fetchDetails" access="remote" returntype="any">
         <cfargument name="phone" type="string" required="true">
         <cfset local.result = {}>
@@ -562,10 +574,6 @@
         <cfreturn qryTheaterDetails>
     </cffunction>
 
-
-
-
-
     <cffunction  name="updateEventDetails" access="remote">
         <cfargument name="id" required="true">
         <cfargument name="eventName" required="true">
@@ -718,7 +726,6 @@
         <cfargument  name="formattedTimes" type="string">
         <cfargument  name="status" type="numeric">
 
-
         <cfquery name="qrytheater">
             SELECT id
             FROM tb_theater
@@ -799,21 +806,18 @@
             about= <cfqueryparam value="#arguments.about#" cfsqltype="CF_SQL_VARCHAR">
             WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
-
         <cfquery name="qryUpdateMovieCert">
             UPDATE tb_movie_cert
             SET
             cert_id=<cfqueryparam value="#arguments.cert#" cfsqltype="CF_SQL_INTEGER">
             WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
-
         <cfquery name="qryUpdateMovieCert">
             UPDATE tb_movie_dimension
             SET
             dimension_id=<cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_INTEGER">
             WHERE movie_id=<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
-
         <cfif len(trim(langId))>
             <cfquery name="qryAddLang">              
                 <cfset var langArray = ListToArray(arguments.langId, ",")>
@@ -828,7 +832,6 @@
                 </cfloop>
             </cfquery>
         </cfif>
-
         <cfif len(trim(genreId))>
             <cfquery name="qryAddGenre">              
                 <cfset var genreArray = ListToArray(arguments.genreId, ",")>
@@ -844,7 +847,6 @@
             </cfquery>
         </cfif>
     </cffunction>
-
     <cffunction  name="insertMovie" access="public">
         <cfargument name="name">
         <cfargument name="releaseDate">
@@ -900,15 +902,13 @@
                 <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_INTEGER">
             )
         </cfquery>
-
         <cfquery name="qryInsertMovieRating">
             INSERT INTO tb_movie_rating(movie_id,rating)
             VALUES(
                 <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
                 <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_VARCHAR">
             )
-        </cfquery>
-        
+        </cfquery>        
         <cfif len(trim(genre))>
             <cfquery name="qryAddMovieGenre">              
                 <cfset var genreArray = ListToArray(arguments.genre, ",")>
@@ -922,8 +922,7 @@
                     </cfif>
                 </cfloop>
             </cfquery>
-        </cfif>      
-
+        </cfif>  
         <cfif len(trim(language))>
             <cfquery name="qryAddLang">              
                 <cfset var langArray = ListToArray(arguments.language, ",")>
@@ -938,7 +937,6 @@
                 </cfloop>
             </cfquery>
         </cfif>
-
         <cfif len(trim(theater))>
             <cfquery name="qryAddLang">              
                 <cfset var theaterArray = ListToArray(arguments.theater, ",")>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script/jquery-3.6.4.js"></script>   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
     <link rel="stylesheet" href="style/bootstrap.css">
     <link rel="stylesheet" href="style/jquery-ui.css">
     <link rel="stylesheet" href="style/filmCrud.css"> 
@@ -33,7 +34,6 @@
                             <th>View</th>
                             <th>Edit</th>
                             <th>Delete</th>
-
                         </tr>        
                         <cfloop query="local.movie">
                             <tr>
@@ -113,8 +113,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                           
+                            </div>                           
                             <div class="mt-2 d-flex justify-content-between ps-4">
                                 <label for="certificate">Certificate</label>
                                 <div class="">
@@ -128,8 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                
+                    </div>                 
                 </div>
                 <div class="modal-footer">
                 <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -137,8 +135,6 @@
             </div>
             </div>
         </div>
-
-
          <!---EditModal--->
         <div class="modal fade movieEditModal" id="movieEditModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -191,8 +187,7 @@
                                                 </div>
                                             </div>                                     
                                         </div>
-                                    </div>
-                                    
+                                    </div>                                    
                                     <div class="mt-2 d-flex justify-content-between ps-4">
                                         <label for="editGenre">Genre</label>
                                         <div class="">                                        
@@ -228,8 +223,7 @@
                                                 </cfloop>                                
                                             </select>
                                         </div>
-                                    </div>
-                            
+                                    </div>                            
                                     <div  id="statusDiv">
                                         <div class="mt-2 d-flex px-4">
                                             <label for="editStatus">Status</label>
@@ -267,7 +261,6 @@
                 </div>
             </div>
         </div>
-
          <!---InsertModal--->
          <cfoutput>
             <div class="modal fade movieAddModal" id="movieAddModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -284,8 +277,7 @@
                                 <cfset local.lang=objBookMyShow.fetchEventLanguages()>
                                 <cfset local.genre=objBookMyShow.fetchGenre()>
                                 <cfset local.dimension=objBookMyShow.fetchDimensions()>
-                                <cfset local.cert=objBookMyShow.fetchCertificate()>
-                               
+                                <cfset local.cert=objBookMyShow.fetchCertificate()>                               
                                 <div class="d-flex  ps-4 justify-content-evenly">
                                     <label for="addMovieName">Name</label>
                                     <div class="">
@@ -345,8 +337,7 @@
                                         <div class=class="d-flex align-items-baseline mt-2">
                                             <input type="checkbox" name="genres" value="#local.genre.genre_id#" id="lang_#local.genre.genre_id#" class="ms-2">
                                             <label for="lang_#local.genre.genre_id#">#local.genre.genre_type#</label> 
-                                        </div>
-                                       
+                                        </div>                                       
                                     </cfloop>  
                                 </div> 
                                 <div class="mt-2 d-flex ps-4">
@@ -377,23 +368,21 @@
                                         <input type="text" id="addRating"  name="addRating" oninput="validateRating(this)">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="d-flex">
                                     Select Theater
                                   <input type="hidden" id="selectedTheater" name="selectedTheater"> 
+                                  <div class="w-50">
+                                    <select name="theaters" id="theaters" multiple>
+                                        <cfloop query="local.theater">
+                                            <option value="#local.theater.id#">#local.theater.name#</option> 
+                                        </cfloop>                                       
+                                    </select>                                    
                                 </div>
-                                <div class="d-flex">
-                                    <cfloop query="local.theater">
-                                        <div class="d-flex align-items-baseline mt-2">
-                                            <input type="checkbox" name="theater" value="#local.theater.id#" id="theater_#local.theater.id#" class="ms-2">
-                                            <label for="theater_#local.theater.id#">#local.theater.name#</label> 
-                                        </div>
-                                        
-                                    </cfloop>  
-                                </div>
+                                </div>  
                             </div>
                             <div class="modal-footer">
                             <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage()">Close</button>
-                            <button type="submit" id="saveBtn" name="saveMovieDetails" class="btn btn-primary" >Save</button>
+                            <button type="submit" id="saveBtn1" name="saveMovieDetails" class="btn btn-primary" >Save</button>
                             </div>
                         </div>
                     </div>
@@ -426,6 +415,7 @@
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
         <script src="script/filmCrud.js"></script>   
 
     </body>

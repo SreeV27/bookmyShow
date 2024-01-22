@@ -39,9 +39,5 @@
         </cfloop>        
       </table>
     </center>
-    
-
-
-
   </body>
 </html>

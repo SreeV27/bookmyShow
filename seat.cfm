@@ -86,7 +86,7 @@
                                                     <div class="seat mx-2 mt-2 booked"  id="#local.seatList.type##i#">#i#</div>
                                                     <cfelse>
                                                         <div class="seat mx-2 mt-2" onclick="changeStyle(this,#local.seatList.rate#,#i#,'#local.seatList.type#','#local.seatList.type##i#')"  id="#local.seatList.type##i#">#i#</div>
-                                                    </cfif>
+                                                </cfif>
                                             </td>
                                             <cfif i % 20 EQ 0>
                                                 </tr>

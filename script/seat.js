@@ -1,7 +1,5 @@
-
 var totalRate=0;
 var seatsArray = [];
-
 var time="";
 var date="";
 
@@ -23,8 +21,7 @@ function changeStyle(element,rate,seatNo,type,seatId) {
     if(currentColor == "rgb(255, 255, 255)") {
         element.style.backgroundColor = '#1ea83c';
         element.style.color='white';
-        totalRate += rate;
-       
+        totalRate += rate;       
             seatsArray.push(seatId);
        
     }
@@ -37,8 +34,7 @@ function changeStyle(element,rate,seatNo,type,seatId) {
         $("#payBtn").html("Pay Rs." + totalRate + ".00");
 
     }
-   
- 
+    
 }
 
 

@@ -144,7 +144,22 @@ $(document).ready(function () {
 
 
    });
+   $("#signUpGoogle").click(function(){
 
+      $.ajax({
+         type: "POST",
+         url: 'components/bookMyShow.cfc?method=signInWithGoogle',
+         cache: false,
+         success: function(data){      
+           var retval = $(data).find("string").text();
+           console.log(retval);
+           window.location.href=retval;
+           
+         }
+       });
+  });
+  
+ 
 
 });
 
@@ -189,7 +204,6 @@ function insertUser() {
 
 
    $.ajax({
-
 
       url: 'components/bookMyShow.cfc?method=insertUser',
       type: "POST",
@@ -239,3 +253,5 @@ function validateForm() {
 
 
 }
+
+

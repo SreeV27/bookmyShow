@@ -54,7 +54,7 @@
                                 <div class="details-icon">
                                     <span class="material-symbols-outlined text-danger">
                                         expand_more
-                                        </span>
+                                    </span>
                                 </div>                                
                             </section>
                         </div>                    
