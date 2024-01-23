@@ -19,26 +19,29 @@
                <cfset local.encryptedMovieId= encrypt(#local.movie.movieId#,#application.key#,'AES', 'Base64')>
                <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
                <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
-               <a href="movie.cfm?movieId=#local.encryptedMovieId#" class="movieDiv">
-                  <div class=" movieDetailsDiv">
-                     <div width="100%" height="100%" data-content="Animal" class="profilePicDiv">
-                        <div class="movieImg">
-                           <img src="assests/#local.movie.profile_img#"  alt="#local.movie.name#" width="100%" height="100%">
+               <cfif #local.movie.status# NEQ 0>
+                  <a href="movie.cfm?movieId=#local.encryptedMovieId#" class="movieDiv">
+                     <div class=" movieDetailsDiv">
+                        <div width="100%" height="100%" data-content="Animal" class="profilePicDiv">
+                           <div class="movieImg">
+                              <img src="assests/#local.movie.profile_img#"  alt="#local.movie.name#" width="100%" height="100%">
+                           </div>
+                        </div>
+                        <div class="movieNameDiv">
+                           <div>
+                              <div class="movie-heading-txt">#local.movie.name#</div>
+                           </div>
+                           <div>
+                              <div class="genre-txt">#local.movie.cert_type#</div>
+                           </div>
+                           <div>
+                              <div class="genre-txt"> #local.movie.language#</div>
+                           </div>
                         </div>
                      </div>
-                     <div class="movieNameDiv">
-                        <div>
-                           <div class="movie-heading-txt">#local.movie.name#</div>
-                        </div>
-                        <div>
-                           <div class="genre-txt">#local.movie.cert_type#</div>
-                        </div>
-                        <div>
-                           <div class="genre-txt"> #local.movie.language#</div>
-                        </div>
-                     </div>
-                  </div>
-               </a>
+                  </a>
+               </cfif>
+               
             </cfloop>
          </div>
       </cfoutput>

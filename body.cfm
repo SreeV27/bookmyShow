@@ -2,6 +2,15 @@
 <cfobject component="components/bookMyShow" name="objBookMyShow">
 <cfinclude  template="header.cfm">
 <cfinclude  template="slide.cfm">
+<cfset currentURL = "http://#CGI.SERVER_NAME#:#CGI.SERVER_PORT##CGI.SCRIPT_NAME#?#CGI.QUERY_STRING#">
+<!-- Extract 'code' parameter value from the URL -->
+<cfset code = "">
+<cfif StructKeyExists(URL, "code")>
+   <cfset code = URL.code>
+   <cfset local.user=objBookMyShow.getGoogleUserInfo(code)>
+   
+</cfif>
+ 
 <div class="titleDiv px-5 ">
    <div class="textDiv">
       <h2 class="text-1">Recommended Movies</h2>
@@ -16,6 +25,7 @@
    <div class="movieListDiv">
       <div class="moviesDiv">
          <cfset local.movies=objBookMyShow.fetchAllMovieDetails()>
+         
          <cfloop query="local.movies">
             <cfoutput>
                <div> 
@@ -23,29 +33,31 @@
                   <cfset local.encryptedMovieId= encrypt(local.movieId,#application.key#,'AES', 'Base64')>
                   <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "+", "!", "all")>
                   <cfset local.encryptedMovieId = replace(local.encryptedMovieId, "\", "@", "all")>
-                  <a href="movie.cfm?movieId=#local.encryptedMovieId#" id="" class=" movieLink">
-                     <div >
-                        <div class="">
-                        </div>
-                        <div width="100%" height="100%" >
-                           <div class="movieImg">
-                              <img src="assests/#local.movies.profile_img#" alt="#local.movies.name#" width="100%" height="100%">
-                              <div class="rating text-white fs-15 d-flex justify-content-around">                                          
-                                 <span class="d-flex"><img class="me-2" src="assests/star.png" alt="star" width="20" height="20">#local.movies.rating#/10</span>
-                                 <span>6.7k Votes</span>
+                  <cfif local.movies.status NEQ 0> 
+                     <a href="movie.cfm?movieId=#local.encryptedMovieId#" id="" class=" movieLink">
+                        <div >
+                           <div class="">
+                           </div>
+                           <div width="100%" height="100%" >
+                              <div class="movieImg">
+                                 <img src="assests/#local.movies.profile_img#" alt="#local.movies.name#" width="100%" height="100%">
+                                 <div class="rating text-white fs-15 d-flex justify-content-around">                                          
+                                    <span class="d-flex"><img class="me-2" src="assests/star.png" alt="star" width="20" height="20">#local.movies.rating#/10</span>
+                                    <span>6.7k Votes</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="detailsDiv">
+                              <div>
+                                 <div class="movieName">#local.movies.name#</div>
+                              </div>
+                              <div>
+                                 <div class="movieGenre">#local.movies.genre#</div>
                               </div>
                            </div>
                         </div>
-                        <div class="detailsDiv">
-                           <div>
-                              <div class="movieName">#local.movies.name#</div>
-                           </div>
-                           <div>
-                              <div class="movieGenre">#local.movies.genre#</div>
-                           </div>
-                        </div>
-                     </div>
-                  </a>
+                     </a>
+                  </cfif>
                </div>
             </cfoutput>
          </cfloop>

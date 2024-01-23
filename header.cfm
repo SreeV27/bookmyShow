@@ -91,7 +91,7 @@
                   <button  id="modal-close-btn" type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body pb-5">
-                  <button class="signDiv  mt-3" id="login-google">
+                  <button class="signDiv  mt-3" id="signUpGoogle">
                      <div >                    
                         <span >
                         <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">
@@ -99,7 +99,7 @@
                         Continue with Google
                      </div>
                   </button>
-                  <button class="signDiv  mt-3" id="login-google">
+                  <button class="signDiv  mt-3">
                      <div >                    
                         <span >
                         <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/email.svg">
@@ -107,7 +107,7 @@
                         Continue with Email
                      </div>
                   </button>
-                  <button class="signDiv  mt-3" id="login-google">
+                  <button class="signDiv  mt-3">
                      <div class="ps-3" >
                         <span class="sign-in-apple ms-4">
                            <span >
@@ -172,7 +172,7 @@
                               <input  id="registerBtn" type="submit" class="m-auto  hmbiuL" value="Register">
                            </div>
                         </form>
-                        <button class="sign-in-google mt-3" id="signUpGoogle">
+                        <button class="sign-in-google mt-3">
                            <div>                             
                               <span >
                               <img alt="google logo" src="//in.bmscdn.com/webin/common/icons/googlelogo.svg">

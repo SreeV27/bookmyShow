@@ -115,7 +115,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Add Theater Details</h5>
-                        <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+                        <button type="button" onclick="reloadPage()" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -124,13 +124,13 @@
                             <div class="d-flex justify-content-between ps-4">
                                 <label for="addTheaterName">Name</label>
                                 <div class="">
-                                    <input type="text" id="addTheaterName"  name="theaterName">
+                                    <input type="text" id="addTheaterName"  name="theaterName" >
                                 </div>
                             </div>                    
                             <div class="mt-2 d-flex justify-content-between ps-4">
                             <label for="address">Address</label>
                                 <div class="">
-                                    <textarea id="addAddress" rows="4" cols="21"></textarea>
+                                    <textarea id="addAddress" rows="4" cols="21" ></textarea>
                                 </div>
                             </div>                
                             <div class="mt-2 d-flex px-4">
@@ -174,14 +174,14 @@
                                     <!-- Initial time input field -->
                                      <button class="btn btn-success" onclick="addTime()">Add Time</button>
                                     <div class="time-container mt-2">
-                                      <input type="time" name="time" class="timeInput"  onchange="updateFormattedTimes()"> 
+                                      <input type="time" name="time" class="timeInput"  onchange="updateFormattedTimes()" > 
                                     </div>
                                 </div>
                             </div>    
                             <input type="hidden" id="formattedTimes" name="time" readonly>
                             <div class="mt-3">
                                 <center>
-                                    <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button"  onclick="reloadPage()" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button  type="submit"  name="saveTheaterDetails"  id="saveTheaterDetails" class="btn btn-primary">Save</button>
                                 </center>
                             </div>            
