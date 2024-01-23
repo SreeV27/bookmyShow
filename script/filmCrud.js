@@ -431,23 +431,20 @@ function getAllSelectedGenre() {
 
 }
 
-$("#saveBtn1").click(function () {
-    // Get the select element
-    var selectElement = document.getElementById("theaters");
-    // Get the hidden input element
-    var hiddenInput = document.getElementById("selectedTheater");
-    // Get all selected options
-    var selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
- 
-    // Set the hidden input value to the selected options
-    hiddenInput.value = selectedOptions.join(',');
-    // Log the selected options (optional)
-    console.log(selectedOptions);
 
 
-   
+function getAllSelectedtheater(){
+   var selectElement = document.getElementById("theaters");
+   // Get the hidden input element
+   var hiddenInput = document.getElementById("selectedTheater");
+   // Get all selected options
+   var selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value); 
+   // Set the hidden input value to the selected options
+   hiddenInput.value = selectedOptions.join(',');
+   console.log( selectedOptions.join(','));
+}
 
-});
+
 
 function getSelectedGenre() {
    // Get all checkboxes with the name 'eventLanguages'

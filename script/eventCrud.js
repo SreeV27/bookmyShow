@@ -332,3 +332,8 @@ $(".view").click(function () {
       $(this).val('');
    }
  });
+
+
+ function reloadPage() {
+   window.location.href ="eventCrud.cfm"
+}

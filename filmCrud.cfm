@@ -13,7 +13,7 @@
     <body>
         <cfinclude  template="header.cfm">
         <cfobject component="components/bookMyShow" name="objBookMyShow">
-        <cfset local.movie=objBookMyShow.fetchAllMovieDetails()>
+        <cfset local.movie=objBookMyShow.fetchMovieDetails()>
         <cfset local.theater=objBookMyShow.fetchTheaterDetailsBasedOnId("")>
         <cfoutput>          
             <div class="px-5 pt-5 ">
@@ -264,7 +264,7 @@
          <!---InsertModal--->
          <cfoutput>
             <div class="modal fade movieAddModal" id="movieAddModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <form action="##" enctype="multipart/form-data"  method="post">
+                <form action="filmCrud.cfm" enctype="multipart/form-data"  method="post">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content1">
                             <div class="modal-header">
@@ -278,19 +278,19 @@
                                 <cfset local.genre=objBookMyShow.fetchGenre()>
                                 <cfset local.dimension=objBookMyShow.fetchDimensions()>
                                 <cfset local.cert=objBookMyShow.fetchCertificate()>                               
-                                <div class="d-flex  ps-4 justify-content-evenly">
+                                <div class="d-flex  px-4 justify-content-between">
                                     <label for="addMovieName">Name</label>
                                     <div class="">
                                         <input type="text"id="addMovieName" name="addMovieName">
                                     </div>
                                 </div> 
-                                <div class="d-flex  ps-4 justify-content-evenly">
+                                <div class="d-flex  px-4 justify-content-between">
                                     <label for="addReleaseDate">Release Date</label>
                                     <div class="">
                                         <input type="date" id="addReleaseDate" name="addReleaseDate">
                                     </div>
                                 </div>
-                                <div class="d-flex  ps-4">
+                                <div class="d-flex px-4 justify-content-between">
 
                                     <label for="addduration">Duration</label>
                                     <div class="">
@@ -298,29 +298,29 @@
                                         <input type="hidden" name="moviedDuration" id="moviedDuration">
                                     </div>
                                 </div>
-                                <div class="mt-2 ps-5">
+                                <div class="mt-2 px-4 justify-content-between">
                                     <label for="addProfileImage">Profile Image</label>
                                     <div class="">
                                     <input type="file" name="profileImage" id="addProfileImage"  accept="image/jpeg, image/png"required>
                                     </div>
                                 </div>
-                                <div class="mt-2 ps-5">
+                                <div class="mt-2 px-4 justify-content-between">
                                     <label for="addCoverImage">Cover Image</label>
                                     <div class="">
                                     <input type="file" name="coverImage" id="addCoverImage" accept="image/jpeg, image/png" required>
                                     </div>
                                 </div>
-                                <div class="mt-2 d-flex px-4">
+                                <div class="mt-2 d-flex px-4 justify-content-between">
                                     <label for="addAbout">About</label>
                                     <div class=" ms-5 p-17">
                                         <textarea id="addAbout" name="addAbout" rows="3" cols="21" ></textarea>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="ps-4">
                                     Select Language
                                   <input type="hidden" id="selectedLanguages" name="selectedLanguages">
                                 </div>
-                                <div class="d-flex">
+                                <div class="d-flex ps-4">
                                     <cfloop query="local.lang">
                                         <div class=class="d-flex align-items-baseline mt-2">
                                             <input type="checkbox" name="language" value="#local.lang.lang_id#" id="lang_#local.lang.lang_id#" class="ms-2">
@@ -328,11 +328,11 @@
                                         </div>                                        
                                     </cfloop>  
                                 </div>    
-                                <div>
+                                <div class="ps-4">
                                     Select Genre
                                     <input type="hidden" id="Genre" name="genre">
                                 </div>
-                                <div class="d-flex">
+                                <div class="d-flex ps-4">
                                     <cfloop query="local.genre">
                                         <div class=class="d-flex align-items-baseline mt-2">
                                             <input type="checkbox" name="genres" value="#local.genre.genre_id#" id="lang_#local.genre.genre_id#" class="ms-2">
@@ -340,7 +340,7 @@
                                         </div>                                       
                                     </cfloop>  
                                 </div> 
-                                <div class="mt-2 d-flex ps-4">
+                                <div class="mt-2 d-flex px-4 justify-content-between">
                                     <label for="addCertificate">Certificate</label>
                                     <div class="p-15">
                                         <select class="ms-3 " id="addCertificate" name="addCertificate"> 
@@ -351,7 +351,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mt-2 d-flex px-4">
+                                <div class="mt-2 d-flex px-4 justify-content-between">
                                     <label for="addDimension">Dimension</label>
                                     <div class=" ms-5">
                                         <select class="ms-3" id="addDimension" name="addDimension"> 
@@ -362,33 +362,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="d-flex  ps-4">
+                                <div class="d-flex  px-4 justify-content-between">
                                     <label for="addRating">Rating</label>
                                     <div class="">
                                         <input type="text" id="addRating"  name="addRating" oninput="validateRating(this)">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <div class="d-flex px-4 justify-content-between">
                                     Select Theater
-                                  <input type="hidden" id="selectedTheater" name="selectedTheater"> 
-                                  <div class="w-50">
-                                    <select name="theaters" id="theaters" multiple>
-                                        <cfloop query="local.theater">
-                                            <option value="#local.theater.id#">#local.theater.name#</option> 
-                                        </cfloop>                                       
-                                    </select>                                    
-                                </div>
+                                    <input type="hidden" id="selectedTheater" name="selectedTheater"> 
+                                    <div class="w-50">
+                                        <select name="theaters" onchange="updateSelectedTheater(this)" id="theaters" multiple >
+                                            <cfloop query="local.theater">
+                                                <option value="#local.theater.id#">#local.theater.name#</option> 
+                                            </cfloop>                                       
+                                        </select>                                    
+                                    </div>
                                 </div>  
                             </div>
                             <div class="modal-footer">
                             <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal" onclick="reloadPage()">Close</button>
-                            <button type="submit" id="saveBtn1" name="saveMovieDetails" class="btn btn-primary" >Save</button>
+                            <button type="submit"  name="saveMovieDetails" class="btn btn-primary"  onclick="getAllSelectedtheater()">Save</button>
                             </div>
                         </div>
                     </div>
                 </form>   
-
-                <cfif  structKeyExists(form,"saveMovieDetails")>
+               
+                <cfif  structKeyExists(form,"saveMovieDetails") >                           
                     <cfinvoke component="components/bookMyShow" method="insertMovie" fileupload1="form.profileImage" fileupload2="form.coverImage">
                        <cfinvokeargument name="name" value="#form.addMovieName#">
                        <cfinvokeargument name="releaseDate" value="#form.addReleaseDate#">

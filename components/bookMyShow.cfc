@@ -8,8 +8,73 @@
 		<cfset responseType ="code">		
 		<cfset scope ="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
 		<cfset local.url="#authURL#?client_id=#clientID#&redirect_uri=#redirectURI#&scope=#scope#&response_type=#responseType#">
-		<cfreturn local.url>
+		<cfset session.clientID=clientID>
+        <cfset session.clientSecret=clientSecret>
+        <cfset session.redirectURI=redirectURI>
+        <cfreturn local.url>
 	</cffunction>
+
+    <cffunction name="getGoogleUserInfo" access="remote">
+        <cfargument name="code" required="true">    
+        <cfhttp url="https://accounts.google.com/o/oauth2/token" method="post">
+            <cfhttpparam type="url" name="code" value="#code#">
+            <cfhttpparam type="url" name="client_id" value="#session.clientID#">
+            <cfhttpparam type="url" name="client_secret" value="#session.clientSecret#">
+            <cfhttpparam type="url" name="redirect_uri" value="#session.redirectURI#">
+            <cfhttpparam type="url" name="grant_type" value="authorization_code">
+            <cfhttpparam type="url" name="scope" value="https://www.googleapis.com/auth/user.phonenumbers.read">
+
+        </cfhttp>
+
+        <cfset accessToken = deserializeJSON(cfhttp.filecontent).access_token>    
+        <cfhttp url="https://accounts.google.com/o/oauth2/auth" method="get">
+            <cfhttpparam type="url" name="access_token" value="#accessToken#">
+            <cfhttpparam type="url" name="scope" value="https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
+
+        </cfhttp>         
+        <cfhttp url="https://www.googleapis.com/oauth2/v2/userinfo" method="get">
+            <cfhttpparam type="url" name="access_token" value="#accessToken#">
+        </cfhttp>
+           
+        <cfset userInfo = deserializeJSON(cfhttp.filecontent)>  
+        
+        <cfset local.name = userInfo.given_name>
+        <cfset local.email = userInfo.email>
+        <cfset local.roleId=2>    
+        
+        <cfreturn userInfo>
+
+        <cfquery name="qryUserExists">
+            SELECT user_id
+            FROM
+            tb_user
+            WHERE
+            mail = <cfqueryparam value="#local.email#" cfsqltype="CF_SQL_VARCHAR">           
+        </cfquery> 
+
+        <cfif  qryUserExists.recordCount>            
+            <cfset session.userName=local.name>
+            <cfset session.userId=qryUserExists.user_id[1]>
+            <cflocation  url="body.cfm">
+        <cfelse>
+            <cfquery name="qryInsertUser" result="insertResult">
+                INSERT
+                INTO tb_user
+                (name,mail,role_id)
+                VALUES
+                (
+                    <cfqueryparam value="#local.name#" cfsqltype="CF_SQL_VARCHAR">,
+                    <cfqueryparam value="#local.email#" cfsqltype="CF_SQL_VARCHAR">,               
+                    <cfqueryparam value="#local.roleId#" cfsqltype="CF_SQL_INTEGER">        
+                        
+                )                        
+            </cfquery>
+            <cfset session.userId=#insertResult.GENERATEDKEY#>
+            <cfset session.userName=local.name>
+            <cflocation  url="body.cfm">
+        </cfif>
+       
+    </cffunction>
 
     <cffunction name="fetchDetails" access="remote" returntype="any">
         <cfargument name="phone" type="string" required="true">
@@ -55,6 +120,8 @@
             tb_user
             WHERE
             phone = <cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">
+            AND
+            mail = <cfqueryparam value="#arguments.mail#" cfsqltype="CF_SQL_VARCHAR">
         </cfquery> 
         <cfif qryUserExists.recordCount>
             <cfreturn SerializeJSON({ "success": true })> 
@@ -80,7 +147,7 @@
         <cfset StructClear(Session)>
     </cffunction>
 
-    <cffunction  name="fetchAllMovieDetails" access="public" returntype="query">  
+    <cffunction  name="fetchAllMovieDetails" access="public" returntype="query" maxrows="5">  
         <cfquery name="qryFetchAllMovieDetails">
             SELECT
                 tb_movie.movie_id as movieId,
@@ -113,18 +180,19 @@
             INNER JOIN tb_movie_rating ON tb_movie.movie_id = tb_movie_rating.movie_id
             INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
             INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
+            WHERE status !=0
             GROUP BY tb_movie.movie_id, name, release_date, status,duration, profile_img, cover_img, about, dimension, rating, cert_type
-            ORDER BY tb_movie.movie_id ASC
+            ORDER BY tb_movie.movie_id DESC
         </cfquery>
         <cfreturn qryFetchAllMovieDetails>
     </cffunction>
 
-    <cffunction  name="fetchMovieDetails" access="public" returntype="query" maxrows="5"> 
+    <cffunction  name="fetchMovieDetails" access="public" returntype="query"> 
         <cfquery name="qryFetchMovieDetails">
             SELECT 
                 tb_movie.movie_id as movieId,
                 name,
-                release_date,
+                release_date,status,
                 duration,
                 profile_img,
                 cover_img,
@@ -150,9 +218,8 @@
             INNER JOIN tb_movie_rating ON tb_movie.movie_id = tb_movie_rating.movie_id
             INNER JOIN tb_movie_cert ON tb_movie.movie_id = tb_movie_cert.movie_id
             INNER JOIN tb_certificate ON tb_movie_cert.cert_id = tb_certificate.cert_id
-            GROUP BY tb_movie.movie_id, name, release_date, duration, profile_img, cover_img, about, dimension, rating, cert_type
-            ORDER BY tb_movie.movie_id ASC
-
+            GROUP BY tb_movie.movie_id, name, release_date,status, duration, profile_img, cover_img, about, dimension, rating, cert_type
+            ORDER BY tb_movie.movie_id DESC
         </cfquery>
         <cfreturn qryFetchMovieDetails>
     </cffunction>

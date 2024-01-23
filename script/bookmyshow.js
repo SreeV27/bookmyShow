@@ -72,7 +72,7 @@ $(document).ready(function () {
             console.error("Error changing session variable:", error);
          }
       });
-      
+
       window.location.href = 'body.cfm';
 
 
@@ -82,7 +82,6 @@ $(document).ready(function () {
    $("#login-continue-btn").click(function () {
 
       var phone = $("#mobileNo").val();
-    
 
 
       $.ajax({
@@ -95,7 +94,7 @@ $(document).ready(function () {
          },
 
          success: function (data) {
-           
+
             var parser = new DOMParser();
             var xmlDoc = parser.parseFromString(data, "text/xml");
 
@@ -108,19 +107,16 @@ $(document).ready(function () {
                var name = nameElement.textContent;
 
 
-            $("#mobileNo").val("");
-            $('#sign-in').hide();
-            $('#log-in').hide();
-            $("#log-out").show();
-            $('#loginInModal').modal('hide');
-            $("#userName").text("Hi " + name);
+               $("#mobileNo").val("");
+               $('#sign-in').hide();
+               $('#log-in').hide();
+               $("#log-out").show();
+               $('#loginInModal').modal('hide');
+               $("#userName").text("Hi " + name);
 
 
-            
-
-            window.location.href ='body.cfm';
-            }
-            else{
+               window.location.href = 'body.cfm';
+            } else {
                alert("please sign-up first");
             }
 
@@ -144,22 +140,20 @@ $(document).ready(function () {
 
 
    });
-   $("#signUpGoogle").click(function(){
 
+   $("#signUpGoogle").click(function () {
       $.ajax({
          type: "POST",
          url: 'components/bookMyShow.cfc?method=signInWithGoogle',
          cache: false,
-         success: function(data){      
-           var retval = $(data).find("string").text();
-           console.log(retval);
-           window.location.href=retval;
+         success: function (data) {
+            var retval = $(data).find("string").text();           
+            window.location.href = retval;
+           
            
          }
-       });
-  });
-  
- 
+      });
+   });
 
 });
 
@@ -216,8 +210,8 @@ function insertUser() {
       success: function (data) {
          console.log(data);
          var obj = $.parseJSON(data);
-         let result= (obj['success']); 
-         if (result ===true) {
+         let result = (obj['success']);
+         if (result === true) {
             alert("User Already Exist");
 
          } else {
@@ -253,5 +247,3 @@ function validateForm() {
 
 
 }
-
-

@@ -115,7 +115,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add Event Details</h5>
-            <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close border-0 bg-white" onclick="reloadPage()" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="mt-3">
                   <center>
-                    <button type="button" id="closeBtn" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="closeBtn" onclick="reloadPage()" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button  type="submit"  name="saveEventDetails"  id="saveEventDetails" class="btn btn-primary">Save</button>
                   </center>
                 </div>            

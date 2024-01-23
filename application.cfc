@@ -22,7 +22,7 @@
         <cfreturn true>
     </cffunction>
 
-   <!--- <cffunction name="onRequestStart" access="public" returntype="boolean">
+   <cffunction name="onRequestStart" access="public" returntype="boolean">
         <cfargument name="targetPage" type="string" required="false">        
         <!-- Check if it's an AJAX request -->
         <cfif NOT IsAjaxRequest()>
@@ -36,7 +36,7 @@
     <cffunction name="IsAjaxRequest" access="public" returntype="boolean">
         <cfreturn StructKeyExists(getHttpRequestData().headers, "x-requested-with") 
         AND getHttpRequestData().headers["x-requested-with"] EQ "XMLHttpRequest">
-    </cffunction>--->
+    </cffunction>
 
 </cfcomponent>
 

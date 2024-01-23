@@ -235,37 +235,50 @@ $(".edit").click(function () {
  
  $("#saveTheaterDetails").click(function () {
  
-    var theaterName = $("#addTheaterName").val();
-    var address = $("#addAddress").val();
-    var location = $("#addLocation").val();
-    var phno = $("#addPhno").val();
-    var status = $("#addStatus").val();
-    var formattedTimes = $("#formattedTimes").val();
-    $.ajax({
-       url: 'components/bookMyShow.cfc?method=saveTheater',
-       type: "POST",
-       data: {
-          theaterName: theaterName,
-          address: address,
-          location: location,
-          phno: phno,
-          status: status,
-          formattedTimes: formattedTimes
- 
-       },
-       success: function (data) {
-          let result = $(data).find("boolean").attr("value");
-          if (result == "false") {
-             alert("Already Registered")
-          }
- 
-       },
-       error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX Error: " + textStatus, errorThrown);
-       }
- 
- 
-    });
- 
+    var theaterName = $("#addTheaterName").val().trim();
+    var address = $("#addAddress").val().trim();
+    var location = $("#addLocation").val().trim();
+    var phno = $("#addPhno").val().trim();
+    var status = $("#addStatus").val().trim();
+    var formattedTimes = $("#formattedTimes").val().trim();
+    
+    if((theaterName.length === 0 || address.length===0 || location.length === 0 || phno.length === 0 || status.length === 0 || formattedTimes.length === 0)){
+      alert("fill all field");
+      event.preventDefault();
+
+    }
+    else{
+      $.ajax({
+         url: 'components/bookMyShow.cfc?method=saveTheater',
+         type: "POST",
+         data: {
+            theaterName: theaterName,
+            address: address,
+            location: location,
+            phno: phno,
+            status: status,
+            formattedTimes: formattedTimes
+   
+         },
+         success: function (data) {
+            let result = $(data).find("boolean").attr("value");
+            if (result == "false") {
+               alert("Already Registered")
+            }
+   
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error: " + textStatus, errorThrown);
+         }
+   
+   
+      });
+   
+    }
+    
  
  })
+
+ function reloadPage() {
+   window.location.href = "theaterCrud.cfm"
+}
