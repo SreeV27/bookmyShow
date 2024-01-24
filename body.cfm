@@ -7,8 +7,7 @@
 <cfset code = "">
 <cfif StructKeyExists(URL, "code")>
    <cfset code = URL.code>
-   <cfset local.user=objBookMyShow.getGoogleUserInfo(code)>
-   
+   <cfset local.user=objBookMyShow.getGoogleUserInfo(code)>  
 </cfif>
  
 <div class="titleDiv px-5 ">

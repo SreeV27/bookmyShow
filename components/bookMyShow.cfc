@@ -1,5 +1,4 @@
-<cfcomponent>
-    
+<cfcomponent>    
     <cffunction name="signInWithGoogle" access="remote">
 		<cfset clientID ="1076698100399-au2dd41l4tuklhipi3p52r5bodsr6pec.apps.googleusercontent.com">
 		<cfset clientSecret ="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">
@@ -22,27 +21,20 @@
             <cfhttpparam type="url" name="client_secret" value="#session.clientSecret#">
             <cfhttpparam type="url" name="redirect_uri" value="#session.redirectURI#">
             <cfhttpparam type="url" name="grant_type" value="authorization_code">
-            <cfhttpparam type="url" name="scope" value="https://www.googleapis.com/auth/user.phonenumbers.read">
-
+            <cfhttpparam type="url" name="scope" value="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/user.phonenumbers.read">
         </cfhttp>
 
         <cfset accessToken = deserializeJSON(cfhttp.filecontent).access_token>    
-        <cfhttp url="https://accounts.google.com/o/oauth2/auth" method="get">
-            <cfhttpparam type="url" name="access_token" value="#accessToken#">
-            <cfhttpparam type="url" name="scope" value="https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
-
-        </cfhttp>         
+               
         <cfhttp url="https://www.googleapis.com/oauth2/v2/userinfo" method="get">
             <cfhttpparam type="url" name="access_token" value="#accessToken#">
         </cfhttp>
            
-        <cfset userInfo = deserializeJSON(cfhttp.filecontent)>  
-        
-        <cfset local.name = userInfo.given_name>
-        <cfset local.email = userInfo.email>
-        <cfset local.roleId=2>    
-        
-        <cfreturn userInfo>
+        <cfset local.userInfo = deserializeJSON(cfhttp.filecontent)>  
+       
+        <cfset local.name = local.userInfo.given_name>
+        <cfset local.email = local.userInfo.email>
+        <cfset local.roleId=2>  
 
         <cfquery name="qryUserExists">
             SELECT user_id
@@ -107,7 +99,6 @@
                 </cfif>                          
         <cfreturn local.result>
     </cffunction>
-
 
     <cffunction name="insertUser" access="remote" returnformat="json">
         <cfargument name="name" type="string" required="true">
@@ -471,7 +462,28 @@
         <cfreturn true>
     </cffunction>
     
-    <cffunction  name="theaterListBasedOnMovie" access="public">
+    <cffunction  name="theaterListBasedOnMovie" access="public" returntype="query">
+        <cfargument  name="movieId">
+        <cfquery name="qryTheaterList">
+            SELECT tb_theater.id, tb_theater.name,tb_theater.address,tb_theater.location,tb_theater.phno,
+                STRING_AGG(tb_theater_time.time, ',') AS times
+                FROM
+                tb_theater
+                INNER JOIN
+                tb_movie_theater ON tb_movie_theater.theater_id = tb_theater.id
+                INNER JOIN
+                tb_theater_time ON tb_theater.id = tb_theater_time.theater_id
+                WHERE
+                tb_movie_theater.movie_id = <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+                AND 
+				 tb_theater .status = 1
+                GROUP BY
+                tb_theater.id, tb_theater.name,  tb_theater.address, tb_theater.location, tb_theater.phno;
+        </cfquery>
+        <cfreturn qryTheaterList>
+    </cffunction>
+
+    <cffunction  name="theaterListBasedOnMovieId" access="remote" returntype="query">
         <cfargument  name="movieId">
         <cfquery name="qryTheaterList">
             SELECT tb_theater.id, tb_theater.name,tb_theater.address,tb_theater.location,tb_theater.phno,
@@ -864,6 +876,8 @@
         <cfargument  name="status">
         <cfargument  name="cert">
         <cfargument  name="about">
+        <cfargument  name="theaters">
+
         <cfquery name="qryUpdateMovie">
             UPDATE tb_movie
             SET
@@ -913,6 +927,19 @@
                 </cfloop>
             </cfquery>
         </cfif>
+        <cfquery name="deleteTheaters">
+            delete from tb_movie_theater where movie_id =<cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+        <cfquery name="insertNewTheaters">            
+            <cfloop list="#arguments.theaters#" index="id">                
+                INSERT INTO tb_movie_theater (movie_id,theater_id)
+                 VALUES (
+                <cfqueryparam value="#arguments.movieId#" cfsqltype="CF_SQL_INTEGER">, 
+                <cfqueryparam value="#id#" cfsqltype="CF_SQL_INTEGER">
+            )
+            </cfloop>            
+        </cfquery>
+        
     </cffunction>
     <cffunction  name="insertMovie" access="public">
         <cfargument name="name">
@@ -973,7 +1000,7 @@
             INSERT INTO tb_movie_rating(movie_id,rating)
             VALUES(
                 <cfqueryparam value="#local.movieId#" cfsqltype="CF_SQL_INTEGER">, 
-                <cfqueryparam value="#arguments.dimension#" cfsqltype="CF_SQL_VARCHAR">
+                <cfqueryparam value="#arguments.rating#" cfsqltype="CF_SQL_VARCHAR">
             )
         </cfquery>        
         <cfif len(trim(genre))>

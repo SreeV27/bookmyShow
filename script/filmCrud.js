@@ -1,6 +1,6 @@
 $(document).ready(function () {
    $("#statusDiv").hide();
-   new MultiSelectTag('theaters')  // id
+   new MultiSelectTag('theaters')  //for mutli select
    $('input[name="language"]').change(function () {
       var selectedLangs = [];
       $('input[name="language"]:checked').each(function () {
@@ -109,6 +109,7 @@ $(".view").click(function () {
 
 $(".edit").click(function () {
    var movieId = $(this).data("movieid");
+   
    $.ajax({
 
       url: 'components/bookMyShow.cfc?method=movieDetailsBasedOnId',
@@ -158,6 +159,40 @@ $(".edit").click(function () {
          let img = $(data).find("field[name='PROFILE_IMG'] string").text();
          let path = "assests/" + img;
          $("#editProfileImg").attr("src", path);
+
+         $.ajax({
+
+            url: 'components/bookMyShow.cfc?method=theaterListBasedOnMovieId',
+   
+            // Type of Request
+            type: "POST",
+            data: {              
+
+               movieId:parseInt($(data).find("field[name='MOVIEID'] number").text()),
+               
+            },
+            success: function (data) {
+               console.log(data);
+               const xmlDoc = $.parseXML(data);
+               const $xml = $(xmlDoc);
+               
+               // Extract the ID values using jQuery
+               const ids = $xml.find("field[name='ID'] number").map(function() {
+                 return parseFloat($(this).text());
+               }).get();
+             
+               // Display the IDs as a string
+               console.log(ids);
+               $("#editTheaters").val(ids);
+               new MultiSelectTag('editTheaters');
+   
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+               console.error("AJAX Error: " + textStatus, errorThrown);
+            }
+         });
+
+
       },
       error: function (jqXHR, textStatus, errorThrown) {
          console.error("AJAX Error: " + textStatus, errorThrown);
@@ -168,6 +203,10 @@ $(".edit").click(function () {
 
    $("#saveBtn").click(function () {
 
+      
+      var theatersId= $("#editTheaters").val();
+      var theatersId = theatersId.join(',');
+      console.log(theatersId);
       var duration = $("#convertedTime").text();
       var langId = getAllSelectedLang();
       var genreId = getAllSelectedGenre();
@@ -191,7 +230,8 @@ $(".edit").click(function () {
             dimension: dimension,
             status: status,
             cert: cert,
-            about: about
+            about: about,
+            theaters:theatersId
          },
          success: function (data) {
             alert("Updated Successfully");

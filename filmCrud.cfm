@@ -244,6 +244,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="d-flex  ps-4">
+                                        Select Theater
+                                        <input type="hidden" id="editSelectedTheater" name="editSelectedTheater"> 
+                                        <div class="w-75 ps-3">
+                                            <select name="editTheaters" onchange="" id="editTheaters" multiple  >
+                                                <cfloop query="local.theater">
+                                                    <option value="#local.theater.id#">#local.theater.name#</option> 
+                                                </cfloop>                                       
+                                            </select>                                    
+                                        </div>
+                                    </div> 
                                 </cfoutput>
                                 <div class="mt-2 d-flex px-4">
                                     <label for="editAbout">About</label>
@@ -262,7 +273,7 @@
             </div>
         </div>
          <!---InsertModal--->
-         <cfoutput>
+        <cfoutput>
             <div class="modal fade movieAddModal" id="movieAddModal" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <form action="filmCrud.cfm" enctype="multipart/form-data"  method="post">
                     <div class="modal-dialog" role="document">
@@ -386,8 +397,7 @@
                             </div>
                         </div>
                     </div>
-                </form>   
-               
+                </form>                  
                 <cfif  structKeyExists(form,"saveMovieDetails") >                           
                     <cfinvoke component="components/bookMyShow" method="insertMovie" fileupload1="form.profileImage" fileupload2="form.coverImage">
                        <cfinvokeargument name="name" value="#form.addMovieName#">
@@ -405,13 +415,11 @@
                         </cfif>
                         <cfif structKeyExists(form,"selectedTheater")>                        
                             <cfinvokeargument name="theater" value="#form.selectedTheater#">
-                        </cfif>
-                                         
+                        </cfif>                                         
                     </cfinvoke>
-                 </cfif>
+                </cfif>
             </div>
-         </cfoutput>
-        
+        </cfoutput>        
         <script src="script/jquery-3.6.4.js"></script>
         <script src="script/popper.js"></script>
         <script src="script/bootstrap.min.js"></script>
