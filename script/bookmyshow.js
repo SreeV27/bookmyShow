@@ -151,7 +151,12 @@ $(document).ready(function () {
             window.location.href = retval;
            
            
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error: " + textStatus, errorThrown);
          }
+
+
       });
    });
 
